@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="YAD-PW-lJB">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="neG-zX-bSb">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="YAD-PW-lJB" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bkX-rp-7xR">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="7u2-KI-R1x" kind="relationship" relationship="rootViewController" id="2V4-Hp-EdU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DDn-Ec-LBh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="23" y="18"/>
+        </scene>
+        <!--登录-->
+        <scene sceneID="9br-8a-J2W">
+            <objects>
+                <viewController id="7u2-KI-R1x" customClass="HDLoginViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Khk-5K-jlP" customClass="UIControl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入账号" minimumFontSize="17" id="HNQ-Ec-fZj">
+                                <rect key="frame" x="20" y="109" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入密码" minimumFontSize="17" id="Aqb-ao-RFX">
+                                <rect key="frame" x="20" y="160" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HPL-UW-XA4">
+                                <rect key="frame" x="20" y="216" width="280" height="42"/>
+                                <color key="backgroundColor" red="0.14816079460000001" green="0.58974410079999995" blue="0.15634272239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.14816079460000001" green="0.58974410079999995" blue="0.15634272239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="登录" backgroundImage="top_bg.png">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginBtnClick:" destination="7u2-KI-R1x" eventType="touchUpInside" id="FHQ-lb-iXR"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设置" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gX2-A3-Nl2">
+                                <rect key="frame" x="245" y="262" width="47" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="highlightedColor" red="0.24557453260000001" green="0.31616694070000001" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="KmC-g1-JGn">
+                                <rect key="frame" x="245" y="290" width="47" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.1066115017" green="0.28007912210000002" blue="0.58974410079999995" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <inset key="insetFor6xAndEarlier" minX="0.0" minY="0.0" maxX="0.0" maxY="-69"/>
+                        <connections>
+                            <action selector="viewClick:" destination="7u2-KI-R1x" eventType="touchUpInside" id="72B-GX-N6V"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" title="登录" id="nCA-lg-jYH">
+                        <attributedString key="userComments">
+                            <fragment content="事实上">
+                                <attributes>
+                                    <font key="NSFont" size="11" name="STHeitiSC-Light"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="loginBtn" destination="HPL-UW-XA4" id="aWx-8y-VGl"/>
+                        <outlet property="password" destination="Aqb-ao-RFX" id="GMu-sH-8tf"/>
+                        <outlet property="settingLabel" destination="gX2-A3-Nl2" id="5v0-CZ-Gsf"/>
+                        <outlet property="userName" destination="HNQ-Ec-fZj" id="iLw-oB-lsG"/>
+                        <segue destination="KBW-bh-fGM" kind="push" identifier="login" id="ENa-xN-yX0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="prS-N8-aZl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="478" y="31"/>
+        </scene>
+        <!--Main Tab View Controller-->
+        <scene sceneID="d7s-pL-saq">
+            <objects>
+                <viewController id="KBW-bh-fGM" customClass="HDMainTabViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="exn-Tf-T9e">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Wop-uy-Bvs"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K9S-8j-tDU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="949" y="40"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="top_bg.png" width="20" height="74"/>
+    </resources>
+</document>

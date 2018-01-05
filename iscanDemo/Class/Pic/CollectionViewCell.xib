@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="250" height="271"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="250" height="271"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GNd-KT-xrP">
+                        <rect key="frame" x="18" y="0.0" width="223" height="223"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="拍摄通道 拍摄时间" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANd-6p-CLg">
+                        <rect key="frame" x="18" y="223" width="223" height="48"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="ANd-6p-CLg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="18" id="7DW-iE-Ggi"/>
+                <constraint firstAttribute="trailing" secondItem="ANd-6p-CLg" secondAttribute="trailing" constant="9" id="Jbq-dU-oOU"/>
+                <constraint firstAttribute="bottom" secondItem="ANd-6p-CLg" secondAttribute="bottom" id="RIQ-ZQ-gCr"/>
+                <constraint firstAttribute="trailing" secondItem="GNd-KT-xrP" secondAttribute="trailing" constant="9" id="TgY-Kb-I7R"/>
+                <constraint firstItem="ANd-6p-CLg" firstAttribute="top" secondItem="GNd-KT-xrP" secondAttribute="bottom" id="eyp-Ze-vip"/>
+                <constraint firstItem="GNd-KT-xrP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="18" id="kS2-xv-0jx"/>
+                <constraint firstItem="GNd-KT-xrP" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="width" constant="-27" id="n3K-pw-tEs"/>
+                <constraint firstItem="GNd-KT-xrP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="nmy-gh-CZx"/>
+            </constraints>
+            <size key="customSize" width="250" height="271"/>
+            <connections>
+                <outlet property="infoLabel" destination="ANd-6p-CLg" id="WDR-fN-8Wy"/>
+                <outlet property="mainImageView" destination="GNd-KT-xrP" id="ITA-aI-8p8"/>
+            </connections>
+            <point key="canvasLocation" x="-75" y="14.5"/>
+        </collectionViewCell>
+    </objects>
+</document>
