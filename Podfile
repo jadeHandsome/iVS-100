@@ -15,4 +15,5 @@ target ‘iVS-100’ do
   pod ‘Masonry’
   pod ‘ZFPlayer’
   pod 'AMapSearch-NO-IDFA'
+  pod 'SMCalloutView'
 end

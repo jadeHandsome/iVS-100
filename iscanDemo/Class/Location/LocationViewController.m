@@ -16,8 +16,11 @@
 #import <BaiduMapAPI_Map/BMKPointAnnotation.h>
 #import "KRCustomView.h"
 #import "CustomAnnotationView.h"
+#import <MapKit/MapKit.h>
+#import <SMCalloutView/SMCalloutView.h>
 @import GoogleMaps;
-@interface LocationViewController ()<MAMapViewDelegate,AMapSearchDelegate,BMKGeoCodeSearchDelegate,BMKMapViewDelegate>
+static const CGFloat CalloutYOffset = 10.0f;
+@interface LocationViewController ()<MAMapViewDelegate,AMapSearchDelegate,BMKGeoCodeSearchDelegate,BMKMapViewDelegate,GMSMapViewDelegate>
 @property (nonatomic, strong) MAMapView *gaodeView;
 @property (nonatomic, strong) BMKMapView *baiduMap;
 @property (nonatomic, strong) GMSMapView *googleMap;
@@ -25,6 +28,10 @@
 @property (nonatomic, strong) AMapSearchAPI *amapSearch;
 @property (nonatomic, strong) NSString *localStr;
 @property (nonatomic,strong) BMKGeoCodeSearch *baiduSearcher;
+@property (nonatomic, strong) CLGeocoder *geocoder;
+@property (nonatomic, strong) GMSCameraPosition *camera;
+@property (strong, nonatomic) SMCalloutView *calloutView;
+@property (strong, nonatomic) UIView *emptyCalloutView;
 @end
 
 @implementation LocationViewController
@@ -58,9 +65,6 @@
     }
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"刷新" style:UIBarButtonItemStyleDone target:self action:@selector(fresh)];
-//    ASIHTTPRequest *request = [SharedSDK getCarChannels:SharedUserInfo.baseUrl TermSn:SharedUserInfo.termSn NetType:SharedSetting.nettype Target:self Success:@selector(getDetailSuc:) Failure:@selector(getDetailDefaul:)];
-//    [request startAsynchronous];
     locTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getLocation) userInfo:nil repeats:YES];
     self.navigationItem.title = SharedUserInfo.device.departName;
     
@@ -85,6 +89,7 @@
     self.baiduMap = [[BMKMapView alloc]init];
     self.baiduMap.showsUserLocation = NO;
     self.baiduMap.delegate = self;
+    [self.baiduMap setZoomLevel:13];
 //    self.baiduMap.userTrackingMode = BMKUserTrackingModeFollow;
     [self.view addSubview:self.baiduMap];
     [self.baiduMap mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -92,11 +97,21 @@
     }];
 }
 - (void)setUpGoogle {
+     self.emptyCalloutView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.calloutView = [[SMCalloutView alloc] init];
+    self.calloutView.contentView = [UIView new];
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:22.290664
                                                             longitude:114.195304
                                                                  zoom:14];
-    self.googleMap = [GMSMapView mapWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREENH_HEIGHT) camera:camera];
-    [self.view addSubview:self.googleMap];
+    self.googleMap = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+    self.view = self.googleMap;
+    self.googleMap.delegate = self;
+//    GMSMarker *marker = [[GMSMarker alloc] init];
+//    marker.position = CLLocationCoordinate2DMake(22.290664, 114.195304);
+//    marker.title = @"香港";
+//    marker.snippet = @"Hong Kong";
+//    marker.map = self.googleMap;
+    
 }
 - (void)pop {
     [locTimer invalidate];
@@ -145,6 +160,48 @@
         }
     } else {
         //谷歌
+        _geocoder=[[CLGeocoder alloc]init];
+        
+        CLLocation *location=[[CLLocation alloc]initWithLatitude:[dic[0][@"latitude"] doubleValue] longitude:[dic[0][@"longitude"] doubleValue]];
+//        CLLocation *location1 = [CLLocation alloc]initWithCoordinate:<#(CLLocationCoordinate2D)#> altitude:<#(CLLocationDistance)#> horizontalAccuracy:<#(CLLocationAccuracy)#> verticalAccuracy:<#(CLLocationAccuracy)#> timestamp:<#(nonnull NSDate *)#>
+        [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+            if (error||placemarks.count==0) {
+                NSLog(@"获取失败");
+            }else
+            {
+//                @property (nonatomic, readonly, copy, nullable) NSString *name; // eg. Apple Inc.
+//                @property (nonatomic, readonly, copy, nullable) NSString *thoroughfare; // street name, eg. Infinite Loop
+//                @property (nonatomic, readonly, copy, nullable) NSString *subThoroughfare; // eg. 1
+//                @property (nonatomic, readonly, copy, nullable) NSString *locality; // city, eg. Cupertino
+//                @property (nonatomic, readonly, copy, nullable) NSString *subLocality; // neighborhood, common name, eg. Mission District
+//                @property (nonatomic, readonly, copy, nullable) NSString *administrativeArea; // state, eg. CA
+                CLPlacemark *firstPlacemark=[placemarks firstObject];
+                
+                self.localStr = [NSString stringWithFormat:@"%@%@%@%@%@%@",firstPlacemark.administrativeArea?firstPlacemark.administrativeArea:@"",firstPlacemark.subLocality?firstPlacemark.subLocality:@"",firstPlacemark.locality?firstPlacemark.locality:@"",firstPlacemark.subThoroughfare?firstPlacemark.subThoroughfare:@"",firstPlacemark.thoroughfare?firstPlacemark.thoroughfare:@"",firstPlacemark.name?firstPlacemark.name:@""];
+                if (!self.camera) {
+                    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:[dic[0][@"latitude"] doubleValue]
+                                                                            longitude:[dic[0][@"longitude"] doubleValue]
+                                                                                 zoom:15];
+                    [self.googleMap setCamera:camera];
+                    _camera = camera;
+                }
+                [self.googleMap clear];
+                CLLocationCoordinate2D position = CLLocationCoordinate2DMake([dic[0][@"latitude"] doubleValue], [dic[0][@"longitude"] doubleValue]);
+                GMSMarker *london = [GMSMarker markerWithPosition:position];
+                london.icon = [UIImage imageNamed:@"位置图标"];
+                london.map = self.googleMap;
+                //        london.title = @"London";
+                london.infoWindowAnchor = CGPointMake(0.5, 1);
+                [self.googleMap setSelectedMarker:london];
+                
+                
+                
+                
+//                NSLog(@"str====%@",firstPlacemark.);
+            }
+        }];
+            
+        
     }
     
 //     KRCustomAnnotationView *annos = (KRCustomAnnotationView *)self.selectedAnon;
@@ -172,7 +229,7 @@
 //            [self.baiduMap setZoomLevel:13 animated:YES];
             
             [self.baiduMap setCenterCoordinate:coordinate animated:YES];
-//            [self.baiduMap setZoomLevel:13];
+            
 //            [self.gaodeView setCenterCordinate:coordinate animated:YES];
         }
         BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
@@ -287,5 +344,44 @@
     NSLog(@"Error: %@", error);
 }
 #pragma mark -- googleDelegate
+- (nullable UIView *)mapView:(GMSMapView *)mapView markerInfoContents:(GMSMarker *)marker {
+    CLLocationCoordinate2D anchor = marker.position;
+    CGPoint point = [mapView.projection pointForCoordinate:anchor];
+    self.calloutView.calloutOffset = CGPointMake(0, -CalloutYOffset);
+    KRCustomView *mark = [[[NSBundle mainBundle]loadNibNamed:@"KRCustomView" owner:self options:nil]firstObject];
+    mark.frame = CGRectMake(0, 0, SCREEN_WIDTH - 30, 150);
+    mark.backgroundColor = [UIColor clearColor];
+//    mark.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.f + self.calloutOffset.x,-CGRectGetHeight(self.calloutView.bounds) / 2.f + self.calloutOffset.y + 150 + 20);
+    NSMutableDictionary *dic = [self.carInfo mutableCopy];
+    dic[@"location"] = self.localStr;
+    [mark setDataWithDic:dic];
+    //取消默认背景
+//    SMCalloutBackgroundView *calloutBgView = [[SMCalloutBackgroundView alloc] initWithFrame:CGRectZero];
+//    self.calloutView.backgroundView = calloutBgView;
+//    self.calloutView.contentView = googleTipView;
+//    self.calloutView.hidden = NO;
+//    CGRect calloutRect = CGRectZero;
+//    calloutRect.origin = point;
+//    calloutRect.size = CGSizeZero;
+//    [self.calloutView presentCalloutFromRect:calloutRect
+//                                      inView:mapView
+//                           constrainedToView:mapView
+//                                    animated:YES];
+    //SMCalloutView中contentView
+   
+    //取消默认背景
+    SMCalloutBackgroundView *calloutBgView = [[SMCalloutBackgroundView alloc] initWithFrame:CGRectZero];
+    self.calloutView.backgroundView = calloutBgView;
+    self.calloutView.contentView = mark;
+    self.calloutView.hidden = NO;
+    CGRect calloutRect = CGRectZero;
+    calloutRect.origin = CGPointMake(point.x - 10, point.y + 150 + 20);
+    calloutRect.size = CGSizeZero;
+    [self.calloutView presentCalloutFromRect:calloutRect
+                                      inView:self.googleMap
+                           constrainedToView:self.googleMap
+                                    animated:NO];
+    return self.emptyCalloutView;
+}
 
 @end
