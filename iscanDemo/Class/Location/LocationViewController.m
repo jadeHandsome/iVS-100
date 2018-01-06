@@ -58,9 +58,6 @@
     }
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"刷新" style:UIBarButtonItemStyleDone target:self action:@selector(fresh)];
-//    ASIHTTPRequest *request = [SharedSDK getCarChannels:SharedUserInfo.baseUrl TermSn:SharedUserInfo.termSn NetType:SharedSetting.nettype Target:self Success:@selector(getDetailSuc:) Failure:@selector(getDetailDefaul:)];
-//    [request startAsynchronous];
     locTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getLocation) userInfo:nil repeats:YES];
     self.navigationItem.title = SharedUserInfo.device.departName;
     
@@ -85,6 +82,7 @@
     self.baiduMap = [[BMKMapView alloc]init];
     self.baiduMap.showsUserLocation = NO;
     self.baiduMap.delegate = self;
+    [self.baiduMap setZoomLevel:13];
 //    self.baiduMap.userTrackingMode = BMKUserTrackingModeFollow;
     [self.view addSubview:self.baiduMap];
     [self.baiduMap mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -172,7 +170,7 @@
 //            [self.baiduMap setZoomLevel:13 animated:YES];
             
             [self.baiduMap setCenterCoordinate:coordinate animated:YES];
-//            [self.baiduMap setZoomLevel:13];
+            
 //            [self.gaodeView setCenterCordinate:coordinate animated:YES];
         }
         BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
