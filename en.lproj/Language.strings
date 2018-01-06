@@ -56,3 +56,12 @@
 //列表
 "所有终端" = "All terminals";
 "在线终端" = "Online terminal";
+"在线" = "Online";
+"离线" = "Offline";
+//首页地图
+"终端ID：" = "Terminal ID:";
+"状态：" = "State：";
+"所属机构：" = "Affiliation：";
+"时间：" = "Time：";
+"速度：" = "Speed：";
+"参考位置：" = "position：";

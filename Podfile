@@ -4,6 +4,7 @@ target ‘iVS-100’ do
   pod 'AMap2DMap-NO-IDFA'
   pod 'AMapLocation-NO-IDFA'
   pod 'BMKLocationKit'
+  pod 'BaiduMapKit'
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'AFNetworking', '~> 3.1.0’
@@ -13,5 +14,5 @@ target ‘iVS-100’ do
   pod ’SDWebImage’ 
   pod ‘Masonry’
   pod ‘ZFPlayer’
-  pod 'BaiduMapKit'
+  pod 'AMapSearch-NO-IDFA'
 end

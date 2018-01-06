@@ -34,8 +34,9 @@
         if (self.calloutView == nil)
         {
             self.calloutView = [[[NSBundle mainBundle]loadNibNamed:@"KRCustomView" owner:self options:nil]firstObject];
-            self.calloutView.frame = CGRectMake(0, 0, 240, 150);
-            self.calloutView.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.f + self.calloutOffset.x,-CGRectGetHeight(self.calloutView.bounds) / 2.f + self.calloutOffset.y);
+            self.calloutView.frame = CGRectMake(0, 150, SCREEN_WIDTH - 30, 150);
+            
+            self.calloutView.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.f + self.calloutOffset.x,-CGRectGetHeight(self.calloutView.bounds) / 2.f + self.calloutOffset.y + 150 + 20);
             
             [self.calloutView setDataWithDic:self.myData];
 //            [self.calloutView setData];

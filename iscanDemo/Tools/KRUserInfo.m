@@ -35,9 +35,9 @@ singleton_implementation(KRUserInfo)
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"map"]) {
         return 1;
     }
-    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"map"] isEqualToString:Localized(@"高德地图")]) {
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"map"] isEqualToString:@"高德地图"]) {
         return 1;
-    } else if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"map"] isEqualToString:Localized(@"百度地图")]) {
+    } else if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"map"] isEqualToString:@"百度地图"]) {
         return 2;
     } else {
         return 3;

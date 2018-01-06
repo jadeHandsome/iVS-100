@@ -11,6 +11,7 @@
 		1A10AE2B1FFFE65E002CADBA /* KRCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A10AE251FFFE65D002CADBA /* KRCustomView.m */; };
 		1A10AE2C1FFFE65E002CADBA /* TRAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A10AE281FFFE65D002CADBA /* TRAnnotation.m */; };
 		1A10AE2D1FFFE65E002CADBA /* KRCustomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A10AE291FFFE65E002CADBA /* KRCustomView.xib */; };
+		1A10AE30200099BE002CADBA /* CustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A10AE2F200099BE002CADBA /* CustomAnnotationView.m */; };
 		1A203D341FFD133000E30EA2 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A203CF51FFD132B00E30EA2 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1A203D351FFD133000E30EA2 /* iscanMCSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A203CF71FFD132B00E30EA2 /* iscanMCSdk.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1A203D361FFD133000E30EA2 /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A203CF81FFD132B00E30EA2 /* ASIDownloadCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -234,6 +235,8 @@
 		1A10AE271FFFE65D002CADBA /* TRAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAnnotation.h; sourceTree = "<group>"; };
 		1A10AE281FFFE65D002CADBA /* TRAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAnnotation.m; sourceTree = "<group>"; };
 		1A10AE291FFFE65E002CADBA /* KRCustomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KRCustomView.xib; sourceTree = "<group>"; };
+		1A10AE2E200099BE002CADBA /* CustomAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomAnnotationView.h; sourceTree = "<group>"; };
+		1A10AE2F200099BE002CADBA /* CustomAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotationView.m; sourceTree = "<group>"; };
 		1A203CEF1FFD132B00E30EA2 /* ASIDataDecompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataDecompressor.h; sourceTree = "<group>"; };
 		1A203CF01FFD132B00E30EA2 /* ASINSStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASINSStringAdditions.h; sourceTree = "<group>"; };
 		1A203CF11FFD132B00E30EA2 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
@@ -615,6 +618,8 @@
 		1A10AE201FFFE637002CADBA /* Baidu */ = {
 			isa = PBXGroup;
 			children = (
+				1A10AE2E200099BE002CADBA /* CustomAnnotationView.h */,
+				1A10AE2F200099BE002CADBA /* CustomAnnotationView.m */,
 			);
 			path = Baidu;
 			sourceTree = "<group>";
@@ -1275,7 +1280,7 @@
 				TargetAttributes = {
 					311367471E700C6000B322A2 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = XZN34NH8JQ;
+						DevelopmentTeam = 96SAHL399V;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1426,7 +1431,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D39B50AF3AA90275F530644D /* [CP] Copy Pods Resources */ = {
@@ -1510,6 +1515,7 @@
 				1A203D3E1FFD133000E30EA2 /* HDTalkback.m in Sources */,
 				1A203D431FFD133000E30EA2 /* SettingBean.m in Sources */,
 				1A203FA91FFDE10500E30EA2 /* KRBaseTool.m in Sources */,
+				1A10AE30200099BE002CADBA /* CustomAnnotationView.m in Sources */,
 				1A203F441FFDE08E00E30EA2 /* BaseTabbarViewController.m in Sources */,
 				31136A0A1E723BB300B322A2 /* HDSettingViewController.m in Sources */,
 				1A203FB41FFDE10500E30EA2 /* SDPhotoBrowser.m in Sources */,
@@ -1696,7 +1702,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XZN34NH8JQ;
+				DEVELOPMENT_TEAM = 96SAHL399V;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1728,7 +1734,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XZN34NH8JQ;
+				DEVELOPMENT_TEAM = 96SAHL399V;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

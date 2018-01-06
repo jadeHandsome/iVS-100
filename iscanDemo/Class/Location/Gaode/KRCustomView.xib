@@ -22,7 +22,7 @@
                     <rect key="frame" x="0.0" y="11" width="321" height="187"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R5t-6X-YHE">
-                            <rect key="frame" x="20" y="15" width="70" height="157"/>
+                            <rect key="frame" x="20" y="15" width="80" height="157"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="所属机构：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eT-ux-hjw">
                                     <rect key="frame" x="0.0" y="52.5" width="71.5" height="26"/>
@@ -68,7 +68,7 @@
                                 <constraint firstItem="LRg-gB-z1V" firstAttribute="top" secondItem="9eT-ux-hjw" secondAttribute="bottom" id="3eb-ws-xNh"/>
                                 <constraint firstItem="ckZ-sk-IkW" firstAttribute="leading" secondItem="R5t-6X-YHE" secondAttribute="leading" id="5l6-gf-Pz9"/>
                                 <constraint firstItem="pVM-6c-lij" firstAttribute="height" secondItem="9eH-KV-1c9" secondAttribute="height" id="5vW-eu-xjO"/>
-                                <constraint firstAttribute="width" constant="70" id="7Wx-gD-emS"/>
+                                <constraint firstAttribute="width" constant="80" id="7Wx-gD-emS"/>
                                 <constraint firstAttribute="bottom" secondItem="sLf-cN-9Gj" secondAttribute="bottom" id="87f-dQ-Oa5"/>
                                 <constraint firstItem="sLf-cN-9Gj" firstAttribute="top" secondItem="pVM-6c-lij" secondAttribute="bottom" id="GU4-wy-4yD"/>
                                 <constraint firstItem="pVM-6c-lij" firstAttribute="top" secondItem="LRg-gB-z1V" secondAttribute="bottom" id="Gx5-QI-geU"/>
@@ -85,7 +85,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iLe-Um-hQk">
-                            <rect key="frame" x="90" y="15" width="211" height="157"/>
+                            <rect key="frame" x="100" y="15" width="201" height="157"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRw-YX-5CN">
                                     <rect key="frame" x="0.0" y="0.0" width="35.5" height="26"/>
@@ -174,7 +174,12 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="IDLabel" destination="vRw-YX-5CN" id="DeC-yd-gAv"/>
-                <outlet property="backImages" destination="8YG-kc-XnX" id="3j2-JD-kiR"/>
+                <outlet property="left1" destination="9eH-KV-1c9" id="Oik-ls-GBz"/>
+                <outlet property="left2" destination="ckZ-sk-IkW" id="gdu-W5-2z6"/>
+                <outlet property="left3" destination="9eT-ux-hjw" id="pMx-JQ-n7K"/>
+                <outlet property="left4" destination="LRg-gB-z1V" id="odn-Hq-wyh"/>
+                <outlet property="left5" destination="pVM-6c-lij" id="daj-dC-Ggg"/>
+                <outlet property="left6" destination="sLf-cN-9Gj" id="6dz-Eb-Ey5"/>
                 <outlet property="locationView" destination="A8e-kQ-jBo" id="lUr-Hu-akd"/>
                 <outlet property="partLabel" destination="a1t-As-DeS" id="NlY-j0-XfF"/>
                 <outlet property="speedLabel" destination="EN1-Ti-7zd" id="K3d-tj-22b"/>

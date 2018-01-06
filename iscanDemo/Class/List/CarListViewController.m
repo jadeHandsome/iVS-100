@@ -574,10 +574,11 @@ bool bFinisheddev = false;
             [((CLTreeView_LEVEL2_Cell*)cell).tailImg setImage:[UIImage imageNamed:@"离线"]];
         }
         if (nodeData.isOnline) {
-            ((CLTreeView_LEVEL2_Cell*)cell).statuLabel.text = @"在线";
+            
+            ((CLTreeView_LEVEL2_Cell*)cell).statuLabel.text = Localized(@"在线");
             ((CLTreeView_LEVEL2_Cell*)cell).statuLabel.textColor = ThemeColor;
         } else {
-            ((CLTreeView_LEVEL2_Cell*)cell).statuLabel.text = @"离线";
+            ((CLTreeView_LEVEL2_Cell*)cell).statuLabel.text = Localized(@"离线");
             ((CLTreeView_LEVEL2_Cell*)cell).statuLabel.textColor = [UIColor blackColor];
         }
     }
@@ -771,6 +772,7 @@ bool bFinisheddev = false;
 //    tab.tepTerm = term;
 //    tab.tepDevice = device;
     SharedUserInfo.device = dev;
+    SharedUserInfo.term = model;
     SharedUserInfo.termSn = [term objectForKey:@"termSn"];
     [self presentViewController:tab animated:YES completion:nil];
     //    HDPreviewView * firstVC=[[HDPreviewView alloc] init];
