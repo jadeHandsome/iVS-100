@@ -16,5 +16,6 @@
 @property (strong,nonatomic) NSString *tailImgPath;//本地图片名,若不为空则优先于远程图片加载
 @property (strong,nonatomic) NSURL *headImgUrl;//远程图片链接
 @property (strong,nonatomic) NSURL *tailImgUrl;//远程图片链接
+@property (assign, nonatomic) BOOL isOnline;//
 
 @end

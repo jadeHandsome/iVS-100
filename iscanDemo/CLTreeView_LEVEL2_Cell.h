@@ -16,5 +16,6 @@
 //@property (strong,nonatomic) IBOutlet UILabel *signture;//个性签名
 @property (retain, nonatomic) IBOutlet UIImageView *tailImg;
 @property (strong,nonatomic) IBOutlet UILabel *name;
+@property (retain, nonatomic) IBOutlet UILabel *statuLabel;
 
 @end

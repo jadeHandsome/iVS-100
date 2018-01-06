@@ -43,8 +43,12 @@
 //    signtureFrame.origin.x = 62 + addX;
 //    _signture.frame = signtureFrame;
     CGRect tailImgFrame = _tailImg.frame;
-    tailImgFrame.origin.x = self.frame.size.width-_tailImg.frame.size.width-10;
+    tailImgFrame.origin.x = self.frame.size.width-_tailImg.frame.size.width-30;
     _tailImg.frame = tailImgFrame;
+    [self.statuLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.tailImg.mas_centerY);
+        make.right.equalTo(self.tailImg.mas_left).with.offset(-10);
+    }];
 }
 
 - (void)dealloc {

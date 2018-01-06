@@ -13,5 +13,5 @@
 @property (strong,nonatomic) NSString *name;
 @property (strong,nonatomic) NSString *signture;
 @property (strong,nonatomic) NSString *sonCnt;
-
+@property (assign,nonatomic) BOOL isZhan;
 @end

@@ -60,9 +60,13 @@
     self.collectionView.dataSource = self;
     [self.collectionView registerNib:[UINib nibWithNibName:@"CollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"colleCell"];
     self.collectionView.backgroundColor = [UIColor clearColor];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"相机"] style:UIBarButtonItemStyleDone target:self action:@selector(caClick)];
 //    [self.collectionView registerClass:[KRListCollCollectionViewCell class] forCellWithReuseIdentifier:@"collCell"];
     [KRBaseTool tableViewAddRefreshFooter:self.collectionView withTarget:self refreshingAction:@selector(footerFresh)];
     [KRBaseTool tableViewAddRefreshHeader:self.collectionView withTarget:self refreshingAction:@selector(headerFresh)];
+}
+- (void)caClick {
+    
 }
 
 - (void)didReceiveMemoryWarning {

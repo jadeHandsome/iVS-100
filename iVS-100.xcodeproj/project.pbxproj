@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A10AE2A1FFFE65E002CADBA /* KRCustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A10AE241FFFE65D002CADBA /* KRCustomAnnotationView.m */; };
+		1A10AE2B1FFFE65E002CADBA /* KRCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A10AE251FFFE65D002CADBA /* KRCustomView.m */; };
+		1A10AE2C1FFFE65E002CADBA /* TRAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A10AE281FFFE65D002CADBA /* TRAnnotation.m */; };
+		1A10AE2D1FFFE65E002CADBA /* KRCustomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A10AE291FFFE65E002CADBA /* KRCustomView.xib */; };
 		1A203D341FFD133000E30EA2 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A203CF51FFD132B00E30EA2 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1A203D351FFD133000E30EA2 /* iscanMCSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A203CF71FFD132B00E30EA2 /* iscanMCSdk.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1A203D361FFD133000E30EA2 /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A203CF81FFD132B00E30EA2 /* ASIDownloadCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -183,8 +187,6 @@
 		311369B41E712ED400B322A2 /* move_southeast.png in Resources */ = {isa = PBXBuildFile; fileRef = 311369AC1E712ED300B322A2 /* move_southeast.png */; };
 		311369B51E712ED400B322A2 /* move_southwest.png in Resources */ = {isa = PBXBuildFile; fileRef = 311369AD1E712ED300B322A2 /* move_southwest.png */; };
 		311369B61E712ED400B322A2 /* move_west.png in Resources */ = {isa = PBXBuildFile; fileRef = 311369AE1E712ED300B322A2 /* move_west.png */; };
-		311369BC1E712EDD00B322A2 /* online_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 311369B71E712EDC00B322A2 /* online_off.png */; };
-		311369BD1E712EDD00B322A2 /* online_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 311369B81E712EDC00B322A2 /* online_on.png */; };
 		311369BE1E712EDD00B322A2 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 311369B91E712EDC00B322A2 /* pause.png */; };
 		311369BF1E712EDD00B322A2 /* play_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 311369BA1E712EDD00B322A2 /* play_icon.png */; };
 		311369C01E712EDD00B322A2 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 311369BB1E712EDD00B322A2 /* play.png */; };
@@ -225,6 +227,13 @@
 
 /* Begin PBXFileReference section */
 		091374D3013BA54D09BCFDF3 /* Pods-iVS-100.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iVS-100.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iVS-100/Pods-iVS-100.debug.xcconfig"; sourceTree = "<group>"; };
+		1A10AE231FFFE65C002CADBA /* KRCustomAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KRCustomAnnotationView.h; sourceTree = "<group>"; };
+		1A10AE241FFFE65D002CADBA /* KRCustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KRCustomAnnotationView.m; sourceTree = "<group>"; };
+		1A10AE251FFFE65D002CADBA /* KRCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KRCustomView.m; sourceTree = "<group>"; };
+		1A10AE261FFFE65D002CADBA /* KRCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KRCustomView.h; sourceTree = "<group>"; };
+		1A10AE271FFFE65D002CADBA /* TRAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAnnotation.h; sourceTree = "<group>"; };
+		1A10AE281FFFE65D002CADBA /* TRAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAnnotation.m; sourceTree = "<group>"; };
+		1A10AE291FFFE65E002CADBA /* KRCustomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KRCustomView.xib; sourceTree = "<group>"; };
 		1A203CEF1FFD132B00E30EA2 /* ASIDataDecompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataDecompressor.h; sourceTree = "<group>"; };
 		1A203CF01FFD132B00E30EA2 /* ASINSStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASINSStringAdditions.h; sourceTree = "<group>"; };
 		1A203CF11FFD132B00E30EA2 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
@@ -511,8 +520,6 @@
 		311369AC1E712ED300B322A2 /* move_southeast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = move_southeast.png; sourceTree = "<group>"; };
 		311369AD1E712ED300B322A2 /* move_southwest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = move_southwest.png; sourceTree = "<group>"; };
 		311369AE1E712ED300B322A2 /* move_west.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = move_west.png; sourceTree = "<group>"; };
-		311369B71E712EDC00B322A2 /* online_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = online_off.png; sourceTree = "<group>"; };
-		311369B81E712EDC00B322A2 /* online_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = online_on.png; sourceTree = "<group>"; };
 		311369B91E712EDC00B322A2 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
 		311369BA1E712EDD00B322A2 /* play_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_icon.png; sourceTree = "<group>"; };
 		311369BB1E712EDD00B322A2 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
@@ -605,6 +612,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A10AE201FFFE637002CADBA /* Baidu */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Baidu;
+			sourceTree = "<group>";
+		};
+		1A10AE211FFFE637002CADBA /* Gaode */ = {
+			isa = PBXGroup;
+			children = (
+				1A10AE271FFFE65D002CADBA /* TRAnnotation.h */,
+				1A10AE281FFFE65D002CADBA /* TRAnnotation.m */,
+				1A10AE261FFFE65D002CADBA /* KRCustomView.h */,
+				1A10AE251FFFE65D002CADBA /* KRCustomView.m */,
+				1A10AE291FFFE65E002CADBA /* KRCustomView.xib */,
+				1A10AE231FFFE65C002CADBA /* KRCustomAnnotationView.h */,
+				1A10AE241FFFE65D002CADBA /* KRCustomAnnotationView.m */,
+			);
+			path = Gaode;
+			sourceTree = "<group>";
+		};
+		1A10AE221FFFE637002CADBA /* Goole */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Goole;
+			sourceTree = "<group>";
+		};
 		1A203CEE1FFD131400E30EA2 /* Resouces */ = {
 			isa = PBXGroup;
 			children = (
@@ -717,6 +752,9 @@
 		1A203F281FFDE08E00E30EA2 /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				1A10AE201FFFE637002CADBA /* Baidu */,
+				1A10AE211FFFE637002CADBA /* Gaode */,
+				1A10AE221FFFE637002CADBA /* Goole */,
 				1A203F291FFDE08E00E30EA2 /* LocationViewController.m */,
 				1A203F2A1FFDE08E00E30EA2 /* LocationViewController.h */,
 			);
@@ -1107,8 +1145,6 @@
 				311369C41E712EEF00B322A2 /* record_start.png */,
 				311369C51E712EEF00B322A2 /* record_stop.png */,
 				311369C11E712EE400B322A2 /* ptz */,
-				311369B71E712EDC00B322A2 /* online_off.png */,
-				311369B81E712EDC00B322A2 /* online_on.png */,
 				311369B91E712EDC00B322A2 /* pause.png */,
 				311369BA1E712EDD00B322A2 /* play_icon.png */,
 				311369BB1E712EDD00B322A2 /* play.png */,
@@ -1276,7 +1312,6 @@
 				3113695F1E712EB100B322A2 /* carvideo_play_tab_index_01.png in Resources */,
 				3113698B1E712EBB00B322A2 /* gps_phonecut_12.png in Resources */,
 				311369BE1E712EDD00B322A2 /* pause.png in Resources */,
-				311369BC1E712EDD00B322A2 /* online_off.png in Resources */,
 				311369A41E712EC400B322A2 /* Icon@2x.png in Resources */,
 				311369D61E712EF700B322A2 /* top_bg.png in Resources */,
 				311369941E712EBB00B322A2 /* gps_phonecut_25.png in Resources */,
@@ -1298,7 +1333,6 @@
 				311369A21E712EC400B322A2 /* Icon_152.png in Resources */,
 				311369C01E712EDD00B322A2 /* play.png in Resources */,
 				31136A131E7276CA00B322A2 /* ptz.png in Resources */,
-				311369BD1E712EDD00B322A2 /* online_on.png in Resources */,
 				311369831E712EBB00B322A2 /* gps_phonecut_0.png in Resources */,
 				311369BF1E712EDD00B322A2 /* play_icon.png in Resources */,
 				3113698E1E712EBB00B322A2 /* gps_phonecut_15.png in Resources */,
@@ -1326,6 +1360,7 @@
 				1A203F9D1FFDE10500E30EA2 /* MBProgressHUD.bundle in Resources */,
 				311369C21E712EE400B322A2 /* ptz in Resources */,
 				311369851E712EBB00B322A2 /* gps_phonecut_2.png in Resources */,
+				1A10AE2D1FFFE65E002CADBA /* KRCustomView.xib in Resources */,
 				311369A01E712EC400B322A2 /* Icon_120.png in Resources */,
 				311369801E712EBB00B322A2 /* Default.png in Resources */,
 				311369811E712EBB00B322A2 /* Default@2x.png in Resources */,
@@ -1451,6 +1486,7 @@
 				1A203FB21FFDE10500E30EA2 /* YHMath.m in Sources */,
 				311367591E700C6000B322A2 /* iscanDemo.xcdatamodeld in Sources */,
 				1A203F991FFDE10500E30EA2 /* UITableView+KREmptyData.m in Sources */,
+				1A10AE2C1FFFE65E002CADBA /* TRAnnotation.m in Sources */,
 				1A203F421FFDE08E00E30EA2 /* BaseWebViewController.m in Sources */,
 				1A203D371FFD133000E30EA2 /* CJSONDeserializer_BlocksExtensions.m in Sources */,
 				1A22032D1FFF1BB2009956F8 /* SettingViewController.m in Sources */,
@@ -1461,6 +1497,7 @@
 				311367BB1E700DDA00B322A2 /* CLTreeView_LEVEL2_Model.m in Sources */,
 				1A203D451FFD133000E30EA2 /* Reachability.m in Sources */,
 				1A203D351FFD133000E30EA2 /* iscanMCSdk.m in Sources */,
+				1A10AE2B1FFFE65E002CADBA /* KRCustomView.m in Sources */,
 				1A203F9E1FFDE10500E30EA2 /* KRMyTextView.m in Sources */,
 				1A203F9A1FFDE10500E30EA2 /* MBProgressHUD+KR.m in Sources */,
 				1A203D411FFD133000E30EA2 /* CJSONDeserializer.m in Sources */,
@@ -1494,6 +1531,7 @@
 				311367BC1E700DDA00B322A2 /* CLTreeViewNode.m in Sources */,
 				311369E11E71336500B322A2 /* CommanUtils.m in Sources */,
 				3113674D1E700C6000B322A2 /* main.m in Sources */,
+				1A10AE2A1FFFE65E002CADBA /* KRCustomAnnotationView.m in Sources */,
 				1A203FAF1FFDE10500E30EA2 /* ZLPhotoCell.m in Sources */,
 				1A203D341FFD133000E30EA2 /* ASIDataCompressor.m in Sources */,
 				1A203D3C1FFD133000E30EA2 /* HDDeviceBase.m in Sources */,

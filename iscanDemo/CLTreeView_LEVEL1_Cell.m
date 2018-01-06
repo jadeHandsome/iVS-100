@@ -36,7 +36,12 @@
     CGRect nameFrame = _name.frame;
     nameFrame.origin.x = 40 + addX;
     _name.frame = nameFrame;
-    
+    [_sonCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_name.mas_right);
+        make.centerY.equalTo(_name.mas_centerY);
+        
+    }];
+    _sonCount.textColor = [UIColor blackColor];
 //    CGRect signtureFrame = _signture.frame;
 //    signtureFrame.origin.x = 40 + addX;
 //    _signture.frame = signtureFrame;
