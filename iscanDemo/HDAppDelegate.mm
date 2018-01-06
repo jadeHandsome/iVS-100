@@ -31,6 +31,8 @@
     /*
      *  获取当前系统语言，判断首次应该使用哪个语言文件
      */
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"appLanguage"]) {
         NSArray *languages = [NSLocale preferredLanguages];
         NSString *language = [languages objectAtIndex:0];
