@@ -17,7 +17,9 @@
 #import "KRCustomView.h"
 #import "CustomAnnotationView.h"
 #import <MapKit/MapKit.h>
+#import <SMCalloutView/SMCalloutView.h>
 @import GoogleMaps;
+static const CGFloat CalloutYOffset = 10.0f;
 @interface LocationViewController ()<MAMapViewDelegate,AMapSearchDelegate,BMKGeoCodeSearchDelegate,BMKMapViewDelegate,GMSMapViewDelegate>
 @property (nonatomic, strong) MAMapView *gaodeView;
 @property (nonatomic, strong) BMKMapView *baiduMap;
@@ -28,6 +30,8 @@
 @property (nonatomic,strong) BMKGeoCodeSearch *baiduSearcher;
 @property (nonatomic, strong) CLGeocoder *geocoder;
 @property (nonatomic, strong) GMSCameraPosition *camera;
+@property (strong, nonatomic) SMCalloutView *calloutView;
+@property (strong, nonatomic) UIView *emptyCalloutView;
 @end
 
 @implementation LocationViewController
@@ -93,6 +97,9 @@
     }];
 }
 - (void)setUpGoogle {
+     self.emptyCalloutView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.calloutView = [[SMCalloutView alloc] init];
+    self.calloutView.contentView = [UIView new];
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:22.290664
                                                             longitude:114.195304
                                                                  zoom:14];
@@ -338,6 +345,9 @@
 }
 #pragma mark -- googleDelegate
 - (nullable UIView *)mapView:(GMSMapView *)mapView markerInfoContents:(GMSMarker *)marker {
+    CLLocationCoordinate2D anchor = marker.position;
+    CGPoint point = [mapView.projection pointForCoordinate:anchor];
+    self.calloutView.calloutOffset = CGPointMake(0, -CalloutYOffset);
     KRCustomView *mark = [[[NSBundle mainBundle]loadNibNamed:@"KRCustomView" owner:self options:nil]firstObject];
     mark.frame = CGRectMake(0, 0, SCREEN_WIDTH - 30, 150);
     mark.backgroundColor = [UIColor clearColor];
@@ -357,7 +367,21 @@
 //                                      inView:mapView
 //                           constrainedToView:mapView
 //                                    animated:YES];
-    return [UIView new];
+    //SMCalloutView中contentView
+   
+    //取消默认背景
+    SMCalloutBackgroundView *calloutBgView = [[SMCalloutBackgroundView alloc] initWithFrame:CGRectZero];
+    self.calloutView.backgroundView = calloutBgView;
+    self.calloutView.contentView = mark;
+    self.calloutView.hidden = NO;
+    CGRect calloutRect = CGRectZero;
+    calloutRect.origin = CGPointMake(point.x - 10, point.y + 150 + 20);
+    calloutRect.size = CGSizeZero;
+    [self.calloutView presentCalloutFromRect:calloutRect
+                                      inView:self.googleMap
+                           constrainedToView:self.googleMap
+                                    animated:NO];
+    return self.emptyCalloutView;
 }
 
 @end
