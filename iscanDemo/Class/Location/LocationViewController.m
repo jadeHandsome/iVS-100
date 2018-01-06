@@ -52,7 +52,9 @@
     
 }
 - (void)getLocation {
-    ASIHTTPRequest *request = [SharedSDK getCarLocation:SharedUserInfo.baseUrl Vid:self.device.id Target:self Success:@selector(succLoc:) Failure:@selector(defaultLoc:)];
+    
+    NSLog(@"%@",SharedUserInfo.device.vin);
+    ASIHTTPRequest *request = [SharedSDK getCarLocation:SharedUserInfo.baseUrl Vid:SharedUserInfo.device.vin Target:self Success:@selector(succLoc:) Failure:@selector(defaultLoc:)];
     [request startAsynchronous];
 }
 - (void)setUpGaode {

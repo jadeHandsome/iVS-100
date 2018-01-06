@@ -21,7 +21,7 @@
     [bar setTintColor:[UIColor whiteColor]];
     [bar setBackgroundImage:[UIImage imageWithColor:ThemeColor Size:CGSizeMake(SIZEWIDTH, navHight)] forBarMetrics:UIBarMetricsDefault];
     [bar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    
+    [bar setBarStyle:UIBarStyleBlack];
 }
 
 

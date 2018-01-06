@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 #import "DeviceModel.h"
 @interface LocationViewController : BaseViewController
-@property (nonatomic, strong) DeviceModel *device;
+//@property (nonatomic, strong) DeviceModel *device;
 @end

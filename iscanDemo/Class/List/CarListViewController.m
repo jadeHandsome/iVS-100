@@ -15,7 +15,7 @@
 #import "ASIHTTPRequest.h"
 //#import "CJSONDeserializer.h"
 //#import "HDPreviewView.h"
-@interface CarListViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,ASIHTTPRequestDelegate>
+@interface CarListViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,ASIHTTPRequestDelegate,UISearchBarDelegate>
 {
     
     NSInteger totalDeviceCount;
@@ -29,6 +29,7 @@
 @property(strong,nonatomic) NSArray* displayNodeArray; // 需要显示的机构和设备
 @property (strong,nonatomic) UITableView* tabView;
 @property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong) NSString *showType;//1全部 2在线
 @end
 
 @implementation CarListViewController
@@ -36,14 +37,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"iSV-100";
-    
+    self.showType = @"1";
     [self addHeader];
     util = [CommanUtils new];
     sdk = [iscanMCSdk new];
     [self InitTableView];
     [self.nodeArray removeAllObjects];
-    [self InitTableView];
-    [self getOrganations];
+//    [self InitTableView];
+    [self headerFresh];
 }
 -(void)InitTableView
 {
@@ -57,6 +58,7 @@
     }];
     self.tabView.delegate = self;
     self.tabView.dataSource = self;
+    [KRBaseTool tableViewAddRefreshHeader:self.tabView withTarget:self refreshingAction:@selector(headerFresh)];
     //    self.tabView.showsVerticalScrollIndicator = NO;
     self.tabView.scrollEnabled = true;
     //不要分割线
@@ -64,6 +66,9 @@
     [self.tabView setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:1]];
     [self.view addSubview:self.tabView];
     
+}
+- (void)headerFresh {
+    [self getOrganations];
 }
 - (void)addHeader {
     UIView *headerView = [[UIView alloc]init];
@@ -81,10 +86,50 @@
         make.left.equalTo(headerView.mas_left).with.offset(15);
         make.right.equalTo(headerView.mas_right).with.offset(-15);
     }];
+    searchBar.delegate = self;
+    UITextField* searchField = nil;
+//    [searchBar setBackgroundImage:[UIImage new]];
     [searchBar setBackgroundImage:[UIImage new]];
     searchBar.backgroundColor = LRRGBColor(238, 238, 238);
-    LRViewBorderRadius(searchBar, 20, 1, LRRGBColor(100, 100, 100));
+    searchBar.placeholder = @"搜索";
+    LRViewBorderRadius(searchBar, 5, 1, [UIColor clearColor]);
+    for (UIView* subview  in [searchBar.subviews firstObject].subviews) {
+        
+        // 打印出两个结果:
+        /*
+         UISearchBarBackground
+         UISearchBarTextField
+         */
+        
+        if ([subview isKindOfClass:[UITextField class]]) {
+            
+            searchField = (UITextField*)subview;
+            // leftView就是放大镜
+            // searchField.leftView=nil;
+            // 删除searchBar输入框的背景
+            [searchField setBackground:nil];
+            [searchField setBorderStyle:UITextBorderStyleNone];
+            
+//            searchField.leftView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"search3"]];
+            searchField.backgroundColor = [UIColor clearColor];
+            
+            // 设置圆角
+            searchField.layer.cornerRadius = 5;
+            searchField.layer.masksToBounds = YES;
+            searchField.tintColor = [UIColor blackColor];
+            
+            break;
+        }
+    }
+
     KRMySegmentView *segement = [[KRMySegmentView alloc]initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, 30) andSegementArray:@[Localized(@"所有终端"),Localized(@"在线终端")] andColorArray:@[LRRGBColor(100,100,100),ThemeColor] andClickHandle:^(NSInteger index) {
+        if (index == 0) {
+            self.showType = @"1";
+            [self reloadDataForDisplayArray];
+        } else {
+            self.showType = @"2";
+            [self searchOnline];
+        }
         
     }];
     
@@ -111,6 +156,8 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)GetOrgResult:(ASIHTTPRequest *) requst{
+    [self hideHUD];
+    [self.nodeArray removeAllObjects];
     NSData *data = [requst responseData];
     NSMutableDictionary *orgs = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
 
@@ -132,6 +179,7 @@
                 CLTreeView_LEVEL1_Model *t_model_level1 =[[CLTreeView_LEVEL1_Model alloc]init];
                 t_model_level1.name = [orgitem objectForKey:@"name"];
                 t_model_level1.sonCnt = @"0/0";
+                t_model_level1.isZhan = false;
                 t_node.nodeData = t_model_level1;
 
                 [self.nodeArray addObject:t_node];
@@ -146,6 +194,7 @@
     [self hideHud];
 }
 -(void)GetOrgError:(ASIHTTPRequest *) requst{
+    [self hideHUD];
     [util showTips:self.view Title:@"服务器响应失败"];
 }
 -(void)hideHud{
@@ -162,9 +211,9 @@ bool bFinished = false;
     HUD.labelText = @"loading...";
     HUD.mode = MBProgressHUDModeIndeterminate;
     ASIHTTPRequest *request =  [sdk getOrganization:SharedUserInfo.baseUrl Recur:@"true" Target:self Success:@selector(GetOrgResult:) Failure:@selector(GetOrgError:)];
-    [HUD showAnimated:YES whileExecutingBlock:^{
+    [self showLoadingHUD];
         [request startAsynchronous];
-    }];
+    
 }
 -(void)getChildOrg:(NSDictionary*) org tree_node:(CLTreeViewNode*)node
 {
@@ -187,6 +236,7 @@ bool bFinished = false;
             CLTreeView_LEVEL1_Model *t_model_level1 =[[CLTreeView_LEVEL1_Model alloc]init];
             t_model_level1.name = [org_child objectForKey:@"name"];
             t_model_level1.sonCnt = @"0/0";
+            t_model_level1.isZhan = t_node.isExpanded;
             t_node.nodeData = t_model_level1;
             
             [node.sonNodes addObject:t_node];
@@ -228,6 +278,7 @@ bool bFinished = false;
     }
 }
 -(void)GetCarResult:(ASIHTTPRequest *) requst{
+    [self.tabView.mj_header endRefreshing];
     CLTreeViewNode *node = [[requst userInfo] objectForKey:@"node"];
     NSData *data = [requst responseData];
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -255,7 +306,7 @@ bool bFinished = false;
                 t_node.nodeValue = item;
                 CLTreeView_LEVEL2_Model *t_model_level2 =[[CLTreeView_LEVEL2_Model alloc]init];
                 t_model_level2.name = [item objectForKey:@"vin"];
-                t_model_level2.headImgPath = @"online_on.png";
+                t_model_level2.headImgPath = @"online_on";
                 
                 NSString *type=[term objectForKey:@"netType"];
                 NSString *nettype=[type isKindOfClass:[NSNull class]]?@"1":([type rangeOfString:@"2G"].location!=NSNotFound)?@"":([type rangeOfString:@"3G"].location!=NSNotFound)?@"1":@"2";
@@ -286,7 +337,7 @@ bool bFinished = false;
                     t_model_level2.tailImgPath=[NSString stringWithFormat:@"gps_phonecut_%@%@",nettype,@"5"];
                 }
                 
-                
+                t_model_level2.isOnline = YES;
                 t_node.nodeData = t_model_level2;
                 
                 [node.sonNodes addObject:t_node];
@@ -302,7 +353,8 @@ bool bFinished = false;
                 t_node.isExpanded = FALSE;//关闭状态
                 CLTreeView_LEVEL2_Model *t_model_level2 =[[CLTreeView_LEVEL2_Model alloc]init];
                 t_model_level2.name = [item objectForKey:@"vin"];
-                t_model_level2.headImgPath = @"online_off.png";
+                t_model_level2.headImgPath = @"online_off";
+                t_model_level2.isOnline = false;
                 t_node.nodeData = t_model_level2;
                 
                 [node.sonNodes addObject:t_node];
@@ -311,12 +363,18 @@ bool bFinished = false;
         }
         
         bFinisheddev = true;
-        [self reloadDataForDisplayArray];
-        [self.tabView reloadData];
+        if ([self.showType isEqualToString:@"1"]) {
+            [self reloadDataForDisplayArray];
+            [self.tabView reloadData];
+        } else {
+            [self searchOnline];
+        }
+        
     }
     
 }
 -(void)GetCarError:(ASIHTTPRequest *) requst{
+    [self.tabView.mj_header endRefreshing];
     [util showTips:self.view Title:@"服务器响应失败"];
 }
 bool bFinisheddev = false;
@@ -441,10 +499,11 @@ bool bFinisheddev = false;
         
         CLTreeView_LEVEL0_Cell *cell = (CLTreeView_LEVEL0_Cell*)[tableView cellForRowAtIndexPath:indexPath];
         if(cell.node.isExpanded ){
-            [self rotateArrow:cell with:M_PI_2];
+            ((CLTreeView_LEVEL1_Cell*)cell).arrowView.image = [UIImage imageNamed:@"展开"];
+            
         }
         else{
-            [self rotateArrow:cell with:0];
+            ((CLTreeView_LEVEL1_Cell*)cell).arrowView.image = [UIImage imageNamed:@"收起"];
         }
         
         [self.tabView reloadData];
@@ -485,6 +544,7 @@ bool bFinisheddev = false;
         if (![nodeData.name isEqual:[NSNull null]]) {
             ((CLTreeView_LEVEL0_Cell*)cell).name.text = nodeData.name;
         }
+        
         //        ((CLTreeView_LEVEL1_Cell*)cell).name.text = nodeData.name;
         //        ((CLTreeView_LEVEL1_Cell*)cell).sonCount.text = nodeData.sonCnt;
         ((CLTreeView_LEVEL1_Cell*)cell).sonCount.text = [NSString stringWithFormat:@"(%d/%d)", node.onlineDevCnt, node.totalDevCnt];
@@ -505,11 +565,20 @@ bool bFinisheddev = false;
         
         if(nodeData.tailImgPath != nil){
             //本地图片
-            [((CLTreeView_LEVEL2_Cell*)cell).tailImg setImage:[UIImage imageNamed:nodeData.tailImgPath]];
+            [((CLTreeView_LEVEL2_Cell*)cell).tailImg setImage:[UIImage imageNamed:@"在线"]];
         }
         else if (nodeData.tailImgUrl != nil){
             //加载图片，这里是同步操作。建议使用SDWebImage异步加载图片
             [((CLTreeView_LEVEL2_Cell*)cell).tailImg setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:nodeData.tailImgUrl]]];
+        } else {
+            [((CLTreeView_LEVEL2_Cell*)cell).tailImg setImage:[UIImage imageNamed:@"离线"]];
+        }
+        if (nodeData.isOnline) {
+            ((CLTreeView_LEVEL2_Cell*)cell).statuLabel.text = @"在线";
+            ((CLTreeView_LEVEL2_Cell*)cell).statuLabel.textColor = ThemeColor;
+        } else {
+            ((CLTreeView_LEVEL2_Cell*)cell).statuLabel.text = @"离线";
+            ((CLTreeView_LEVEL2_Cell*)cell).statuLabel.textColor = [UIColor blackColor];
         }
     }
 }
@@ -529,7 +598,7 @@ bool bFinisheddev = false;
     }
     self.displayNodeArray = [NSArray arrayWithArray:tmp];
     
-    //    [self.tabView reloadData];
+    [self.tabView reloadData];
 }
 
 -(void)loadChildDisplayArray:(CLTreeViewNode *)tree_node Array:(NSMutableArray *)dataArray
@@ -592,8 +661,31 @@ bool bFinisheddev = false;
         }
     }
 }
-
-
+//bool isFirst = YES;
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+//    if (isFirst) {
+//        isFirst = false;
+//        self.nodeArray = [self.displayNodeArray copy];
+//    }
+    if (searchText.length == 0) {
+//        isFirst = YES;
+        [self reloadDataForDisplayArray];
+    } else {
+        [self searchForDisplayArray:searchText];
+        
+    }
+}
+- (void)searchOnline {
+    NSMutableArray *tmp = [[NSMutableArray alloc]init];
+    for (CLTreeViewNode *node in self.nodeArray) {
+        if (node.totalDevCnt > 0 ){
+            [self searchOnlineArray:node Array:tmp searchText:nil];
+        }
+        
+    }
+    self.displayNodeArray = [NSArray arrayWithArray:tmp];
+    [self.tabView reloadData];
+}
 /*---------------------------------------
  搜索将要显示的cell的数据
  --------------------------------------- */
@@ -606,6 +698,7 @@ bool bFinisheddev = false;
         
     }
     self.displayNodeArray = [NSArray arrayWithArray:tmp];
+    [self.tabView reloadData];
 }
 
 // 搜索孩子节点
@@ -623,6 +716,33 @@ bool bFinisheddev = false;
                 [dataArray addObject:node2];
                 
             }
+        }
+        else{   // 机构
+            if (node2.totalDevCnt > 0 ) {
+                [self searchChildDisplayArray:node2 Array:dataArray searchText:text];
+            }
+        }
+        
+    }
+}
+// 搜索孩子节点
+-(void)searchOnlineArray:(CLTreeViewNode *)tree_node Array:(NSMutableArray *)dataArray searchText:(NSString*)text
+{
+    if ( tree_node.sonNodes == nil )
+        return;
+    
+    for (CLTreeViewNode *node2 in tree_node.sonNodes) {
+        if (node2.type == 2 ){  // 设备
+            CLTreeView_LEVEL2_Model *nodeData = node2.nodeData;
+            if (nodeData.isOnline) {
+                node2.nodeshowLevel = 1;
+                [dataArray addObject:node2];
+            }
+//            if ([nodeData.name rangeOfString:text].location != NSNotFound){
+//                node2.nodeshowLevel = 1;
+//                [dataArray addObject:node2];
+//
+//            }
         }
         else{   // 机构
             if (node2.totalDevCnt > 0 ) {
@@ -659,5 +779,7 @@ bool bFinisheddev = false;
     //    [self.navigationController pushViewController:firstVC animated:YES];
 }
 
-
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+}
 @end
