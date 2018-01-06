@@ -766,4 +766,25 @@ singleton_implementation(KRBaseTool)
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tel]];
     }
 }
+
++(NSString*) getBaseURL
+{
+    NSString *urltemp=@"http://172.16.22.246:52467/iVS-100/%@";
+    
+    NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
+    NSString *ip=[userDefault valueForKey:@"ip"];
+    NSString *port=[userDefault valueForKey:@"port"];
+    
+    if (ip==nil) {
+        ip=@"172.16.22.246";
+    }
+    if (port==nil) {
+        port=@"52467";
+    }
+    
+    urltemp=[NSString stringWithFormat:@"http://%@:%@/iVS-100/%@",ip,port,@"%@"];
+    
+    return [NSString stringWithFormat:urltemp,@"%@"];
+}
+
 @end

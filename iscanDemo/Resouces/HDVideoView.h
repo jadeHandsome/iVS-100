@@ -28,6 +28,7 @@
     BOOL isPause;
 //    HDTalkback* mTalkback;
     HDDeviceBase* selDevice;
+    UIScrollView *scrollView;
 }
 
 @property(nonatomic) int activeIndex;

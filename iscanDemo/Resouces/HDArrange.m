@@ -119,12 +119,10 @@
         m_nShowViewIndex = startViewIndex;
     }
     
-    float spaceX = 0;//1;
-    float spaceY = 0;//1;
-    float width = ( rcArea.size.width + spaceX ) / nCol;
-    float height = ( rcArea.size.height + spaceY ) / nRow;
-    float itemWidth = width - spaceX;
-    float itemHeight = height - spaceY;
+    float spaceX = 5;//1;
+    float spaceY = 60;//1;
+    float itemWidth = (SIZEWIDTH - 3 * spaceX) / 2 ;
+    float itemHeight = (SIZEWIDTH - 3 * spaceX) / 2 * 3 / 4;
     CGRect rcTemp;
     rcTemp.size.width = itemWidth;
     rcTemp.size.height = itemHeight;
@@ -134,8 +132,8 @@
     {
         for( int k = 0; k < nRow; ++k )
         {
-            rcTemp.origin.x = i * width + rcArea.origin.x;
-            rcTemp.origin.y = k * height + rcArea.origin.y;
+            rcTemp.origin.y = 10 + (spaceY + itemHeight) * k ;
+            rcTemp.origin.x = spaceX + (spaceX + itemWidth) * i;
             
             int nIndex = ( k * nCol + i ) + startViewIndex;
             if( nIndex >= stopViewIndex )
@@ -243,13 +241,13 @@
             *lpXcnt = 2;
             *lpYcnt = 2;
             break;
-        case E_ArrangeType_9:
-            *lpXcnt = 3;
-            *lpYcnt = 3;
+        case E_ArrangeType_10:
+            *lpXcnt = 4;
+            *lpYcnt = 2;
             break;
         case E_ArrangeType_16:
-            *lpXcnt = 4;
-            *lpYcnt = 4;
+            *lpXcnt = 8;
+            *lpYcnt = 2;
             break;
         default:
             *lpXcnt = 1;

@@ -58,7 +58,6 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     // Do any additional setup after loading the view from its nib.
     selDevice = nil;
     
@@ -69,7 +68,6 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
     subViewArray = nil;
     arrange = nil;
 //    [mTalkback release]; mTalkback = nil;
-
     [super viewDidUnload];
 }
 
@@ -93,6 +91,13 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
     subViewArray = [[ NSMutableArray alloc ] init ];
     activeIndex = 0;
     
+    scrollView = [[UIScrollView alloc] init];
+    scrollView.showsVerticalScrollIndicator = NO;
+    scrollView.showsHorizontalScrollIndicator = NO;
+    scrollView.bounces = NO;
+    [self.view addSubview:scrollView];
+    
+    
     for( int i = 0 ; i < MAX_CHANNEL_CNT; ++i )
     {
         //子窗体
@@ -103,7 +108,7 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
         subView.viewIndex = i;
         subView.baseUrl = baseUrl;
         subView.termSn = _termSn;
-        [self.view addSubview: subView ];
+        [scrollView addSubview: subView ];
         [arrange addView:i view: subView ];
         [subViewArray insertObject: subView atIndex: i ];
         
@@ -141,7 +146,13 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
 
 -(void)setCtrlPos
 {
-    [self setSplitWindow: E_ArrangeType_4 ];
+    float spaceX = 5;//1;
+    float spaceY = 60;//1;
+    float itemWidth = (SIZEWIDTH - 3 * spaceX) / 2 ;
+    float itemHeight = (SIZEWIDTH - 3 * spaceX) / 2 * 3 / 4;
+    scrollView.frame = self.view.bounds;
+    scrollView.contentSize = CGSizeMake(SIZEWIDTH, 10 + (spaceY + itemHeight) * 8 + 10 + 10 + HEIGHT(300) - spaceY);
+    [self setSplitWindow: E_ArrangeType_16 ];
 }
 
 -(void)setSplitWindow:(HDArrangeType)type

@@ -17,7 +17,7 @@
 #define TableSeparatorColor [UIColor colorWithRed:226.0f/255.0f green:232.0f/255.0f blue:241.0f/255.0f alpha:1]
 #define StatusBarRect [[UIApplication sharedApplication] statusBarFrame]
 #define TopBarHeight 50
-#define BASE_URL [[UIApplication sharedApplication].delegate getBaseURL]
+#define BASE_URL [KRBaseTool getBaseURL]
 #define TMO_UIKIT_APP_IS_IOS7 ((__IPHONE_OS_VERSION_MAX_ALLOWED >= 70000) && ([UIDevice currentDevice].systemVersion.floatValue >= 7.0))
 #define TMO_UIKIT_APP_HEIGHT [UIScreen mainScreen].bounds.size.height
 

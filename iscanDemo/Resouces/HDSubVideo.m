@@ -86,17 +86,18 @@ typedef enum HDFilmMode: NSUInteger
     //设置线条粗细宽度
     CGContextSetLineWidth(context, 2.0);
     
-    float red = isFocus ? 0.0: 100.0/255.0;
-    float green = isFocus ? 1.0: 100.0/255.0;
-    float blue = isFocus ? 0.0: 100.0/255.0;
+    float red = isFocus ? 27/255.0: 0/255.0;
+    float green = isFocus ? 149/255.0: 0/255.0;
+    float blue = isFocus ? 248/255.0: 0/255.0;
     
     //设置颜色
     CGContextSetRGBStrokeColor(context, red, green, blue, 1.0);
     //开始一个起始路径
     CGContextBeginPath(context);
+    CGContextSetLineWidth(context, 5);
     //画矩形
     //CGContextAddRect( context, rect );
-    [self addRoundedRectToPath: context rc:rect width:4 height:4 ];
+    [self addRoundedRectToPath: context rc:rect width:0 height:0 ];
     //连接上面定义的坐标点
     CGContextStrokePath(context);
     //CGContextClosePath( context );
@@ -108,6 +109,7 @@ typedef enum HDFilmMode: NSUInteger
     
     if ( 0 == ovalWidth || 0 == ovalHeight )
     {
+        
         CGContextAddRect(context, rect);
         return;
     }
@@ -141,7 +143,7 @@ typedef enum HDFilmMode: NSUInteger
     [self setBackgroundColor:[ UIColor blackColor ]];
     
     imageViewVideo = [[ UIImageView alloc ]init ];
-    imageViewVideo.image = [[UIImage imageNamed:@"play_icon.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+    imageViewVideo.image = [UIImage imageNamed:@"播放"];
     [self addSubview: imageViewVideo ];
     
     imageViewVideo.userInteractionEnabled=YES;
@@ -261,7 +263,8 @@ typedef enum HDFilmMode: NSUInteger
     {
         rcVideo = [self getFilmRect:rcArea mode:E_FilmMode_16_9 ];
     }
-    imageViewVideo.frame = CGRectMake(rcArea.origin.x+rcArea.size.width/3, rcArea.origin.y+rcArea.size.height/3, rcArea.size.width/3, rcArea.size.width/3);
+    imageViewVideo.frame = CGRectMake(rcArea.size.width * 3 / 8, (rcArea.size.height - rcArea.size.width/4)/2, rcArea.size.width/4, rcArea.size.width/4);
+    imageViewVideo.contentMode = UIViewContentModeCenter;
     self.player.view.frame = rcVideo;
     
     
@@ -278,6 +281,7 @@ typedef enum HDFilmMode: NSUInteger
     rcIndicator.size.width = nIndicatorWidth;
     rcIndicator.size.height = nIndecatorHeight;
     indicatorView.frame = rcIndicator;
+    indicatorView.center = imageViewVideo.center;
 }
 
 -(CGRect)getFilmRect:(CGRect)rcArea mode:(E_FilmMode)mode

@@ -65,3 +65,17 @@
 "时间：" = "Time：";
 "速度：" = "Speed：";
 "参考位置：" = "position：";
+//视频播放界面
+"视频播放时才能进行截图" = "Can screenshots when video is playing";
+"图片已保存到" = "Picture has been saved to";
+"视频播放时才能切换声音" = "Can switch voice when video is playing";
+"停止视频" = "Stop";
+"打开声音" = "Sound";
+"视频抓拍" = "Screenshots";
+"云台控制" = "Control";
+"镜头放大" = "ZoomIn";
+"镜头缩小" = "ZoomOut";
+"光圈放大" = "ApertureIn";
+"光圈缩小" = "ApertureOut";
+"焦点拉远" = "FocusOut";
+"焦点拉近" = "FocusIn";

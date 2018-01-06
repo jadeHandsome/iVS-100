@@ -107,4 +107,7 @@ typedef void (^touchIndex)(int index);
 #pragma mark——————————————弹出提示框
 + (void)showAlert:(NSString *)alterTitle  with_Controller:(UIViewController *)controller with_titleArr:(NSArray *)titieArray withShowType:(UIAlertControllerStyle)preferredStyle  with_Block:(touchIndex)touchBlock;
 + (void)callCellPhone:(NSString *)phoneNumber;
+
+
++(NSString*) getBaseURL;
 @end

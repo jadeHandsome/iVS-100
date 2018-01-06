@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1172F06D2000F6C700E193D3 /* HDVideoCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1172F0682000F6C600E193D3 /* HDVideoCtrl.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1172F06E2000F6C700E193D3 /* HDPreviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1172F0692000F6C600E193D3 /* HDPreviewView.xib */; };
+		1172F06F2000F6C700E193D3 /* HDPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1172F06A2000F6C600E193D3 /* HDPreviewView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1172F0702000F6C700E193D3 /* HDPtzView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1172F06C2000F6C600E193D3 /* HDPtzView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1A10AE2A1FFFE65E002CADBA /* KRCustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A10AE241FFFE65D002CADBA /* KRCustomAnnotationView.m */; };
 		1A10AE2B1FFFE65E002CADBA /* KRCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A10AE251FFFE65D002CADBA /* KRCustomView.m */; };
 		1A10AE2C1FFFE65E002CADBA /* TRAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A10AE281FFFE65D002CADBA /* TRAnnotation.m */; };
@@ -113,10 +117,6 @@
 		311367BC1E700DDA00B322A2 /* CLTreeViewNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 311367B51E700DDA00B322A2 /* CLTreeViewNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		311367BF1E70DD8300B322A2 /* SJAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 311367BE1E70DD8300B322A2 /* SJAvatarBrowser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		311367C21E70DD9000B322A2 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 311367C11E70DD9000B322A2 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		311367D21E70DDA400B322A2 /* HDPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 311367C61E70DDA400B322A2 /* HDPreviewView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		311367D31E70DDA400B322A2 /* HDPreviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 311367C71E70DDA400B322A2 /* HDPreviewView.xib */; };
-		311367D41E70DDA400B322A2 /* HDPtzView.m in Sources */ = {isa = PBXBuildFile; fileRef = 311367C91E70DDA400B322A2 /* HDPtzView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		311367D61E70DDA400B322A2 /* HDVideoCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 311367CD1E70DDA400B322A2 /* HDVideoCtrl.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		311367F61E70E22600B322A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311367F51E70E22600B322A2 /* CoreGraphics.framework */; };
 		311367F81E70E2FA00B322A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 311367F71E70E2FA00B322A2 /* Main.storyboard */; };
 		311367FB1E70E34500B322A2 /* HDAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 311367FA1E70E34500B322A2 /* HDAppDelegate.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -228,6 +228,13 @@
 
 /* Begin PBXFileReference section */
 		091374D3013BA54D09BCFDF3 /* Pods-iVS-100.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iVS-100.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iVS-100/Pods-iVS-100.debug.xcconfig"; sourceTree = "<group>"; };
+		1172F0662000F6C600E193D3 /* HDPtzView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDPtzView.h; sourceTree = "<group>"; };
+		1172F0672000F6C600E193D3 /* HDVideoCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDVideoCtrl.h; sourceTree = "<group>"; };
+		1172F0682000F6C600E193D3 /* HDVideoCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDVideoCtrl.m; sourceTree = "<group>"; };
+		1172F0692000F6C600E193D3 /* HDPreviewView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HDPreviewView.xib; sourceTree = "<group>"; };
+		1172F06A2000F6C600E193D3 /* HDPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDPreviewView.m; sourceTree = "<group>"; };
+		1172F06B2000F6C600E193D3 /* HDPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDPreviewView.h; sourceTree = "<group>"; };
+		1172F06C2000F6C600E193D3 /* HDPtzView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDPtzView.m; sourceTree = "<group>"; };
 		1A10AE231FFFE65C002CADBA /* KRCustomAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KRCustomAnnotationView.h; sourceTree = "<group>"; };
 		1A10AE241FFFE65D002CADBA /* KRCustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KRCustomAnnotationView.m; sourceTree = "<group>"; };
 		1A10AE251FFFE65D002CADBA /* KRCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KRCustomView.m; sourceTree = "<group>"; };
@@ -444,13 +451,6 @@
 		311367BE1E70DD8300B322A2 /* SJAvatarBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAvatarBrowser.m; sourceTree = "<group>"; };
 		311367C01E70DD9000B322A2 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		311367C11E70DD9000B322A2 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		311367C51E70DDA400B322A2 /* HDPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDPreviewView.h; sourceTree = "<group>"; };
-		311367C61E70DDA400B322A2 /* HDPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDPreviewView.m; sourceTree = "<group>"; };
-		311367C71E70DDA400B322A2 /* HDPreviewView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HDPreviewView.xib; sourceTree = "<group>"; };
-		311367C81E70DDA400B322A2 /* HDPtzView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDPtzView.h; sourceTree = "<group>"; };
-		311367C91E70DDA400B322A2 /* HDPtzView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDPtzView.m; sourceTree = "<group>"; };
-		311367CC1E70DDA400B322A2 /* HDVideoCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDVideoCtrl.h; sourceTree = "<group>"; };
-		311367CD1E70DDA400B322A2 /* HDVideoCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDVideoCtrl.m; sourceTree = "<group>"; };
 		311367F51E70E22600B322A2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		311367F71E70E2FA00B322A2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		311367F91E70E34500B322A2 /* HDAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDAppDelegate.h; sourceTree = "<group>"; };
@@ -778,6 +778,13 @@
 		1A203F2E1FFDE08E00E30EA2 /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				1172F06B2000F6C600E193D3 /* HDPreviewView.h */,
+				1172F06A2000F6C600E193D3 /* HDPreviewView.m */,
+				1172F0692000F6C600E193D3 /* HDPreviewView.xib */,
+				1172F0662000F6C600E193D3 /* HDPtzView.h */,
+				1172F06C2000F6C600E193D3 /* HDPtzView.m */,
+				1172F0672000F6C600E193D3 /* HDVideoCtrl.h */,
+				1172F0682000F6C600E193D3 /* HDVideoCtrl.m */,
 				1A203F2F1FFDE08E00E30EA2 /* VideoViewController.h */,
 				1A203F301FFDE08E00E30EA2 /* VideoViewController.m */,
 			);
@@ -1100,13 +1107,6 @@
 		311367981E700D5900B322A2 /* videoUI */ = {
 			isa = PBXGroup;
 			children = (
-				311367C51E70DDA400B322A2 /* HDPreviewView.h */,
-				311367C61E70DDA400B322A2 /* HDPreviewView.m */,
-				311367C71E70DDA400B322A2 /* HDPreviewView.xib */,
-				311367C81E70DDA400B322A2 /* HDPtzView.h */,
-				311367C91E70DDA400B322A2 /* HDPtzView.m */,
-				311367CC1E70DDA400B322A2 /* HDVideoCtrl.h */,
-				311367CD1E70DDA400B322A2 /* HDVideoCtrl.m */,
 			);
 			name = videoUI;
 			sourceTree = "<group>";
@@ -1280,7 +1280,7 @@
 				TargetAttributes = {
 					311367471E700C6000B322A2 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = 96SAHL399V;
+						DevelopmentTeam = XZN34NH8JQ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1346,11 +1346,11 @@
 				311369D31E712EF700B322A2 /* talkback_124.png in Resources */,
 				311369F81E71529C00B322A2 /* down@2x.png in Resources */,
 				311369891E712EBB00B322A2 /* gps_phonecut_10.png in Resources */,
+				1172F06E2000F6C700E193D3 /* HDPreviewView.xib in Resources */,
 				3113695E1E712EB100B322A2 /* capture.png in Resources */,
 				31136A0B1E723BB300B322A2 /* HDSettingViewController.xib in Resources */,
 				3113699D1E712EC400B322A2 /* huatong.png in Resources */,
 				311369621E712EB100B322A2 /* carvideo_play_tab_index_04.png in Resources */,
-				311367D31E70DDA400B322A2 /* HDPreviewView.xib in Resources */,
 				1A203FB11FFDE10500E30EA2 /* ZLPhotoCell.xib in Resources */,
 				311369B41E712ED400B322A2 /* move_southeast.png in Resources */,
 				311369881E712EBB00B322A2 /* gps_phonecut_5.png in Resources */,
@@ -1431,7 +1431,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		D39B50AF3AA90275F530644D /* [CP] Copy Pods Resources */ = {
@@ -1466,7 +1466,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				311369E61E7133D700B322A2 /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
-				311367D61E70DDA400B322A2 /* HDVideoCtrl.m in Sources */,
 				1A203D4C1FFD133000E30EA2 /* ASIInputStream.m in Sources */,
 				311369E71E7133D700B322A2 /* UIView+SDAutoLayout.m in Sources */,
 				1A2203291FFF0807009956F8 /* LoginViewController.m in Sources */,
@@ -1511,6 +1510,7 @@
 				1A203FAB1FFDE10500E30EA2 /* PGIndexBannerSubiew.m in Sources */,
 				311367B61E700DDA00B322A2 /* CLTreeView_LEVEL0_Cell.m in Sources */,
 				1A203FA81FFDE10500E30EA2 /* TYTabPagerController.m in Sources */,
+				1172F06F2000F6C700E193D3 /* HDPreviewView.m in Sources */,
 				1A203D3B1FFD133000E30EA2 /* HDDeviceStatus.m in Sources */,
 				1A203D3E1FFD133000E30EA2 /* HDTalkback.m in Sources */,
 				1A203D431FFD133000E30EA2 /* SettingBean.m in Sources */,
@@ -1530,7 +1530,6 @@
 				1A203D401FFD133000E30EA2 /* HDArrange.m in Sources */,
 				1A203D391FFD133000E30EA2 /* CJSONSerializedData.m in Sources */,
 				1A203FA21FFDE10500E30EA2 /* KRMainNetTool.m in Sources */,
-				311367D41E70DDA400B322A2 /* HDPtzView.m in Sources */,
 				1A203D461FFD133000E30EA2 /* ASINetworkQueue.m in Sources */,
 				1A203D441FFD133000E30EA2 /* HDAudioRecord.m in Sources */,
 				1A203FA11FFDE10500E30EA2 /* KRMySegmentView.m in Sources */,
@@ -1547,14 +1546,15 @@
 				1A331ADD1FFF6387002255D0 /* CarListViewController.m in Sources */,
 				1A203D3F1FFD133000E30EA2 /* CFilteringJSONSerializer.m in Sources */,
 				1A203F9C1FFDE10500E30EA2 /* UIView+BorderLine.m in Sources */,
+				1172F06D2000F6C700E193D3 /* HDVideoCtrl.m in Sources */,
 				1A2FC7091FFE125C009DF30F /* CollectionViewCell.m in Sources */,
 				1A203F961FFDE10500E30EA2 /* CALayer+CircleBoard.m in Sources */,
 				1A203F431FFDE08E00E30EA2 /* TermModel.m in Sources */,
 				1A203F981FFDE10500E30EA2 /* NSObject+KRExtention.m in Sources */,
-				311367D21E70DDA400B322A2 /* HDPreviewView.m in Sources */,
 				1A203F471FFDE08E00E30EA2 /* DeviceModel.m in Sources */,
 				1A203D511FFD133000E30EA2 /* HDDeviceObject.m in Sources */,
 				1A203FA31FFDE10500E30EA2 /* YHArcSlider.m in Sources */,
+				1172F0702000F6C700E193D3 /* HDPtzView.m in Sources */,
 				311369F51E714A8600B322A2 /* HDDeviceListViewCell.m in Sources */,
 				311367BF1E70DD8300B322A2 /* SJAvatarBrowser.m in Sources */,
 				1A203D4E1FFD133000E30EA2 /* HDVideoView.m in Sources */,
@@ -1702,7 +1702,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 96SAHL399V;
+				DEVELOPMENT_TEAM = XZN34NH8JQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1734,7 +1734,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 96SAHL399V;
+				DEVELOPMENT_TEAM = XZN34NH8JQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

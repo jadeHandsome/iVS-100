@@ -167,8 +167,8 @@ item.alpha = 0.0; \
 
 // 判断是否为iPhone X
 #define navHight ([[UIApplication sharedApplication] statusBarFrame].size.height + 44.0f)
-
-
+#define StatusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
+#define tabBarHeight self.tabBarController.tabBar.frame.size.height
 //获取系统版本
 #define IOS_SYSTEM_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
 

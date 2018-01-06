@@ -57,7 +57,7 @@
 //屏幕宽高
 #define   SIZEWIDTH  [[UIScreen mainScreen] bounds].size.width  //宽
 #define   SIZEHEIGHT  [[UIScreen mainScreen] bounds].size.height  //高
-#define HEIGHT(h)  h / 1080.0 * SIZEHEIGHT
+#define HEIGHT(h)  h / 1280.0 * SIZEHEIGHT
 #define WIDTH(w)  w / 720.0 * SIZEWIDTH
 //等同于上面定义的三个宏
 #define Localized(key)  [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"appLanguage"]] ofType:@"lproj"]] localizedStringForKey:(key) value:nil table:@"Language"]

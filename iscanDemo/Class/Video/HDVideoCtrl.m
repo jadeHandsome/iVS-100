@@ -62,10 +62,27 @@
     btnSound = [ UIButton buttonWithType: UIButtonTypeCustom ];
  
  
-    [btnPtz setBackgroundImage:[UIImage imageNamed:@"ptz.png"] forState:UIControlStateNormal ];
-    [btnStop setBackgroundImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal ];
-    [btnCapture setBackgroundImage:[UIImage imageNamed:@"capture.png"] forState:UIControlStateNormal ];
-    [btnSound setBackgroundImage:[UIImage imageNamed:@"sound_open.png"] forState:UIControlStateNormal ];
+//    [btnPtz setBackgroundImage:[UIImage imageNamed:@"ptz.png"] forState:UIControlStateNormal ];
+//    [btnStop setBackgroundImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal ];
+//    [btnCapture setBackgroundImage:[UIImage imageNamed:@"capture.png"] forState:UIControlStateNormal ];
+//    [btnSound setBackgroundImage:[UIImage imageNamed:@"sound_open.png"] forState:UIControlStateNormal ];
+    [btnStop setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [btnSound setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [btnCapture setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [btnPtz setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [btnStop setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [btnSound setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [btnCapture setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [btnPtz setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    btnStop.titleLabel.font = [UIFont systemFontOfSize:12];
+    btnSound.titleLabel.font = [UIFont systemFontOfSize:12];
+    btnCapture.titleLabel.font = [UIFont systemFontOfSize:12];
+    btnPtz.titleLabel.font = [UIFont systemFontOfSize:12];
+    [btnStop setTitle:Localized(@"停止视频") forState:UIControlStateNormal];
+    [btnSound setTitle:Localized(@"打开声音") forState:UIControlStateNormal];
+    [btnCapture setTitle:Localized(@"视频抓拍") forState:UIControlStateNormal];
+    [btnPtz setTitle:Localized(@"云台控制") forState:UIControlStateNormal];
+    
     
     [btnPtz addTarget:self action:@selector(onBtnDown:) forControlEvents: UIControlEventTouchDown ];
     [btnStop addTarget:self action:@selector(onBtnDown:) forControlEvents: UIControlEventTouchDown ];
@@ -95,28 +112,12 @@
 -(void)setCtrlPos
 {
     CGRect rcClient = self.bounds;
-    
-    const int BTN_WIDTH = 26;
-    const int BTN_HEIGHT = 26;
-    const int BTN_SPACE = 22;//26;
-    int nMidX = rcClient.origin.x + rcClient.size.width/ 2;
-    int y = ( rcClient.size.height - BTN_HEIGHT ) / 3;
-    //int x = nMidX - BTN_WIDTH/3;
-    int x = nMidX;
-    CGRect rcMid = CGRectMake( x, y, BTN_WIDTH, BTN_HEIGHT );
-    CGRect rcBtn = rcMid;
-    //往左
-    rcBtn.origin.x -= ( BTN_WIDTH + BTN_SPACE/2 );
-    btnCapture.frame = rcBtn;
-    rcBtn.origin.x -= ( BTN_WIDTH + BTN_SPACE );
-    btnPtz.frame = rcBtn;
-    rcBtn.origin.x -= ( BTN_WIDTH + BTN_SPACE );
-    btnStop.frame = rcBtn;
-    //往右
-    rcBtn = rcMid;
-    rcBtn.origin.x += ( BTN_SPACE/2 );
-    btnSound.frame = rcBtn;
-
+    CGFloat itemH = rcClient.size.height;
+    CGFloat itemW = rcClient.size.width / 4;
+    btnStop.frame = CGRectMake(0, 0, itemW, itemH);
+    btnSound.frame = CGRectMake(itemW, 0, itemW, itemH);
+    btnCapture.frame = CGRectMake(itemW * 2, 0, itemW, itemH);
+    btnPtz.frame = CGRectMake(itemW * 3, 0, itemW, itemH);
 }
 
 -(void)changePlayButton:(BOOL)bPlay
@@ -150,7 +151,7 @@
 -(void)onBtnDown:(id)sender
 {
     UIButton* btn = (UIButton*)sender;
-    [self showLight: btn show: YES ];
+//    [self showLight: btn show: YES ];
     
     int type = E_PlayCtrlBtn_Ptz;
     if (btn == btnPtz)
@@ -178,7 +179,7 @@
 -(void)onBtnUp:(id)sender
 {
     UIButton* btn = (UIButton*)sender;
-    [self showLight: btn show: NO ];
+//    [self showLight: btn show: NO ];
 }
 
 @end

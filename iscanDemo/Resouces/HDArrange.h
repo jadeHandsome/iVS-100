@@ -17,7 +17,7 @@
 typedef enum HDArrangeType: NSUInteger {
     E_ArrangeType_1     = 1,
     E_ArrangeType_4     = 2,
-    E_ArrangeType_9     = 3,
+    E_ArrangeType_10     = 3,
     E_ArrangeType_16    = 4
 } HDArrangeType;
 
