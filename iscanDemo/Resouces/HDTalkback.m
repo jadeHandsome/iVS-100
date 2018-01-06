@@ -44,7 +44,7 @@
         self.hudImg.hidden=YES;
         
     }
-    [self.view hideHUD];
+//    [self.view hideHUD];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.audioStartOrEnd.enabled=YES;
     });
@@ -63,7 +63,7 @@
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(GetResult:)];
     [request setDidFailSelector:@selector(GetError:)];
-    [self.view showHUD];
+//    [self.view showHUD];
     
 }
 

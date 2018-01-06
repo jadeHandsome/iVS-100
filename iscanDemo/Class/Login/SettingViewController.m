@@ -266,6 +266,7 @@
             input.textAlignment = NSTextAlignmentRight;
             input.text = self.setting[@"dk"];
             input.placeholder = Localized(@"点击输入端口");
+            [input addTarget:self action:@selector(inputChange:) forControlEvents:UIControlEventEditingChanged];
         } else if (indexPath.row == 2) {
             if (netSelect) {
                 //网络展开
@@ -498,6 +499,7 @@
             input.textAlignment = NSTextAlignmentRight;
             input.text = self.setting[@"picNum"];
             input.placeholder = Localized(@"点击输入抓拍张数");
+            [input addTarget:self action:@selector(inputChange:) forControlEvents:UIControlEventEditingChanged];
         } else {
             //间隔
             titleStr = Localized(@"抓拍间隔（S）");
@@ -515,6 +517,7 @@
             input.textAlignment = NSTextAlignmentRight;
             input.text = self.setting[@"tendS"];
             input.placeholder = Localized(@"点击输入抓拍间隔时间");
+            [input addTarget:self action:@selector(inputChange:) forControlEvents:UIControlEventEditingChanged];
         }
     }
     cell.detailTextLabel.text = detailStr;

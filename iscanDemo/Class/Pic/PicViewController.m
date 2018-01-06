@@ -46,7 +46,7 @@
     [self setUpCole];
     [self headerFresh];
     self.view.backgroundColor = LRRGBColor(236, 236, 236);
-    
+    self.navigationItem.title = SharedUserInfo.device.departName;
 }
 - (void)setUpCole {
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:self.collectionFlowyout];
@@ -66,9 +66,19 @@
     [KRBaseTool tableViewAddRefreshHeader:self.collectionView withTarget:self refreshingAction:@selector(headerFresh)];
 }
 - (void)caClick {
-    
+//    NSLog(@"%@",)
+    ASIHTTPRequest *requst = [SharedSDK sendCaptureCmd:SharedUserInfo.baseUrl TermSn:SharedUserInfo.termSn Channel:@"1" Number:SharedSetting.numbers Interval:@"2" Target:self Success:@selector(photoSuc:) Failure:@selector(photoDeful:)];
+    [requst startAsynchronous];
+    [self showLoadingHUD];
 }
-
+- (void)photoSuc:(ASIHTTPRequest *)requst {
+    [self hideHUD];
+    NSData *data = [requst responseData];
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+}
+- (void)photoDeful:(ASIHTTPRequest *)requst {
+    [self hideHUD];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -113,7 +123,7 @@
 //    -(ASIHTTPRequest *)findCaptureImgList:(NSString *)hostUrl Vid:(NSString *)vid StartTime:(NSString *)start EndTime:(NSString *)end Target:(id)target Success:(SEL)suc Failure:(SEL)fail;
     NSString *end = [KRBaseTool timeStringFromFormat:@"yyyy-MM-dd hh:mm:ss" withDate:[NSDate date]];
     NSString *start = [KRBaseTool timeStringFromFormat:@"yyyy-MM-dd hh:mm:ss" withDate:[NSDate dateWithTimeIntervalSinceNow:-24 * 3600 * 365]];
-    ASIHTTPRequest *requst = [SharedSDK findCaptureImgList:SharedUserInfo.baseUrl Vid:self.device.id StartTime:start EndTime:end page:self.page Target:self Success:@selector(succ:) Failure:@selector(defaultReq:)];
+    ASIHTTPRequest *requst = [SharedSDK findCaptureImgList:SharedUserInfo.baseUrl Vid:SharedUserInfo.device.id StartTime:start EndTime:end page:self.page Target:self Success:@selector(succ:) Failure:@selector(defaultReq:)];
     [requst startAsynchronous];
     
 }
@@ -146,7 +156,11 @@
 - (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
 {
     //NSString *imageName = self.imagsArray[index];[
-    NSURL *url = [NSURL URLWithString:self.allPic[index][@"imgPath"]];
+    NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
+    NSString *ip=[userDefault valueForKey:@"ip"];
+    NSString *port=[userDefault valueForKey:@"port"];
+//    [self.mainImageView sd_setImageWithURL:[[[@"http://" stringByAppendingString:ip] stringByAppendingString:port?[@":" stringByAppendingString:port]:@""] stringByAppendingString:dic[@"imgPath"]] placeholderImage:[UIImage new]];
+    NSURL *url = [NSURL URLWithString:[[[@"http://" stringByAppendingString:ip] stringByAppendingString:port?[@":" stringByAppendingString:port]:@""] stringByAppendingString:self.allPic[index][@"imgPath"]]];
     return url;
 }
 

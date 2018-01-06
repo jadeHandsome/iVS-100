@@ -63,9 +63,9 @@ static const CGFloat CalloutYOffset = 10.0f;
         default:
             break;
     }
-
+    [self getLocation];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
-    locTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getLocation) userInfo:nil repeats:YES];
+    locTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(getLocation) userInfo:nil repeats:YES];
     self.navigationItem.title = SharedUserInfo.device.departName;
     
 }

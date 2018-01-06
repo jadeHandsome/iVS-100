@@ -22,10 +22,14 @@
     [self.mainImageView addGestureRecognizer:tap];
 }
 - (void)setDataWith:(NSDictionary *)dic {
-    [self.mainImageView sd_setImageWithURL:dic[@"imgPath"] placeholderImage:[UIImage new]];
+    NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
+    NSString *ip=[userDefault valueForKey:@"ip"];
+    NSString *port=[userDefault valueForKey:@"port"];
+    [self.mainImageView sd_setImageWithURL:[[[@"http://" stringByAppendingString:ip] stringByAppendingString:port?[@":" stringByAppendingString:port]:@""] stringByAppendingString:dic[@"imgPath"]] placeholderImage:[UIImage new]];
     NSString *str = [NSString stringWithFormat:@"%@\n%@",dic[@"channelName"],dic[@"createDate"]];
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc]initWithString:str];
     [attr addAttributes:@{NSForegroundColorAttributeName:LRRGBColor(61, 61, 61)} range:[str rangeOfString:dic[@"createDate"]]];
+    [self.infoLabel setAttributedText:attr];
     
 }
 - (void)imageClick {
