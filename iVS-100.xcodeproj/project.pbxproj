@@ -1277,7 +1277,7 @@
 				TargetAttributes = {
 					311367471E700C6000B322A2 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = XZN34NH8JQ;
+						DevelopmentTeam = 96SAHL399V;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1541,11 +1541,8 @@
 				1A331ADD1FFF6387002255D0 /* CarListViewController.m in Sources */,
 				1A203D3F1FFD133000E30EA2 /* CFilteringJSONSerializer.m in Sources */,
 				1A203F9C1FFDE10500E30EA2 /* UIView+BorderLine.m in Sources */,
-
 				1172F06D2000F6C700E193D3 /* HDVideoCtrl.m in Sources */,
-
 				1A10AE6E2000FA26002CADBA /* CLTreeView_LEVEL1_Model.m in Sources */,
-
 				1A2FC7091FFE125C009DF30F /* CollectionViewCell.m in Sources */,
 				1A203F961FFDE10500E30EA2 /* CALayer+CircleBoard.m in Sources */,
 				1A203F431FFDE08E00E30EA2 /* TermModel.m in Sources */,
@@ -1701,7 +1698,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XZN34NH8JQ;
+				DEVELOPMENT_TEAM = 96SAHL399V;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1733,7 +1730,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XZN34NH8JQ;
+				DEVELOPMENT_TEAM = 96SAHL399V;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

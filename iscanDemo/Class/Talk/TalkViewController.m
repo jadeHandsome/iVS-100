@@ -7,16 +7,78 @@
 //
 
 #import "TalkViewController.h"
-
+#import "HDTalkback.h"
 @interface TalkViewController ()
-
+@property (nonatomic, strong) UIButton *voiceBtn;
+@property (nonatomic, strong) UIImageView *talkImaegView;
+@property (nonatomic, strong) HDTalkback *talk;
 @end
 
 @implementation TalkViewController
-
+{
+    BOOL isBegin;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.navigationItem.title = Localized(@"对讲");
+    self.view.backgroundColor = LRRGBColor(243, 243, 243);
+    [self setUp];
+    _talk = [SharedSDK TalkView:self.view TalkImg:self.talkImaegView TalkBtn:self.voiceBtn TermSn:SharedUserInfo.termSn];
+    
+}
+- (void)setUp {
+    UIView *bottomView = [[UIView alloc]init];
+    [self.view addSubview:bottomView];
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom).with.offset(-(tabBarHeight));
+        make.height.equalTo(@80);
+    }];
+    
+    UIButton *voiceBtn = [[UIButton alloc]init];
+    LRViewBorderRadius(voiceBtn, 3, 0, [UIColor clearColor]);
+    _voiceBtn = voiceBtn;
+    [bottomView addSubview:voiceBtn];
+    voiceBtn.backgroundColor = ThemeColor;
+    [voiceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [voiceBtn setTitle:Localized(@"请按住对讲") forState:UIControlStateNormal];
+    [voiceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(bottomView.mas_left).with.offset(15);
+        make.right.equalTo(bottomView.mas_right).with.offset(-15);
+        make.centerY.equalTo(bottomView.mas_centerY);
+        make.height.equalTo(@45);
+    }];
+    [voiceBtn addTarget:self action:@selector(tops) forControlEvents:UIControlEventTouchDragInside];
+    [voiceBtn addTarget:self action:@selector(cancleTouch) forControlEvents:UIControlEventTouchCancel];
+//    voiceBtn.userInteractionEnabled = NO;
+//    voiceBtn.enabled = NO;
+    UIImageView *topImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"对讲麦克风"]];
+    [self.view addSubview:topImage];
+    _talkImaegView = topImage;
+    [topImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.bottom.equalTo(bottomView.mas_top);
+    }];
+    topImage.contentMode = UIViewContentModeCenter;
+    [voiceBtn setTitleColor:LRRGBColor(230, 230, 230) forState:UIControlStateHighlighted];
+    
+}
+- (void)tops {
+    
+        //开始对讲
+    [self.voiceBtn setHighlighted:YES];
+    isBegin = YES;
+    [_talk startTalkback];
+//    [SharedSDK startTalk:_talk BaseUrl:SharedUserInfo.baseUrl];
+    
+    
+}
+- (void)cancleTouch {
+    if (isBegin) {
+        //结束对讲
+        [self.voiceBtn setHighlighted:NO];
+        [_talk stopTalkback];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

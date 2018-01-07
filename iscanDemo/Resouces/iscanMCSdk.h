@@ -10,6 +10,7 @@
 #import "ASIHTTPRequest.h"
 #import "SettingBean.h"
 #import "ASIFormDataRequest.h"
+//#import "HDTalkback.h"
 @class HDVideoView;
 @class HDTalkback;
 @interface iscanMCSdk : NSObject
@@ -17,7 +18,7 @@
 -(void)startTalk:(HDTalkback *)talkView BaseUrl:(NSString *)baseUrl;
 -(void)stopTalk:(HDTalkback *)talkView;
 -(BOOL)isTalking:(HDTalkback *)talkView;
--(HDTalkback *)initTalkView:(UIView *)parent TalkImg:(UIImageView *)imgTalk TalkBtn:(UIButton *)talkBtn TermSn:(NSString *)terSn;
+-(HDTalkback *)TalkView:(UIView *)parent TalkImg:(UIImageView *)imgTalk TalkBtn:(UIButton *)talkBtn TermSn:(NSString *)terSn;
 
 - (NSString*)getFileName:(NSString*)folder extend:(NSString*)extendName;
 -(void)stopVideo:(HDVideoView *)videoView;

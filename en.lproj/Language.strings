@@ -9,7 +9,7 @@
 //登录
 "账号不能为空" = "The account can not be empty";
 "密码不能为空" = "The password can not be empty";
-"用户名密码错误" = "User name password error";
+"用户名密码错误" = "User name or password error";
 "无效用户" = "Invalid user";
 "服务器响应失败" = "Server response failure";
 "记住密码" = "Remember the password";
@@ -46,7 +46,7 @@
 "抓拍张数" = "Capture the number";
 "点击输入抓拍张数" = "Click on the number of snapshots";
 "抓拍间隔（S）" = "Snap interval (S)";
-"点击输入抓拍间隔时间" = "Click the input snapshot interval time";
+"点击输入抓拍间隔时间" = "Click input snapshot interval time";
 "正在设置语言" = "Language setting";
 //tabbar
 "定位" = "Positioning";
@@ -79,3 +79,7 @@
 "光圈缩小" = "ApertureOut";
 "焦点拉远" = "FocusOut";
 "焦点拉近" = "FocusIn";
+"视频播控" = "Video control";
+//对讲
+"请按住对讲" = "Hold to speak";
+"对讲" = "speak";

@@ -37,6 +37,7 @@ static const CGFloat CalloutYOffset = 10.0f;
 @implementation LocationViewController
 {
     NSTimer *locTimer;
+    BOOL isAnnoSelect;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -63,9 +64,9 @@ static const CGFloat CalloutYOffset = 10.0f;
         default:
             break;
     }
-
+    [self getLocation];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
-    locTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getLocation) userInfo:nil repeats:YES];
+    locTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(getLocation) userInfo:nil repeats:YES];
     self.navigationItem.title = SharedUserInfo.device.departName;
     
 }
@@ -192,7 +193,10 @@ static const CGFloat CalloutYOffset = 10.0f;
                 london.map = self.googleMap;
                 //        london.title = @"London";
                 london.infoWindowAnchor = CGPointMake(0.5, 1);
-                [self.googleMap setSelectedMarker:london];
+                if (isAnnoSelect) {
+                    [self.googleMap setSelectedMarker:london];
+                }
+                
                 
                 
                 
@@ -237,7 +241,10 @@ static const CGFloat CalloutYOffset = 10.0f;
 //        annotation.title = @"这里是北京";
         [self.baiduMap removeAnnotations:self.baiduMap.annotations];
         [self.baiduMap addAnnotation:annotation];
-        [self.baiduMap selectAnnotation:annotation animated:YES];
+        if (isAnnoSelect) {
+            [self.baiduMap selectAnnotation:annotation animated:YES];
+        }
+        
 
     }
     
@@ -280,6 +287,9 @@ static const CGFloat CalloutYOffset = 10.0f;
             [annotationView setMyData:dic];
             annotationView.canShowCallout = NO;
             // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
+            annotationView.block = ^(BOOL selected) {
+                isAnnoSelect = selected;
+            };
             annotationView.centerOffset = CGPointMake(0, -18);
             return annotationView;
         }
@@ -293,6 +303,9 @@ static const CGFloat CalloutYOffset = 10.0f;
                     annotationView = [[CustomAnnotationView alloc] initWithAnnotation:annotation
                                                                    reuseIdentifier:reuseIndetifier];
                 }
+                annotationView.block = ^(BOOL selected) {
+                    isAnnoSelect = selected;
+                };
                 annotationView.image = [UIImage imageNamed:@"位置图标"];
                 NSMutableDictionary *dic = [self.carInfo mutableCopy];
                 dic[@"location"] = self.localStr;
@@ -334,7 +347,10 @@ static const CGFloat CalloutYOffset = 10.0f;
         pointAnnotation.image = [UIImage imageNamed:@"位置图标"];
         [self.gaodeView removeOverlays:self.gaodeView.annotations];
         [self.gaodeView addAnnotation:pointAnnotation];
-        [self.gaodeView selectAnnotation:pointAnnotation animated:YES];
+        if (isAnnoSelect) {
+            [self.gaodeView selectAnnotation:pointAnnotation animated:YES];
+        }
+        
 //        [self.gaodeView addAnnotation:pointAnnotation];
 //        [self.mapView selectAnnotation:reGeocodeAnnotation animated:YES];
     }

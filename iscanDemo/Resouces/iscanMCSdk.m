@@ -10,7 +10,7 @@
 #import "HDVideoView.h"
 #import "HDTalkback.h"
 @implementation iscanMCSdk
--(HDTalkback *)initTalkView:(UIView *)parent TalkImg:(UIImageView *)imgTalk TalkBtn:(UIButton *)talkBtn TermSn:(NSString *)terSn{
+-(HDTalkback *)TalkView:(UIView *)parent TalkImg:(UIImageView *)imgTalk TalkBtn:(UIButton *)talkBtn TermSn:(NSString *)terSn{
     HDTalkback *mTalkback = [[HDTalkback alloc] init];
     mTalkback.view=parent;
     mTalkback.termSn=terSn;
