@@ -64,7 +64,7 @@
     [request setDidFinishSelector:@selector(GetResult:)];
     [request setDidFailSelector:@selector(GetError:)];
 //    [self.view showHUD];
-    
+    [request startAsynchronous];
 }
 
 
@@ -251,8 +251,8 @@
         //NETMEDIA_TBStopTalkback(mTalkbackHandle);
         //NETMEDIA_TBCloseTalkback(mTalkbackHandle);
         mTalkbackHandle = 0;
-        [self.audioStartOrEnd setTitle:NSLocalizedString(@"open_talk", nil) forState:UIControlStateNormal];
-        self.hudImg.hidden=YES;
+//        [self.audioStartOrEnd setTitle:NSLocalizedString(@"open_talk", nil) forState:UIControlStateNormal];
+//        self.hudImg.hidden=YES;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.audioStartOrEnd.enabled=YES;
@@ -343,15 +343,17 @@
     
     CGFloat newH=self.hudImgH*90/55.0-self.hudImgH/55.0*(dB+120);
     CGFloat newY=self.hudImgY+(self.hudImgH-newH);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CGRect rect=CGRectMake(self.hudImg.frame.origin.x, newY, self.hudImg.frame.size.width, newH);
+        self.hudImg.frame=rect;
+    });
     
-    CGRect rect=CGRectMake(self.hudImg.frame.origin.x, newY, self.hudImg.frame.size.width, newH);
-    self.hudImg.frame=rect;
     
 }
 
 
 #pragma mark HDAudioRecordDelegate Methods
-- (void)recordAudio:(HDAudioRecord *)record inBuffer:(void*)buffer length:(int)len;
+- (void)recordAudio:(HDAudioRecord *)record inBuffer:(void*)buffer length:(int)len
 {
     //NETMEDIA_TBSendWavData(mTalkbackHandle, buffer, len);
 //    [mAudioPlay hd_input_data:buffer bufferlen:len];
@@ -362,6 +364,7 @@
         
         uint8_t hsHead[4];
         hsHead[0]=0x00;
+        
         hsHead[1]=0x01;
         hsHead[2]=0x50;
         hsHead[3]=0x00;
