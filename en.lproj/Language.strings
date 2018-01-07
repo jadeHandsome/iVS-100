@@ -69,6 +69,8 @@
 "视频播放时才能进行截图" = "Can screenshots when video is playing";
 "图片已保存到" = "Picture has been saved to";
 "视频播放时才能切换声音" = "Can switch voice when video is playing";
+"视频播放时才能控制" = "Can control when video is playing";
+"视频播放时才能停止" = "Can stop when video is playing";
 "停止视频" = "Stop";
 "打开声音" = "Sound";
 "视频抓拍" = "Screenshots";

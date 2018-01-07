@@ -119,7 +119,7 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
     
     HDSubVideo* selView = [ subViewArray objectAtIndex: 0 ];
     [selView setIsFocus: YES ];
-    
+    SharedUserInfo.currentChannel = @"1";
     //单击
     UITapGestureRecognizer* tap1 = [[ UITapGestureRecognizer alloc ]initWithTarget:self action:@selector(onClick:) ];
     tap1.numberOfTapsRequired = 1;
@@ -191,6 +191,7 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
     UITapGestureRecognizer* tapGesture = (UITapGestureRecognizer*)sender;
     CGPoint point = [tapGesture locationInView:self.view ];
     int viewIndex = [arrange getViewIndex: point ];
+    SharedUserInfo.currentChannel = [NSString stringWithFormat:@"%d",viewIndex + 1];
     [ self onSelView: viewIndex ];
 }
 
@@ -199,6 +200,7 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
     UITapGestureRecognizer* tapGesture = (UITapGestureRecognizer*)sender;
     CGPoint point = [tapGesture locationInView:self.view ];
     int viewIndex = [arrange getViewIndex: point ];
+    SharedUserInfo.currentChannel = [NSString stringWithFormat:@"%d",viewIndex + 1];
     [ self onSelView: viewIndex ];
     
     [arrange onDblClk: viewIndex];

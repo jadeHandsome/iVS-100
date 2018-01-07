@@ -17,4 +17,5 @@ singleton_interface(KRUserInfo)
 @property (nonatomic, strong) NSString *baseUrl;
 @property (nonatomic, strong) NSString *termSn;
 @property (nonatomic, strong) TermModel *term;
+@property (nonatomic, strong) NSString *currentChannel;//当前通道
 @end

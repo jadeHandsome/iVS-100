@@ -501,13 +501,7 @@ typedef enum HDFilmMode: NSUInteger
     return subDir;
 }
 
-- (void)getImageSucc:(ASIHTTPRequest *)request{
-    
-}
 
-- (void)getImageErr:(ASIHTTPRequest *)request{
-    
-}
 
 /*
  * 保存成BMP图片
