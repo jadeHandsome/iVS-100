@@ -20,7 +20,9 @@
 
 - (void)setSelected:(BOOL)selected
 {
-    
+    if (self.block) {
+        self.block(selected);
+    }
     if (self.selected == selected)
     {
         

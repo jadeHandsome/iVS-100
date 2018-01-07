@@ -67,7 +67,7 @@
 }
 - (void)caClick {
 //    NSLog(@"%@",)
-    ASIHTTPRequest *requst = [SharedSDK sendCaptureCmd:SharedUserInfo.baseUrl TermSn:SharedUserInfo.termSn Channel:@"1" Number:SharedSetting.numbers Interval:@"2" Target:self Success:@selector(photoSuc:) Failure:@selector(photoDeful:)];
+    ASIHTTPRequest *requst = [SharedSDK sendCaptureCmd:SharedUserInfo.baseUrl TermSn:SharedUserInfo.termSn Channel:@"2" Number:SharedSetting.numbers Interval:SharedSetting.interval?SharedSetting.interval:@"2" Target:self Success:@selector(photoSuc:) Failure:@selector(photoDeful:)];
     [requst startAsynchronous];
     [self showLoadingHUD];
 }

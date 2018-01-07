@@ -20,6 +20,9 @@
 */
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
+    if (self.block) {
+        self.block(selected);
+    }
     
     if (self.selected == selected)
     {

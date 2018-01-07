@@ -23,6 +23,8 @@
     self.navigationItem.title = Localized(@"对讲");
     self.view.backgroundColor = LRRGBColor(243, 243, 243);
     [self setUp];
+    _talk = [SharedSDK TalkView:self.view TalkImg:self.talkImaegView TalkBtn:self.voiceBtn TermSn:SharedUserInfo.termSn];
+    
 }
 - (void)setUp {
     UIView *bottomView = [[UIView alloc]init];
@@ -64,10 +66,11 @@
 - (void)tops {
     
         //开始对讲
-        [self.voiceBtn setHighlighted:YES];
-        isBegin = YES;
-        _talk = [SharedSDK TalkView:self.view TalkImg:self.talkImaegView TalkBtn:self.voiceBtn TermSn:SharedUserInfo.termSn];
-        [SharedSDK startTalk:_talk BaseUrl:SharedUserInfo.baseUrl];
+    [self.voiceBtn setHighlighted:YES];
+    isBegin = YES;
+    [_talk startTalkback];
+//    [SharedSDK startTalk:_talk BaseUrl:SharedUserInfo.baseUrl];
+    
     
 }
 - (void)cancleTouch {

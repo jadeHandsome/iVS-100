@@ -8,7 +8,9 @@
 
 #import <BaiduMapAPI_Map/BMKAnnotationView.h>
 #import "KRCustomView.h"
+typedef void(^AnnoSelected)(BOOL selected);
 @interface CustomAnnotationView : BMKAnnotationView
 @property (nonatomic, strong) KRCustomView *calloutView;
 @property (nonatomic, strong) NSDictionary *myData;
+@property (nonatomic, strong) AnnoSelected block;
 @end
