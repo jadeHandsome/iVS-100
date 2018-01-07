@@ -12,8 +12,9 @@
 #import "ASIHTTPRequest.h"
 #import "CJSONDeserializer.h"
 #import "HDVideoView.h"
+#import "BaseViewController.h"
 @class iscanMCSdk;
-@interface HDPreviewView : UIViewController <HDVideoViewDelegate, HDVideoCtrlDelegate,TTXPtzViewDelegate,ASIHTTPRequestDelegate>
+@interface HDPreviewView : BaseViewController <HDVideoViewDelegate, HDVideoCtrlDelegate,TTXPtzViewDelegate,ASIHTTPRequestDelegate>
 {
     HDVideoView* videoView;
     HDVideoCtrl* videoCtrl;

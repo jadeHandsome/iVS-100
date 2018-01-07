@@ -48,7 +48,7 @@
 @property(nonatomic, assign ) BOOL isFocus;          //窗口序号
 @property(nonatomic, strong )UILabel* labelChannel;         //显示通道号
 @property(nonatomic, strong )UIImageView* imageViewVideo;   //显示视频图像
-@property(nonatomic, assign ) NSInteger channel;            //通道号
+@property(nonatomic, assign ) NSString *channel;            //通道号
 @property(nonatomic, assign ) NSInteger viewIndex;          //窗口序号
 @property(nonatomic,retain) HDVideoView* videoview;
 @property(nonatomic,assign) BOOL isSound;

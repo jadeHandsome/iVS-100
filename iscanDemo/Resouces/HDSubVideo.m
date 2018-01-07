@@ -501,17 +501,25 @@ typedef enum HDFilmMode: NSUInteger
     return subDir;
 }
 
+- (void)getImageSucc:(ASIHTTPRequest *)request{
+    
+}
+
+- (void)getImageErr:(ASIHTTPRequest *)request{
+    
+}
+
 /*
  * 保存成BMP图片
  */
 - (BOOL)savePngFile:(NSString *)imagePath {
-    
+  
     if ( self.player != nil )
     {
         
         [self.player snapshot:imagePath];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            UIImage* image=[[UIImage alloc] initWithContentsOfFile:imagePath];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIImage* image= [[UIImage alloc] initWithContentsOfFile:imagePath];
             
             UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:),nil);
             [image release];
@@ -554,23 +562,19 @@ int stopCMD=0;
 }
 -(void)GetPizResult:(ASIHTTPRequest *) requst{
     //[self.view showHUDWithText:@"拍照命令已发送，请稍后刷新。" hideDelayed:1];
+    NSData *data = [requst responseData];
+    NSString *result = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+    NSLog(@"%@--------------",result);
+    
+    
 }
 -(void)GetPizError:(ASIHTTPRequest *) requst{
    
 }
 -(void)pizContralCMD:(NSInteger)cmd
 {
-    NSString *subUrl = [NSString stringWithFormat:@"term/ptzControl.dcw" ];
-    NSString *url = [NSString stringWithFormat:@"%@%@",_baseUrl, subUrl];
-    NSURL *dataUrl = [NSURL URLWithString:url];
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:dataUrl];
-    [request setPostValue:self.termSn forKey:@"termSn"];
-    [request setPostValue:self.channel forKey:@"channel"];
-    [request setPostValue:[NSString stringWithFormat:@"%d",cmd] forKey:@"cmd"];
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(GetPizResult:)];
-    [request setDidFailSelector:@selector(GetPizError:)];
-
+    ASIHTTPRequest *request = [SharedSDK pizControlCmd:SharedUserInfo.baseUrl TermSn:self.termSn Channel:self.channel Command:[NSString stringWithFormat:@"%ld",cmd] Target:self Success:@selector(GetPizResult:) Failure:@selector(GetPizError:)];
+    [request startAsynchronous];
 }
 
 /*
@@ -623,7 +627,7 @@ int stopCMD=0;
         }
         else
         {
-            labelChannel.text = [NSString stringWithFormat:@"CH %d", channel + 1];
+            labelChannel.text = [NSString stringWithFormat:@"CH %@", self.channel];
         }
     }
 }

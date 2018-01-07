@@ -147,7 +147,9 @@
             [subView setNeedsDisplay ]; //为了重绘,刷新窗口
             //[subView setCtrlPos ];//这个方法必须实现！//Howard 2012-11-15
             subView.hidden = NO;
-            
+            if (k * 2 + i + 1 > self.num) {
+                subView.hidden = YES;
+            }
             m_rectArray[ nIndex ] = rcTemp;
         }
         

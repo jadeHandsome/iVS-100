@@ -36,6 +36,7 @@
 @property(nonatomic,assign) id<HDVideoViewDelegate> delegate;
 @property(nonatomic,retain) NSString *termSn;
 @property(nonatomic,assign) int channelCount;
+@property (nonatomic, strong) NSArray *channelsList;
 @property(nonatomic,retain) NSString *baseUrl;
 - (void)setCtrlPos;
 - (void)switchActiveView: (int)index;

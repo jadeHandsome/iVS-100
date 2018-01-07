@@ -87,6 +87,7 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
 -(void)createCtrl
 {
     arrange = [[ HDArrange alloc]init ];
+    arrange.num = self.channelsList.count;
     arrange.delegate = self;
     subViewArray = [[ NSMutableArray alloc ] init ];
     activeIndex = 0;
@@ -104,7 +105,7 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
         HDSubVideo* subView = [[ HDSubVideo alloc ]init ];
         subView.videoview=self;
         [subView.labelChannel setText:[ NSString stringWithFormat:@"CH%d", i + 1 ] ];
-        subView.channel = i;
+        subView.channel = [NSString stringWithFormat:@"%d",i+1];
         subView.viewIndex = i;
         subView.baseUrl = baseUrl;
         subView.termSn = _termSn;
@@ -151,7 +152,8 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
     float itemWidth = (SIZEWIDTH - 3 * spaceX) / 2 ;
     float itemHeight = (SIZEWIDTH - 3 * spaceX) / 2 * 3 / 4;
     scrollView.frame = self.view.bounds;
-    scrollView.contentSize = CGSizeMake(SIZEWIDTH, 10 + (spaceY + itemHeight) * 8 + 10 + 10 + HEIGHT(300) - spaceY);
+    NSInteger line = self.channelsList.count / 2 + self.channelsList.count % 2 == 0 ? 0 : 1;
+    scrollView.contentSize = CGSizeMake(SIZEWIDTH, 10 + (spaceY + itemHeight) * line + 10 + 10 + HEIGHT(300) - spaceY);
     [self setSplitWindow: E_ArrangeType_16 ];
 }
 

@@ -108,13 +108,38 @@
     [self setTermSnInfo:SharedUserInfo.termSn];
 }
 
+- (void)getCarDetail{
+    [self showLoadingHUD];
+    ASIHTTPRequest *request = [sdk getCarChannels:BASE_URL TermSn:self.termSn NetType:SharedSetting.nettype Target:self Success:@selector(getDetailSucc:) Failure:@selector(getDetailErr:)];
+    [request startAsynchronous];
+}
+
+
+- (void)getDetailSucc:(ASIHTTPRequest *)requset{
+    [self hideHUD];
+    NSData *data = [requset responseData];
+    NSMutableDictionary *orgs = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    selDevIdno = @"";
+    videoView = [sdk createVideoViewWithDelegate:self];
+    [self.view addSubview:videoView.view ];
+    videoView.termSn = self.termSn;
+    videoView.channelsList = orgs[@"channelList"];
+    [videoView setBaseURl:BASE_URL];
+    [self setCtrlPos ];
+    [videoView setSubViewsTermSn:self.termSn];
+}
+
+- (void)getDetailErr:(ASIHTTPRequest *)requset{
+    [self showHUDWithText:@"网络错误"];
+}
+
+
+
 - (void)setTermSnInfo:(NSString *)termSn
 {
     self.termSn = termSn;
-    [self initResource];
     [self startThread];
-    [videoView setSubViewsTermSn:termSn];
-    
+    [self getCarDetail];
 }
 - (void)viewDidUnload
 {
@@ -129,19 +154,7 @@
 
 - (void)initResource
 {
-    selDevIdno = @"";
-
     
-    videoView = [sdk createVideoViewWithDelegate:self];
-    [self.view addSubview:videoView.view ];
-    videoView.termSn = self.termSn;
-    [videoView setBaseURl:BASE_URL];
-    
-    
-
-
-    
-    [self setCtrlPos ];
 }
 
 - (void)setCtrlPos
@@ -218,20 +231,7 @@
 
 - (void)onBtnPtz
 {
-//    BOOL bHidden = ptzView.view.hidden;
-//    if( bHidden )
-//    {
-//        if( ![sdk isVideoPlaying:videoView] && bHidden )
-//        {
-//            [util showTips:self.view Title:@"视频播放时才能进行云台控制"];
-//            return;
-//        }
-//        ptzView.view.hidden = NO;
-//    }
-//    else
-//    {
-//        ptzView.view.hidden = YES;
-//    }
+
     if (self.isShowPt) {
         self.isShowPt = NO;
         self.bottomView.frame = CGRectMake(10, SIZEHEIGHT - tabBarHeight - navHight - HEIGHT(80) - 10, SIZEWIDTH - 20, HEIGHT(80));
@@ -246,6 +246,13 @@
 
 - (void)onBtnPlay
 {
+    
+    if( ![sdk isVideoPlaying:videoView])
+    {
+        [util showTips:self.view Title:Localized(@"视频播放时才能停止")];
+        return;
+    }
+    
     [sdk stopVideo:videoView];
     
     [self updatePlayBar];
@@ -258,7 +265,7 @@
         [util showTips:self.view Title:Localized(@"视频播放时才能进行截图")];
         return;
     }
-    NSString  *imagePath = [sdk getFileName:@"temp" extend:@"bmp" ];
+    NSString  *imagePath = [sdk getFileName:@"temp" extend:@"png" ];
     [sdk snapPicture:videoView FilePath:imagePath];
     [util showTips:self.view Title:[NSString stringWithFormat:@"%@%@" , Localized(@"图片已保存到"),imagePath]];
 }
@@ -309,6 +316,11 @@
 ////HDPtzViewDelegate--begin--
 - (void)onPtzCtrl:(NSInteger)nCmd speed:(NSInteger)nSpeed param:(NSInteger)nParam
 {
+    if( ![sdk isVideoPlaying:videoView])
+    {
+        [util showTips:self.view Title:Localized(@"视频播放时才能控制")];
+        return;
+    }
     [videoView ptzControl:nCmd speed:nSpeed param:nParam];
 }
 

@@ -17,7 +17,7 @@
 typedef enum HDArrangeType: NSUInteger {
     E_ArrangeType_1     = 1,
     E_ArrangeType_4     = 2,
-    E_ArrangeType_10     = 3,
+    E_ArrangeType_10    = 3,
     E_ArrangeType_16    = 4
 } HDArrangeType;
 
@@ -42,7 +42,7 @@ typedef enum HDArrangeType: NSUInteger {
 @property(nonatomic, assign ) int m_nPageIndex;                   //页面，用于翻页
 @property(nonatomic, assign ) int m_nShowViewIndex;
 @property(nonatomic, assign ) HDArrangeType m_arrangeTypeNew;          //窗口序号
-
+@property (nonatomic, assign) NSInteger num;
 //添加窗口
 -(void)addView:(int)index view:(UIView*)_view;
 -(void)clearAllViews;
