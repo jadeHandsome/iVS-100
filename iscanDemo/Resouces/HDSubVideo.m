@@ -8,6 +8,7 @@
 
 #import "HDSubVideo.h"
 #import "HDVideoView.h"
+#import <objc/runtime.h>
 typedef enum HDFilmMode: NSUInteger
 {
     E_FilmMode_Original     = 0,
@@ -31,7 +32,16 @@ typedef enum HDFilmMode: NSUInteger
 @synthesize imageViewVideo;
 @synthesize channel;
 @synthesize viewIndex;
-
++ (void)load {
+    /** 获取原始setBackgroundColor方法 */
+    Method originalM = class_getInstanceMethod([IJKFFMoviePlayerController class], @selector(snapshot:));
+    
+    /** 获取自定义的pb_setBackgroundColor方法 */
+    Method exchangeM = class_getInstanceMethod([self class], @selector(snapshot:));
+    
+    /** 交换方法 */
+    method_exchangeImplementations(originalM, exchangeM);
+}
 - (id)init
 {
     loadState = MPMovieLoadStateUnknown;
@@ -379,6 +389,7 @@ typedef enum HDFilmMode: NSUInteger
     //启动视频
     
     self.player = [[IJKFFMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:videoUrl] withOptions:nil];
+    
     self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.player.view.frame = rcVideo;
     [self addSubview:self.player.view];
@@ -399,6 +410,23 @@ typedef enum HDFilmMode: NSUInteger
     [self startPlayTimer];
     
     return ret;
+}
+- (int)snapshot:(NSString *)path {
+    
+    if (CGSizeEqualToSize([[self valueForKey:@"view"] bounds].size, CGSizeZero)) {
+        return nil;
+    }
+    UIGraphicsBeginImageContextWithOptions([[self valueForKey:@"view"] bounds].size, NO, 0.0);
+    // Render our snapshot into the image context
+    [[self valueForKey:@"view"] drawViewHierarchyInRect:[[self valueForKey:@"view"] bounds] afterScreenUpdates:NO];
+    
+    // Grab the image from the context
+    UIImage *complexViewImage = UIGraphicsGetImageFromCurrentImageContext();
+    // Finish using the context
+    UIGraphicsEndImageContext();
+    return [[NSFileManager defaultManager] createFileAtPath:path contents:UIImageJPEGRepresentation(complexViewImage, 1) attributes:nil];
+//    NSLog(@"交换过来截图了-->么么哒");
+//    return 1;
 }
 
 - (BOOL)StopAV:(BOOL) bClear {
