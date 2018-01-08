@@ -103,7 +103,15 @@
     [self performSelector:@selector(pop) withObject:nil afterDelay:1];
 }
 - (void)pop {
-    if (![[[NSUserDefaults standardUserDefaults]objectForKey:@"appLanguage"] isEqualToString:self.setting[@"laug"]]) {
+    NSString *str = @"";
+    if ([self.setting[@"laug"] isEqualToString:@"简体中文"]) {
+        str = @"zh-Hans";
+    } else if ([self.setting[@"laug"] isEqualToString:@"繁体中文"]) {
+        str = @"zh-Hant";
+    } else {
+        str = @"en";
+    }
+    if (![[[NSUserDefaults standardUserDefaults]objectForKey:@"appLanguage"] isEqualToString:str]) {
 //        NSString *str = @"";
         if ([self.setting[@"laug"] isEqualToString:@"简体中文"]) {
             [[NSUserDefaults standardUserDefaults] setObject:@"zh-Hans" forKey:@"appLanguage"];

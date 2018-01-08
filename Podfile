@@ -13,7 +13,6 @@ target ‘iVS-100’ do
   pod 'IQKeyboardManager’,’~> 4.0.8’
   pod ’SDWebImage’ 
   pod ‘Masonry’
-  pod ‘ZFPlayer’
   pod 'AMapSearch-NO-IDFA'
   pod 'SMCalloutView'
 end

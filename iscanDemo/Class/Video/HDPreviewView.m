@@ -53,7 +53,7 @@
 }
 -(void)getCarLL
 {
-    ASIHTTPRequest *request =   [sdk getCarLocation:BASE_URL Vid:[self.device objectForKey:@"id"] Target:self Success:@selector(GetResult:) Failure:@selector(GetError:)];
+    ASIHTTPRequest *request =   [sdk getCarLocation:SharedUserInfo.baseUrl Vid:[self.device objectForKey:@"id"] Target:self Success:@selector(GetResult:) Failure:@selector(GetError:)];
     [request startAsynchronous];
 }
 
