@@ -30,7 +30,7 @@
         
         _collectionFlowyout = [[UICollectionViewFlowLayout alloc] init];
         
-        _collectionFlowyout.itemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width*0.5, 285);
+        _collectionFlowyout.itemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width*0.5, [UIScreen mainScreen].bounds.size.width*0.5 - 27 + 60);
         
         _collectionFlowyout.minimumLineSpacing = 0;
         
@@ -46,7 +46,7 @@
     [self setUpCole];
     [self headerFresh];
     self.view.backgroundColor = LRRGBColor(236, 236, 236);
-    self.navigationItem.title = SharedUserInfo.device.departName;
+    self.navigationItem.title = SharedUserInfo.device.id;
 }
 - (void)setUpCole {
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:self.collectionFlowyout];
@@ -104,7 +104,7 @@
 //        UIView *imageView = tap.view;
         SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
         browser.currentImageIndex = tags;
-        browser.sourceImagesContainerView = weakCell;
+        browser.sourceImagesContainerView = weakSelf.collectionView;
         //NSLog(@"%ld",self.scrollView.subviews.count);
         browser.imageCount = weakSelf.allPic.count;
         browser.delegate = weakSelf;

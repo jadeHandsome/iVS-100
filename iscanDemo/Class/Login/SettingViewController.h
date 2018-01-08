@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface SettingViewController : BaseViewController
-
+@property (nonatomic, assign) BOOL canPop;
 @end

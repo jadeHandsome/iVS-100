@@ -67,7 +67,7 @@ static const CGFloat CalloutYOffset = 10.0f;
     [self getLocation];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     locTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(getLocation) userInfo:nil repeats:YES];
-    self.navigationItem.title = SharedUserInfo.device.departName;
+    self.navigationItem.title = SharedUserInfo.device.id;
     
 }
 - (void)getLocation {
@@ -98,7 +98,7 @@ static const CGFloat CalloutYOffset = 10.0f;
     }];
 }
 - (void)setUpGoogle {
-     self.emptyCalloutView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.emptyCalloutView = [[UIView alloc] initWithFrame:CGRectZero];
     self.calloutView = [[SMCalloutView alloc] init];
     self.calloutView.contentView = [UIView new];
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:22.290664
