@@ -360,7 +360,7 @@
     
     if (isZmqLive) {
         
-        [self updateHud:buffer length:len];
+//        [self updateHud:buffer length:len];
         
         uint8_t hsHead[4];
         hsHead[0]=0x00;

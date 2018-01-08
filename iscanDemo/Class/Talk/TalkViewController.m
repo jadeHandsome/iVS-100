@@ -12,12 +12,17 @@
 @property (nonatomic, strong) UIButton *voiceBtn;
 @property (nonatomic, strong) UIImageView *talkImaegView;
 @property (nonatomic, strong) HDTalkback *talk;
+
 @end
 
 @implementation TalkViewController
 {
     BOOL isBegin;
 }
+    
+    
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = Localized(@"对讲");
@@ -25,8 +30,7 @@
     [self setUp];
     _talk = [SharedSDK TalkView:self.view TalkImg:self.talkImaegView TalkBtn:self.voiceBtn TermSn:SharedUserInfo.termSn];
     
-    _talk.hudImgH = [UIImage imageNamed:@"对讲麦克风"].size.height;
-    _talk.hudImgY = self.talkImaegView.frame.origin.y;
+
     
 }
 - (void)setUp {
@@ -52,7 +56,7 @@
         make.height.equalTo(@45);
     }];
     [voiceBtn addTarget:self action:@selector(tops) forControlEvents:UIControlEventTouchDown];
-    [voiceBtn addTarget:self action:@selector(cancleTouch) forControlEvents:UIControlEventTouchUpInside|UIControlEventTouchUpOutside];
+    [voiceBtn addTarget:self action:@selector(cancleTouch) forControlEvents:UIControlEventTouchUpInside|UIControlEventTouchUpOutside | UIControlEventTouchCancel];
 //    voiceBtn.userInteractionEnabled = NO;
 //    voiceBtn.enabled = NO;
     UIView *topView = [[UIView alloc]init];
@@ -62,12 +66,15 @@
         make.bottom.equalTo(bottomView.mas_top);
     }];
     UIImageView *topImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"对讲麦克风"]];
+    CGSize size = CGSizeMake([UIImage imageNamed:@"对讲麦克风"].size.width, [UIImage imageNamed:@"对讲麦克风"].size.height);
     [topView addSubview:topImage];
     _talkImaegView = topImage;
     [topImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.centerY.equalTo(topView);
+        make.height.mas_equalTo(size.height / 2);
+        make.width.mas_equalTo(size.width / 2);
     }];
-    topImage.contentMode = UIViewContentModeCenter;
+    topImage.contentMode = UIViewContentModeScaleAspectFit;
     [voiceBtn setTitleColor:LRRGBColor(230, 230, 230) forState:UIControlStateHighlighted];
     
 }
@@ -78,15 +85,30 @@
     isBegin = YES;
 //    [_talk startTalkback];
     [SharedSDK startTalk:_talk BaseUrl:SharedUserInfo.baseUrl];
-    
+ 
+    [self begainAnimation];
     
 }
+
+- (void)begainAnimation{
+    if (!self.talkImaegView.isAnimating){
+        CABasicAnimation *animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
+        animation.fromValue=[NSNumber numberWithFloat:1.0];
+        animation.toValue=[NSNumber numberWithFloat:2.0];
+        animation.duration=2.0;
+        animation.autoreverses=YES;
+        animation.repeatCount = NSIntegerMax;
+        [self.talkImaegView.layer addAnimation:animation forKey:@"zoom"];
+    }
+}
+    
 - (void)cancleTouch {
     if (isBegin) {
         //结束对讲
         [self.voiceBtn setHighlighted:NO];
         [_talk stopTalkback];
     }
+    [self.talkImaegView.layer removeAllAnimations];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -118,7 +118,6 @@
 -(void)GetError:(ASIHTTPRequest *) requst{
     [self showHUDWithText:Localized(@"服务器响应失败")];
 //    [util showTips:self.view Title:@"服务器响应失败"];
-    [self hideHUD];
 }
 - (IBAction)settingClick:(id)sender {
     SettingViewController *set = [SettingViewController new];
