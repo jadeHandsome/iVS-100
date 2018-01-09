@@ -80,9 +80,11 @@
     
     
     MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    HUD.backgroundColor = LRRGBAColor(87, 87, 87, 1);
     HUD.mode = MBProgressHUDModeCustomView;
     HUD.alpha = 1.0;
-    HUD.bezelView.backgroundColor = ColorRgbValue(0x575757);
+//    HUD.defaultMotionEffectsEnabled = YES;
+    HUD.bezelView.backgroundColor = LRRGBAColor(13, 13, 13, 1);
     HUD.contentColor = [UIColor whiteColor];
     if (text != nil) {
         HUD.label.text = text;
@@ -98,7 +100,7 @@
         [arrM addObject:image];
     }
     [gifImageView setAnimationImages:arrM];
-    [gifImageView setAnimationDuration:0.5];
+    [gifImageView setAnimationDuration:1];
     [gifImageView setAnimationRepeatCount:0];
     [gifImageView startAnimating];
     
