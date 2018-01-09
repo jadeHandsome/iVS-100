@@ -135,7 +135,12 @@
 }
 - (void)loads {
     [self hideHUD];
-    self.view.window.rootViewController = [[BaseNaviViewController alloc]initWithRootViewController:[LoginViewController new]];
+    if (self.canPop) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        self.view.window.rootViewController = [[BaseNaviViewController alloc]initWithRootViewController:[LoginViewController new]];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

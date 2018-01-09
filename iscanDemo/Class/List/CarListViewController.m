@@ -13,6 +13,7 @@
 #import "iscanMCSdk.h"
 #import "BaseTabbarViewController.h"
 #import "ASIHTTPRequest.h"
+#import "SettingViewController.h"
 //#import "CJSONDeserializer.h"
 //#import "HDPreviewView.h"
 @interface CarListViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,ASIHTTPRequestDelegate,UISearchBarDelegate>
@@ -36,15 +37,23 @@
 // 所有终端 在线终端
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"iSV-100";
+    self.navigationItem.title = @"iVS-100";
     self.showType = @"1";
     [self addHeader];
     util = [CommanUtils new];
     sdk = [iscanMCSdk new];
     [self InitTableView];
     [self.nodeArray removeAllObjects];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:Localized(@"设置") style:UIBarButtonItemStyleDone target:self action:@selector(getSetting)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(getSetting)]
+    
 //    [self InitTableView];
     [self headerFresh];
+}
+- (void)getSetting {
+    SettingViewController *set = [SettingViewController new];
+    set.canPop = YES;
+    [self.navigationController pushViewController:set animated:YES];
 }
 -(void)InitTableView
 {
@@ -91,7 +100,8 @@
 //    [searchBar setBackgroundImage:[UIImage new]];
     [searchBar setBackgroundImage:[UIImage new]];
     searchBar.backgroundColor = LRRGBColor(238, 238, 238);
-    searchBar.placeholder = @"搜索";
+    searchBar.placeholder = Localized(@"搜索");
+    
     LRViewBorderRadius(searchBar, 5, 1, [UIColor clearColor]);
     for (UIView* subview  in [searchBar.subviews firstObject].subviews) {
         

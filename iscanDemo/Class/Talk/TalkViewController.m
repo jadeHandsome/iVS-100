@@ -71,8 +71,8 @@
     _talkImaegView = topImage;
     [topImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.centerY.equalTo(topView);
-        make.height.mas_equalTo(size.height / 2);
-        make.width.mas_equalTo(size.width / 2);
+        make.height.mas_equalTo(size.height / 1.2);
+        make.width.mas_equalTo(size.width / 1.2);
     }];
     topImage.contentMode = UIViewContentModeScaleAspectFit;
     [voiceBtn setTitleColor:LRRGBColor(230, 230, 230) forState:UIControlStateHighlighted];
@@ -94,8 +94,8 @@
     if (!self.talkImaegView.isAnimating){
         CABasicAnimation *animation=[CABasicAnimation animationWithKeyPath:@"transform.scale"];
         animation.fromValue=[NSNumber numberWithFloat:1.0];
-        animation.toValue=[NSNumber numberWithFloat:2.0];
-        animation.duration=2.0;
+        animation.toValue=[NSNumber numberWithFloat:1.2];
+        animation.duration=.2;
         animation.autoreverses=YES;
         animation.repeatCount = NSIntegerMax;
         [self.talkImaegView.layer addAnimation:animation forKey:@"zoom"];
@@ -105,10 +105,12 @@
 - (void)cancleTouch {
     if (isBegin) {
         //结束对讲
+        isBegin = NO;
         [self.voiceBtn setHighlighted:NO];
+        [self.talkImaegView.layer removeAllAnimations];
         [_talk stopTalkback];
     }
-    [self.talkImaegView.layer removeAllAnimations];
+    
 }
 
 - (void)didReceiveMemoryWarning {
