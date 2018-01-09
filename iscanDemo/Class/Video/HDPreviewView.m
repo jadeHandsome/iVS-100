@@ -233,20 +233,27 @@
 {
 
     if (self.isShowPt) {
-        self.isShowPt = NO;
-        self.bottomView.frame = CGRectMake(10, SIZEHEIGHT - tabBarHeight - navHight - HEIGHT(80) - 10, SIZEWIDTH - 20, HEIGHT(80));
-        videoCtrl.frame = CGRectMake(0, 0, SIZEWIDTH - 20, HEIGHT(80));
+        [self hidePt];
     }
     else{
-        self.isShowPt = YES;
-        self.bottomView.frame = CGRectMake(10, SIZEHEIGHT - tabBarHeight - navHight - HEIGHT(300) - 10, SIZEWIDTH - 20, HEIGHT(300));
-        videoCtrl.frame = CGRectMake(0, HEIGHT(220), SIZEWIDTH - 20, HEIGHT(80));
+        [self showPt];
     }
 }
 
+- (void)showPt{
+    self.isShowPt = YES;
+    self.bottomView.frame = CGRectMake(10, SIZEHEIGHT - tabBarHeight - navHight - HEIGHT(300) - 10, SIZEWIDTH - 20, HEIGHT(300));
+    videoCtrl.frame = CGRectMake(0, HEIGHT(220), SIZEWIDTH - 20, HEIGHT(80));
+}
+
+- (void)hidePt{
+    self.isShowPt = NO;
+    self.bottomView.frame = CGRectMake(10, SIZEHEIGHT - tabBarHeight - navHight - HEIGHT(80) - 10, SIZEWIDTH - 20, HEIGHT(80));
+    videoCtrl.frame = CGRectMake(0, 0, SIZEWIDTH - 20, HEIGHT(80));
+}
 - (void)onBtnPlay
 {
-    
+    [self hidePt];
     if( ![sdk isVideoPlaying:videoView])
     {
         [util showTips:self.view Title:Localized(@"视频播放时才能停止")];
@@ -260,6 +267,7 @@
 
 - (void)onBtnCapture
 {
+    [self hidePt];
     if( ![sdk isVideoPlaying:videoView])
     {
         [util showTips:self.view Title:Localized(@"视频播放时才能进行截图")];
@@ -272,6 +280,7 @@
 
 - (void)onBtnSound
 {
+    [self hidePt];
     if( ![sdk isVideoPlaying:videoView])
     {
         [util showTips:self.view Title:Localized(@"视频播放时才能切换声音")];
