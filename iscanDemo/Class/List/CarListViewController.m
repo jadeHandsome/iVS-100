@@ -184,7 +184,7 @@
                 t_node.nodeshowLevel = t_node.nodeLevel;
                 t_node.type = 1;//type 1的cell
                 t_node.sonNodes = [[NSMutableArray alloc] init];
-                t_node.isExpanded = FALSE;//关闭状态
+                t_node.isExpanded = YES;//关闭状态
                 t_node.nodeValue = orgitem;
                 CLTreeView_LEVEL1_Model *t_model_level1 =[[CLTreeView_LEVEL1_Model alloc]init];
                 t_model_level1.name = [orgitem objectForKey:@"name"];
