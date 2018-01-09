@@ -73,12 +73,40 @@
 }
 
 - (void)showLoadingHUDWithText:(NSString *)text{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.bezelView.backgroundColor = [UIColor blackColor];
-    hud.contentColor = [UIColor whiteColor];
-    if (text != nil) {
-        hud.label.text = text;
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    hud.bezelView.backgroundColor = [UIColor blackColor];
+//    hud.contentColor = [UIColor whiteColor];
+//    if (text != nil) {
+//        hud.label.text = text;
+//    }
+    
+    
+    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    HUD.mode = MBProgressHUDModeCustomView;
+    HUD.bezelView.backgroundColor = [UIColor clearColor];
+    HUD.backgroundView.backgroundColor = [UIColor clearColor];
+    HUD.customView.backgroundColor = [UIColor clearColor];
+//    HUD.label.text = text;
+
+    //自定义动画
+    UIImageView *gifImageView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"pic1"]];
+    gifImageView.backgroundColor = [UIColor clearColor];
+    gifImageView.contentMode = UIViewContentModeScaleAspectFill;
+    NSMutableArray *arrM = [[NSMutableArray alloc] init];
+    for (int i = 0; i < 4; i ++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"pic%d", i + 1]];
+        [arrM addObject:image];
     }
+    [gifImageView setAnimationImages:arrM];
+    [gifImageView setAnimationDuration:0.5];
+    [gifImageView setAnimationRepeatCount:0];
+    [gifImageView startAnimating];
+    
+    HUD.customView = gifImageView;
+
+    
+    
+    
 }
 
 - (void)showHUDWithText:(NSString *)text{
