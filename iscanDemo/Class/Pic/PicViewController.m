@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UICollectionViewFlowLayout *collectionFlowyout;
 @property (nonatomic, strong) NSMutableArray *allPic;
 @property (nonatomic, assign) NSInteger page;
+@property (nonatomic, strong) UILabel *detaillabel;
 @end
 
 @implementation PicViewController
@@ -47,7 +48,7 @@
     [self setUpCole];
     [self headerFresh];
     self.view.backgroundColor = LRRGBColor(236, 236, 236);
-    self.navigationItem.title = SharedUserInfo.device.id;
+    self.navigationItem.title = SharedUserInfo.termSn;
 }
 - (void)setUpCole {
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:self.collectionFlowyout];
@@ -106,6 +107,17 @@
 //        UIView *imageView = tap.view;
         SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
         browser.currentImageIndex = tags;
+        browser.bountView = self.view;
+        NSString *str = [NSString stringWithFormat:@"%@ %@",weakSelf.allPic[tags][@"channelName"],weakSelf.allPic[tags][@"createDate"]];
+//        weakSelf.allPic[tags][@""]
+        UILabel *detailLabel = [[UILabel alloc]init];
+        _detaillabel = detailLabel;
+        detailLabel.textColor = [UIColor whiteColor];
+        detailLabel.font = [UIFont systemFontOfSize:15];
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc]initWithString:str];
+        [attr addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} range:[str rangeOfString:weakSelf.allPic[tags][@"createDate"]]];
+        [detailLabel setAttributedText:attr];
+        browser.detailLabel = detailLabel;
         browser.sourceImagesContainerView = weakSelf.collectionView;
         //NSLog(@"%ld",self.scrollView.subviews.count);
         browser.imageCount = weakSelf.allPic.count;
@@ -184,6 +196,7 @@
 
 - (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
 {
+    
     //NSString *imageName = self.imagsArray[index];[
     NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
     NSString *ip=[userDefault valueForKey:@"ip"];
@@ -192,7 +205,13 @@
     NSURL *url = [NSURL URLWithString:[[[@"http://" stringByAppendingString:ip] stringByAppendingString:port?[@":" stringByAppendingString:port]:@""] stringByAppendingString:self.allPic[index][@"imgPath"]]];
     return url;
 }
-
+- (void)didScollIndex:(NSInteger)index {
+    NSString *str = [NSString stringWithFormat:@"%@ %@",self.allPic[index][@"channelName"],self.allPic[index][@"createDate"]];
+    //    UILabel *detailLabel = [[UILabel alloc]init];
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc]initWithString:str];
+    [attr addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} range:[str rangeOfString:self.allPic[index][@"createDate"]]];
+    [_detaillabel setAttributedText:attr];
+}
 - (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
 {
     

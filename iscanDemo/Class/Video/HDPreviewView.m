@@ -85,7 +85,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title= SharedUserInfo.device.departName?SharedUserInfo.device.departName:Localized(@"视频播控");
+        self.title= SharedUserInfo.termSn?SharedUserInfo.termSn:Localized(@"视频播控");
         
     }
     return self;

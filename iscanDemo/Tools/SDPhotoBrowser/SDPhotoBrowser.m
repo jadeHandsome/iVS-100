@@ -52,7 +52,10 @@
 
 - (void)dealloc
 {
-    [[UIApplication sharedApplication].keyWindow removeObserver:self forKeyPath:@"frame"];
+    if (!self.bountView) {
+        [[UIApplication sharedApplication].keyWindow removeObserver:self forKeyPath:@"frame"];
+    }
+    
 }
 
 - (void)setupToolbars
@@ -72,6 +75,7 @@
     _indexLabel = indexLabel;
     [self addSubview:indexLabel];
     
+    
     // 2.保存按钮
     UIButton *saveButton = [[UIButton alloc] init];
     [saveButton setTitle:@"保存" forState:UIControlStateNormal];
@@ -82,6 +86,7 @@
     [saveButton addTarget:self action:@selector(saveImage) forControlEvents:UIControlEventTouchUpInside];
     _saveButton = saveButton;
     [self addSubview:saveButton];
+    
 }
 
 - (void)saveImage
@@ -95,7 +100,12 @@
     indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     indicator.center = self.center;
     _indicatorView = indicator;
-    [[UIApplication sharedApplication].keyWindow addSubview:indicator];
+    if (self.bountView) {
+        [self.bountView addSubview:indicator];
+    } else {
+        [[UIApplication sharedApplication].keyWindow addSubview:indicator];
+    }
+    
     [indicator startAnimating];
 }
 
@@ -112,8 +122,14 @@
     label.center = self.center;
     label.textAlignment = NSTextAlignmentCenter;
     label.font = [UIFont boldSystemFontOfSize:17];
-    [[UIApplication sharedApplication].keyWindow addSubview:label];
-    [[UIApplication sharedApplication].keyWindow bringSubviewToFront:label];
+    if (self.bountView) {
+        [self.bountView addSubview:label];
+        [self.bountView bringSubviewToFront:label];
+    } else {
+        [[UIApplication sharedApplication].keyWindow addSubview:label];
+        [[UIApplication sharedApplication].keyWindow bringSubviewToFront:label];
+    }
+    
     if (error) {
         label.text = SDPhotoBrowserSaveImageFailText;
     }   else {
@@ -157,6 +173,9 @@
 // 加载图片
 - (void)setupImageOfImageViewForIndex:(NSInteger)index
 {
+    if ([self.delegate respondsToSelector:@selector(didScollIndex:)]) {
+        [self.delegate didScollIndex:index];
+    }
     SDBrowserImageView *imageView = _scrollView.subviews[index];
     self.currentImageIndex = index;
     if (imageView.hasLoadedImage) return;
@@ -250,15 +269,33 @@
     }
     
     _indexLabel.center = CGPointMake(self.bounds.size.width * 0.5, 35 + navHight - 64);
-    _saveButton.frame = CGRectMake(30, self.bounds.size.height - 70, 50, 25);
+    _saveButton.frame = CGRectMake(30, self.bounds.size.height - 70 - 15, 50, 25);
+    _detailLabel.frame = CGRectMake(10, self.bounds.size.height - 70 - 15 - 25 - 20, SCREEN_WIDTH, 15);
+    [self bringSubviewToFront:_detailLabel];
+//    [_detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(_saveButton.mas_top).with.offset(10);
+//        make.left.equalTo(self.mas_left).with.offset(10);
+//    }];
 }
 
 - (void)show
 {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    self.frame = window.bounds;
-    [window addObserver:self forKeyPath:@"frame" options:0 context:nil];
-    [window addSubview:self];
+    if (self.bountView) {
+//        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        self.frame = CGRectMake(0, 0, self.bountView.frame.size.width, self.bountView.frame.size.height);
+        [self.bountView addObserver:self forKeyPath:@"frame" options:0 context:nil];
+        [self.bountView addSubview:self];
+        if (self.detailLabel) {
+            [self addSubview:_detailLabel];
+            [self bringSubviewToFront:_detailLabel];
+        }
+    } else {
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        self.frame = window.bounds;
+        [window addObserver:self forKeyPath:@"frame" options:0 context:nil];
+        [window addSubview:self];
+    }
+    
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(UIView *)object change:(NSDictionary *)change context:(void *)context

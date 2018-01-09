@@ -20,16 +20,16 @@
 @optional
 
 - (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index;
-
+- (void)didScollIndex:(NSInteger)index;
 @end
 
 
 @interface SDPhotoBrowser : UIView <UIScrollViewDelegate>
-
+@property (nonatomic, strong) UILabel *detailLabel;
 @property (nonatomic, weak) UIView *sourceImagesContainerView;
 @property (nonatomic, assign) NSInteger currentImageIndex;
 @property (nonatomic, assign) NSInteger imageCount;
-
+@property (nonatomic, strong) UIView *bountView;
 @property (nonatomic, weak) id<SDPhotoBrowserDelegate> delegate;
 
 - (void)show;
