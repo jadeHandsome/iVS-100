@@ -16,7 +16,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    LRViewBorderRadius(self.mainImageView, 5, 0, [UIColor clearColor]);
+    LRViewBorderRadius(self.mainImageView, 3, 0, [UIColor clearColor]);
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageClick)];
     self.mainImageView.userInteractionEnabled = YES;
     [self.mainImageView addGestureRecognizer:tap];

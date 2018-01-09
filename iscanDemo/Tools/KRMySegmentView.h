@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface KRMySegmentView : UIView
+- (void)reloadData;
 - (void)setSelectIndex:(NSInteger)index;
 - (instancetype)initWithFrame:(CGRect)frame andSegementArray:(NSArray *)segementArray andColorArray:(NSArray *)colorArray andClickHandle:(void(^)(NSInteger index))clickHandle;
 @end

@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
-
+typedef void(^lauDidChange)(void);
 @interface SettingViewController : BaseViewController
 @property (nonatomic, assign) BOOL canPop;
+@property (nonatomic, strong) lauDidChange block;
 @end

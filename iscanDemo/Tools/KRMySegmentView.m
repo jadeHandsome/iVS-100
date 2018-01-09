@@ -74,7 +74,7 @@ typedef void(^clickHandle)(NSInteger index);
         [clickBtn addTarget:self action:@selector(clickBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [clickBtn setTitleColor:self.defaultColor forState:UIControlStateNormal];
         [clickBtn setTitleColor:self.selectColor forState:UIControlStateSelected];
-        [clickBtn setTitle:self.segemenArray[i] forState:UIControlStateNormal];
+        [clickBtn setTitle:Localized(self.segemenArray[i]) forState:UIControlStateNormal];
         temp = clickBtn;
         
     }
@@ -115,6 +115,13 @@ typedef void(^clickHandle)(NSInteger index);
         }
     } ];
     
+}
+- (void)reloadData {
+    for (UIButton *sub in self.subviews) {
+        if ([sub isKindOfClass:[UIButton class]]) {
+            [sub setTitle:Localized(self.segemenArray[[self.subviews indexOfObject:sub]]) forState:UIControlStateNormal];
+        }
+    }
 }
 - (void)setSelectIndex:(NSInteger)index {
     UIButton *sender = [self viewWithTag:index + 100];

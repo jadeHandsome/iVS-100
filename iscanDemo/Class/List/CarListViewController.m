@@ -31,6 +31,8 @@
 @property (strong,nonatomic) UITableView* tabView;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) NSString *showType;//1全部 2在线
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) KRMySegmentView *segement;
 @end
 
 @implementation CarListViewController
@@ -50,9 +52,18 @@
 //    [self InitTableView];
     [self headerFresh];
 }
+- (void)displayLau {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:Localized(@"设置") style:UIBarButtonItemStyleDone target:self action:@selector(getSetting)];
+    _searchBar.placeholder = Localized(@"搜索");
+    [_segement reloadData];
+}
 - (void)getSetting {
     SettingViewController *set = [SettingViewController new];
     set.canPop = YES;
+    __weak typeof(self) weakSelf = self;
+    set.block = ^{
+        [weakSelf displayLau];
+    };
     [self.navigationController pushViewController:set animated:YES];
 }
 -(void)InitTableView
@@ -101,7 +112,7 @@
     [searchBar setBackgroundImage:[UIImage new]];
     searchBar.backgroundColor = LRRGBColor(238, 238, 238);
     searchBar.placeholder = Localized(@"搜索");
-    
+    _searchBar = searchBar;
     LRViewBorderRadius(searchBar, 5, 1, [UIColor clearColor]);
     for (UIView* subview  in [searchBar.subviews firstObject].subviews) {
         
@@ -132,7 +143,7 @@
         }
     }
 
-    KRMySegmentView *segement = [[KRMySegmentView alloc]initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, 30) andSegementArray:@[Localized(@"所有终端"),Localized(@"在线终端")] andColorArray:@[LRRGBColor(100,100,100),ThemeColor] andClickHandle:^(NSInteger index) {
+    KRMySegmentView *segement = [[KRMySegmentView alloc]initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, 30) andSegementArray:@[@"所有终端",@"在线终端"] andColorArray:@[LRRGBColor(100,100,100),ThemeColor] andClickHandle:^(NSInteger index) {
         if (index == 0) {
             self.showType = @"1";
             [self reloadDataForDisplayArray];
@@ -142,7 +153,7 @@
         }
         
     }];
-    
+    _segement = segement;
     [headerView addSubview:segement];
     UIView *line = [[UIView alloc]init];
     [headerView addSubview:line];
@@ -184,7 +195,7 @@
                 t_node.nodeshowLevel = t_node.nodeLevel;
                 t_node.type = 1;//type 1的cell
                 t_node.sonNodes = [[NSMutableArray alloc] init];
-                t_node.isExpanded = YES;//关闭状态
+                t_node.isExpanded = YES;//展开状态
                 t_node.nodeValue = orgitem;
                 CLTreeView_LEVEL1_Model *t_model_level1 =[[CLTreeView_LEVEL1_Model alloc]init];
                 t_model_level1.name = [orgitem objectForKey:@"name"];
@@ -292,15 +303,20 @@ bool bFinished = false;
     CLTreeViewNode *node = [[requst userInfo] objectForKey:@"node"];
     NSData *data = [requst responseData];
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSLog(@"%@",dic);
 //    NSDictionary *dic = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:nil];
     if(dic){
         NSArray *deviceList = dic[@"rows"];
         if ([deviceList isEqual:[NSNull null] ]) {
             bFinisheddev = true;
+            [self.nodeArray removeObject:node];
             return ;
         }
         node.totalDevCnt += [deviceList count];
         totalDeviceCount += node.totalDevCnt;
+//        if (deviceList.count == 0) {
+//            [self.nodeArray removeObject:node];
+//        }
         for (NSDictionary *item in deviceList) {
             NSDictionary *term=[self getState:[item objectForKey:@"termList"]];
             if([@"1" isEqualToString:[term objectForKey:@"online"]])
@@ -558,6 +574,13 @@ bool bFinisheddev = false;
         //        ((CLTreeView_LEVEL1_Cell*)cell).name.text = nodeData.name;
         //        ((CLTreeView_LEVEL1_Cell*)cell).sonCount.text = nodeData.sonCnt;
         ((CLTreeView_LEVEL1_Cell*)cell).sonCount.text = [NSString stringWithFormat:@"(%d/%d)", node.onlineDevCnt, node.totalDevCnt];
+        if(node.isExpanded ){
+            ((CLTreeView_LEVEL1_Cell*)cell).arrowView.image = [UIImage imageNamed:@"展开"];
+            
+        }
+        else{
+            ((CLTreeView_LEVEL1_Cell*)cell).arrowView.image = [UIImage imageNamed:@"收起"];
+        }
     }
     
     else{

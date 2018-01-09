@@ -111,6 +111,7 @@
 		1A2FC7091FFE125C009DF30F /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FC7071FFE125C009DF30F /* CollectionViewCell.m */; };
 		1A2FC70A1FFE125C009DF30F /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A2FC7081FFE125C009DF30F /* CollectionViewCell.xib */; };
 		1A331ADD1FFF6387002255D0 /* CarListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A331ADC1FFF6387002255D0 /* CarListViewController.m */; };
+		1ADCE82C200468930053EA4A /* HeadCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADCE82B200468930053EA4A /* HeadCollectionReusableView.m */; };
 		3113674D1E700C6000B322A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3113674C1E700C6000B322A2 /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		311367591E700C6000B322A2 /* iscanDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 311367571E700C6000B322A2 /* iscanDemo.xcdatamodeld */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3113675B1E700C6000B322A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3113675A1E700C6000B322A2 /* Assets.xcassets */; };
@@ -361,6 +362,8 @@
 		1A2FC7081FFE125C009DF30F /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		1A331ADB1FFF6387002255D0 /* CarListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarListViewController.h; sourceTree = "<group>"; };
 		1A331ADC1FFF6387002255D0 /* CarListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarListViewController.m; sourceTree = "<group>"; };
+		1ADCE82A200468930053EA4A /* HeadCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeadCollectionReusableView.h; sourceTree = "<group>"; };
+		1ADCE82B200468930053EA4A /* HeadCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeadCollectionReusableView.m; sourceTree = "<group>"; };
 		311367481E700C6000B322A2 /* iVS-100.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iVS-100.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3113674C1E700C6000B322A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		311367581E700C6000B322A2 /* iscanDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iscanDemo.xcdatamodel; sourceTree = "<group>"; };
@@ -617,6 +620,8 @@
 				1A2FC7061FFE125C009DF30F /* CollectionViewCell.h */,
 				1A2FC7071FFE125C009DF30F /* CollectionViewCell.m */,
 				1A2FC7081FFE125C009DF30F /* CollectionViewCell.xib */,
+				1ADCE82A200468930053EA4A /* HeadCollectionReusableView.h */,
+				1ADCE82B200468930053EA4A /* HeadCollectionReusableView.m */,
 			);
 			path = Pic;
 			sourceTree = "<group>";
@@ -944,7 +949,7 @@
 				TargetAttributes = {
 					311367471E700C6000B322A2 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = XZN34NH8JQ;
+						DevelopmentTeam = 96SAHL399V;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1092,6 +1097,7 @@
 				1A203F9E1FFDE10500E30EA2 /* KRMyTextView.m in Sources */,
 				1A203F9A1FFDE10500E30EA2 /* MBProgressHUD+KR.m in Sources */,
 				1A203D411FFD133000E30EA2 /* CJSONDeserializer.m in Sources */,
+				1ADCE82C200468930053EA4A /* HeadCollectionReusableView.m in Sources */,
 				1A203F971FFDE10500E30EA2 /* UIImage+Color.m in Sources */,
 				1A203FAB1FFDE10500E30EA2 /* PGIndexBannerSubiew.m in Sources */,
 				1A203FA81FFDE10500E30EA2 /* TYTabPagerController.m in Sources */,
@@ -1283,7 +1289,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XZN34NH8JQ;
+				DEVELOPMENT_TEAM = 96SAHL399V;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1315,7 +1321,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XZN34NH8JQ;
+				DEVELOPMENT_TEAM = 96SAHL399V;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

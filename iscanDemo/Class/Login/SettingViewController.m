@@ -136,6 +136,9 @@
 - (void)loads {
     [self hideHUD];
     if (self.canPop) {
+        if (self.block) {
+            self.block();
+        }
         [self.navigationController popViewControllerAnimated:YES];
     } else {
         self.view.window.rootViewController = [[BaseNaviViewController alloc]initWithRootViewController:[LoginViewController new]];

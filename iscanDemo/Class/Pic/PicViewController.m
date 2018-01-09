@@ -10,6 +10,7 @@
 #import "CollectionViewCell.h"
 #import "CLTreeViewNode.h"
 #import "SDPhotoBrowser.h"
+#import "HeadCollectionReusableView.h"
 @interface PicViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,SDPhotoBrowserDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UICollectionViewFlowLayout *collectionFlowyout;
@@ -61,6 +62,7 @@
     [self.collectionView registerNib:[UINib nibWithNibName:@"CollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"colleCell"];
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"相机"] style:UIBarButtonItemStyleDone target:self action:@selector(caClick)];
+    [self.collectionView registerClass:[HeadCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader  withReuseIdentifier:@"cell"];
 //    [self.collectionView registerClass:[KRListCollCollectionViewCell class] forCellWithReuseIdentifier:@"collCell"];
     [KRBaseTool tableViewAddRefreshFooter:self.collectionView withTarget:self refreshingAction:@selector(footerFresh)];
     [KRBaseTool tableViewAddRefreshHeader:self.collectionView withTarget:self refreshingAction:@selector(headerFresh)];
@@ -112,6 +114,30 @@
     };
     [cell setDataWith:self.allPic[indexPath.row]];
     return cell;
+}
+#pragma mark －collectionView增加头视图
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    
+    UICollectionReusableView *headView = nil;
+    
+//    UZGPersonalSetting *s=[UZGPersonalSetting getInstance];
+    
+    if([kind isEqual:UICollectionElementKindSectionHeader])
+    {
+        UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"cell" forIndexPath:indexPath];;
+        header.backgroundColor = [UIColor clearColor];
+        headView = header ;
+    } else if([kind isEqual:UICollectionElementKindSectionFooter])
+    {
+        
+    }
+    return headView;
+    
+}
+#pragma mark －分区高度
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    CGSize size={[UIScreen mainScreen].bounds.size.width,15};
+    return size;
 }
 - (void)footerFresh {
     self.page = 1;
