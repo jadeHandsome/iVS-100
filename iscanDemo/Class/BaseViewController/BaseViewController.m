@@ -82,7 +82,7 @@
     MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     HUD.mode = MBProgressHUDModeCustomView;
     HUD.alpha = 1.0;
-    HUD.bezelView.backgroundColor = ColorRgbValue(0x575757);
+    HUD.bezelView.backgroundColor = COLOR(12, 12, 12, 1);
     HUD.contentColor = [UIColor whiteColor];
     if (text != nil) {
         HUD.label.text = text;
@@ -93,8 +93,8 @@
     gifImageView.backgroundColor = [UIColor clearColor];
     gifImageView.contentMode = UIViewContentModeScaleAspectFill;
     NSMutableArray *arrM = [[NSMutableArray alloc] init];
-    for (int i = 2; i < 10; i ++) {
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"pic%d", i]];
+    for (int i = 3; i < 11; i ++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"img%d", i]];
         [arrM addObject:image];
     }
     [gifImageView setAnimationImages:arrM];

@@ -79,9 +79,10 @@
         return;
     }
     
-    ASIHTTPRequest *request =  [SharedSDK loginSystem:SharedUserInfo.baseUrl UserName:self.userNameInput.text UserPass:self.pwdInput.text Target:self Success:@selector(GetResult:) Failure:@selector(GetError:)];
-        [request startAsynchronous];
     [self showLoadingHUD];
+    ASIHTTPRequest *request =  [SharedSDK loginSystem:SharedUserInfo.baseUrl UserName:self.userNameInput.text UserPass:self.pwdInput.text Target:self Success:@selector(GetResult:) Failure:@selector(GetError:)];
+    [request startAsynchronous];
+    
    
 }
 -(void)GetResult:(ASIHTTPRequest *) requst{
