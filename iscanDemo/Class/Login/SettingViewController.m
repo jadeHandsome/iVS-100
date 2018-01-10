@@ -47,9 +47,12 @@
         self.setting[@"net"] = Localized(@"中国电信");
     }
 //    self.setting[@"net"] = setting.nettype;
-    self.setting[@"map"] = [[NSUserDefaults standardUserDefaults]objectForKey:@"map"]?Localized([[NSUserDefaults standardUserDefaults]objectForKey:@"map"]):Localized(@"高德地图");
+    NSLog(@"设置之前地图-->%@ 设置之前语言-->%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"map"],[[NSUserDefaults standardUserDefaults]objectForKey:@"laug"]);
+    self.setting[@"map"] = [[NSUserDefaults standardUserDefaults]objectForKey:@"map"]?[[NSUserDefaults standardUserDefaults]objectForKey:@"map"]:@"高德地图";
 //    NSString *laug = @"";
-    self.setting[@"laug"] = [[NSUserDefaults standardUserDefaults]objectForKey:@"laug"]?Localized([[NSUserDefaults standardUserDefaults]objectForKey:@"laug"]):Localized(@"简体中文");
+    
+    self.setting[@"laug"] = [[NSUserDefaults standardUserDefaults]objectForKey:@"laug"]?[[NSUserDefaults standardUserDefaults]objectForKey:@"laug"]:@"简体中文";
+    NSLog(@"设置之后地图-->%@ 设置之后语言-->%@",self.setting[@"map"],self.setting[@"laug"]);
 //    [request startAsynchronous];
     //添加通知中心，监听语言改变
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(languageChanged) name:LanguageChanged object:nil];
@@ -99,6 +102,7 @@
     
     [[NSUserDefaults standardUserDefaults] setValue:self.setting[@"map"] forKey:@"map"];
     [[NSUserDefaults standardUserDefaults] setValue:self.setting[@"laug"] forKey:@"laug"];
+    NSLog(@"设置地图-->%@ 设置语言-->%@",self.setting[@"map"],self.setting[@"laug"]);
     [self showHUDWithText:Localized(@"保存成功")];
     [self performSelector:@selector(pop) withObject:nil afterDelay:1];
 }
@@ -583,14 +587,17 @@
             if (indexPath.row == 3) {
                 //移动
                 self.setting[@"net"] = Localized(@"中国移动");
+                netSelect = NO;
                 [self.tableView reloadData];
             } else if (indexPath.row == 4) {
                 //联通
                 self.setting[@"net"] = Localized(@"中国联通");
+                netSelect = NO;
                 [self.tableView reloadData];
             } else {
                 //电信
                 self.setting[@"net"] = Localized(@"中国电信");
+                netSelect = NO;
                 [self.tableView reloadData];
             }
         }
@@ -603,14 +610,17 @@
             } else if(indexPath.row == 1) {
                 //高德
                 self.setting[@"map"] = @"高德地图";
+                mapSelect = NO;
                 [self.tableView reloadData];
             } else if (indexPath.row == 2) {
                 //百度
                 self.setting[@"map"] = @"百度地图";
+                mapSelect = NO;
                 [self.tableView reloadData];
             } else if (indexPath.row == 3) {
                 //谷歌
                 self.setting[@"map"] = @"谷歌地图";
+                mapSelect = NO;
                 [self.tableView reloadData];
             } else {
                 if (laugSelect) {
@@ -621,14 +631,17 @@
                     } else if (indexPath.row == 5) {
                         //简体中文
                         self.setting[@"laug"] = @"简体中文";
+                        laugSelect = NO;
                         [self.tableView reloadData];
                     } else if (indexPath.row == 6) {
                         //繁体中文
                         self.setting[@"laug"] = @"繁体中文";
+                        laugSelect = NO;
                         [self.tableView reloadData];
                     } else {
                         //英语
                         self.setting[@"laug"] = @"英语";
+                        laugSelect = NO;
                         [self.tableView reloadData];
                     }
                 } else {
@@ -652,14 +665,17 @@
                     } else if (indexPath.row == 2) {
                         //简体中文
                         self.setting[@"laug"] = @"简体中文";
+                        laugSelect = NO;
                         [self.tableView reloadData];
                     } else if (indexPath.row == 3) {
                         //繁体中文
                         self.setting[@"laug"] = @"繁体中文";
+                        laugSelect = NO;
                         [self.tableView reloadData];
                     } else {
                         //英语
                         self.setting[@"laug"] = @"英语";
+                        laugSelect = NO;
                         [self.tableView reloadData];
                     }
                 } else {
