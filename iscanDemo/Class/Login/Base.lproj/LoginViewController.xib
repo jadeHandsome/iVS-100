@@ -16,6 +16,7 @@
                 <outlet property="loginBtn" destination="bsP-RU-Q2T" id="9oH-1K-Cru"/>
                 <outlet property="pwdInput" destination="HIX-g2-TcC" id="CpV-Jg-rSY"/>
                 <outlet property="remberBtn" destination="7Gc-lN-wOn" id="HC0-wH-5ip"/>
+                <outlet property="showPwdInput" destination="mjy-Uc-4i0" id="Q5j-a7-qOH"/>
                 <outlet property="userNameInput" destination="YZr-1A-8c2" id="VAs-Ev-134"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -93,23 +94,33 @@
                                     </constraints>
                                 </imageView>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HIX-g2-TcC">
-                                    <rect key="frame" x="65" y="0.0" width="280" height="46"/>
+                                    <rect key="frame" x="65" y="0.0" width="265" height="46"/>
                                     <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 </textField>
+                                <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mjy-Uc-4i0">
+                                    <rect key="frame" x="65" y="0.0" width="265" height="46"/>
+                                    <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                </textField>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
+                                <constraint firstItem="mjy-Uc-4i0" firstAttribute="trailing" secondItem="HIX-g2-TcC" secondAttribute="trailing" id="0LJ-qg-qFj"/>
                                 <constraint firstAttribute="bottom" secondItem="cq7-UR-zU6" secondAttribute="bottom" id="AXl-5c-Ja6"/>
                                 <constraint firstAttribute="trailing" secondItem="cq7-UR-zU6" secondAttribute="trailing" constant="15" id="KjP-Ky-kf1"/>
-                                <constraint firstAttribute="trailing" secondItem="HIX-g2-TcC" secondAttribute="trailing" id="PO2-Ke-sFa"/>
+                                <constraint firstItem="mjy-Uc-4i0" firstAttribute="top" secondItem="HIX-g2-TcC" secondAttribute="top" id="PKD-aQ-S3k"/>
+                                <constraint firstAttribute="trailing" secondItem="HIX-g2-TcC" secondAttribute="trailing" constant="15" id="PO2-Ke-sFa"/>
                                 <constraint firstAttribute="bottom" secondItem="ARG-2w-dEE" secondAttribute="bottom" id="Pwg-rR-QAn"/>
+                                <constraint firstItem="mjy-Uc-4i0" firstAttribute="leading" secondItem="HIX-g2-TcC" secondAttribute="leading" id="RFg-WS-x1n"/>
                                 <constraint firstItem="cq7-UR-zU6" firstAttribute="leading" secondItem="VpM-Q8-b4d" secondAttribute="leading" constant="15" id="aVl-Ns-f9O"/>
                                 <constraint firstItem="ARG-2w-dEE" firstAttribute="top" secondItem="VpM-Q8-b4d" secondAttribute="top" id="bha-iQ-YO4"/>
                                 <constraint firstItem="HIX-g2-TcC" firstAttribute="leading" secondItem="ARG-2w-dEE" secondAttribute="trailing" id="err-hq-MX8"/>
                                 <constraint firstItem="HIX-g2-TcC" firstAttribute="top" secondItem="VpM-Q8-b4d" secondAttribute="top" id="f15-oU-BnN"/>
+                                <constraint firstItem="mjy-Uc-4i0" firstAttribute="bottom" secondItem="HIX-g2-TcC" secondAttribute="bottom" id="rMD-QQ-ANv"/>
                                 <constraint firstItem="ARG-2w-dEE" firstAttribute="leading" secondItem="VpM-Q8-b4d" secondAttribute="leading" constant="15" id="rZN-N8-Yad"/>
                                 <constraint firstItem="cq7-UR-zU6" firstAttribute="top" secondItem="HIX-g2-TcC" secondAttribute="bottom" id="vhs-0p-KE1"/>
                             </constraints>

@@ -13,6 +13,7 @@
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableDictionary *setting;
+
 @end
 
 @implementation SettingViewController
@@ -139,14 +140,14 @@
 }
 - (void)loads {
     [self hideHUD];
-    if (self.canPop) {
-        if (self.block) {
-            self.block();
-        }
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
+//    if (self.canPop) {
+//        if (self.block) {
+//            self.block();
+//        }
+//        [self.navigationController popViewControllerAnimated:YES];
+//    } else {
         self.view.window.rootViewController = [[BaseNaviViewController alloc]initWithRootViewController:[LoginViewController new]];
-    }
+//    }
     
 }
 

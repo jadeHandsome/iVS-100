@@ -46,7 +46,7 @@
     sdk = [iscanMCSdk new];
     [self InitTableView];
     [self.nodeArray removeAllObjects];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:Localized(@"设置") style:UIBarButtonItemStyleDone target:self action:@selector(getSetting)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"btn_Set"] style:UIBarButtonItemStyleDone target:self action:@selector(getSetting)];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(getSetting)]
     
 //    [self InitTableView];
@@ -452,7 +452,7 @@ bool bFinisheddev = false;
  --------------------------------------- */
 -(CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    return 30;
+    return 45;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

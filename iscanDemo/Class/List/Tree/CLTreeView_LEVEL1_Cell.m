@@ -31,11 +31,18 @@
     int addX = _node.nodeshowLevel*25; //根据节点所在的层次计算平移距离
     CGRect imgFrame = _arrowView.frame;
     imgFrame.origin.x = 14 + addX;
-    _arrowView.frame = imgFrame;
-    
+//    _arrowView.frame = imgFrame;
+    [self.arrowView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).with.offset(14 + addX);
+        make.centerY.equalTo(self.mas_centerY);
+    }];
     CGRect nameFrame = _name.frame;
     nameFrame.origin.x = 40 + addX;
-    _name.frame = nameFrame;
+//    _name.frame = nameFrame;
+    [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).with.offset(40+addX);
+        make.centerY.equalTo(self.mas_centerY);
+    }];
     [_sonCount mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_name.mas_right);
         make.centerY.equalTo(_name.mas_centerY);
