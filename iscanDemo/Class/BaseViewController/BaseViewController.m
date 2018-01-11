@@ -95,12 +95,12 @@
     gifImageView.backgroundColor = [UIColor clearColor];
     gifImageView.contentMode = UIViewContentModeScaleAspectFill;
     NSMutableArray *arrM = [[NSMutableArray alloc] init];
-    for (int i = 3; i < 11; i ++) {
+    for (int i = 3; i < 12; i ++) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"img%d", i]];
         [arrM addObject:image];
     }
     [gifImageView setAnimationImages:arrM];
-    [gifImageView setAnimationDuration:1];
+    [gifImageView setAnimationDuration:1.0];
     [gifImageView setAnimationRepeatCount:0];
     [gifImageView startAnimating];
     

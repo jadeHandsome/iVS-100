@@ -33,18 +33,30 @@
     
     CGRect imgFrame = _headImg.frame;
     imgFrame.origin.x = 14 + addX;
-    _headImg.frame = imgFrame;
+//    _headImg.frame = imgFrame;
     
     CGRect nameFrame = _name.frame;
     nameFrame.origin.x = 45 + addX;
-    _name.frame = nameFrame;
+//    _name.frame = nameFrame;
     
 //    CGRect signtureFrame = _signture.frame;
 //    signtureFrame.origin.x = 62 + addX;
 //    _signture.frame = signtureFrame;
-    CGRect tailImgFrame = _tailImg.frame;
-    tailImgFrame.origin.x = self.frame.size.width-_tailImg.frame.size.width-30;
-    _tailImg.frame = tailImgFrame;
+//    CGRect tailImgFrame = _tailImg.frame;
+//    tailImgFrame.origin.x = self.frame.size.width-_tailImg.frame.size.width-30;
+//    _tailImg.frame = tailImgFrame;
+    [self.tailImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right).with.offset(-15);
+        make.centerY.equalTo(self.mas_centerY);
+    }];
+    [self.headImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).with.offset(14 + addX);
+        make.centerY.equalTo(self.mas_centerY);
+    }];
+    [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).with.offset(35 + addX);
+        make.centerY.equalTo(self.mas_centerY);
+    }];
     [self.statuLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.tailImg.mas_centerY);
         make.right.equalTo(self.tailImg.mas_left).with.offset(-10);

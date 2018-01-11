@@ -23,7 +23,7 @@
 "中国联通" = "CUCC";
 "中国电信" = "CMCC";
 "高德地图" = "GADMap";
-"简体中文" = "Simplified Chinese";
+"简体中文" = "简体中文";
 "确定" = "OK";
 "保存成功" = "Save success";
 "服务器设置" = "ServerSet";
@@ -41,7 +41,7 @@
 "百度地图" = "BaiduMap";
 "谷歌地图" = "GoogleMap";
 "系统语言" = "SysLanguage";
-"繁体中文" = "Traditional Chinese";
+"繁体中文" = "繁體中文";
 "英语" = "English";
 "抓拍张数" = "CapCount";
 "点击输入抓拍张数" = "Input Capture Count";
