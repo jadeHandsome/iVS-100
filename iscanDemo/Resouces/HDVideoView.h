@@ -38,6 +38,7 @@
 @property(nonatomic,assign) int channelCount;
 @property (nonatomic, strong) NSArray *channelsList;
 @property(nonatomic,retain) NSString *baseUrl;
+@property (nonatomic,assign) BOOL isOne;
 - (void)setCtrlPos;
 - (void)switchActiveView: (int)index;
 -(void)setBaseURl:(NSString*)url;

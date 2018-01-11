@@ -130,18 +130,18 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
     tapGesture.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:tapGesture ];
    
-    //双指捏或者向外拨
-    UIPinchGestureRecognizer* pinGesture = [[ UIPinchGestureRecognizer alloc ]initWithTarget:self action:@selector(onPin:) ];
-    [self.view addGestureRecognizer: pinGesture ];
+//    //双指捏或者向外拨
+//    UIPinchGestureRecognizer* pinGesture = [[ UIPinchGestureRecognizer alloc ]initWithTarget:self action:@selector(onPin:) ];
+//    [self.view addGestureRecognizer: pinGesture ];
     
-    //划动,左右划动，要两个手势？
-    UISwipeGestureRecognizer* swipeGesture1 = [[ UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(onSwipe:) ];
-    swipeGesture1.direction = UISwipeGestureRecognizerDirectionLeft ;//向左划动
-    [self.view addGestureRecognizer: swipeGesture1 ];
-    
-    UISwipeGestureRecognizer* swipeGesture2 = [[ UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(onSwipe:) ];
-    swipeGesture2.direction = UISwipeGestureRecognizerDirectionRight;//向右划动
-    [self.view addGestureRecognizer: swipeGesture2 ];
+//    //划动,左右划动，要两个手势？
+//    UISwipeGestureRecognizer* swipeGesture1 = [[ UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(onSwipe:) ];
+//    swipeGesture1.direction = UISwipeGestureRecognizerDirectionLeft ;//向左划动
+//    [self.view addGestureRecognizer: swipeGesture1 ];
+//
+//    UISwipeGestureRecognizer* swipeGesture2 = [[ UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(onSwipe:) ];
+//    swipeGesture2.direction = UISwipeGestureRecognizerDirectionRight;//向右划动
+//    [self.view addGestureRecognizer: swipeGesture2 ];
     
 }
 
@@ -563,8 +563,28 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
             
         }
     } else {
-        [self stopSound];
+        if (![SharedSDK isAudioOpen:self]) {
+            if ([[self getSubVideo:activeIndex] isViewing]) {
+                for (int i = 0; i < self.channelCount; ++ i) {
+                    [[self getSubVideo:i] stopSound];
+                }
+                
+                //                [self stopTalkback];
+                
+                [[self getSubVideo:activeIndex] playSound];
+                isSounding = YES;
+                [self updatePlayBar];
+                
+            }
+        }
+        else{
+            [self stopSound];
+        }
     }
+    
+    
+    
+    
 }
 
 /*

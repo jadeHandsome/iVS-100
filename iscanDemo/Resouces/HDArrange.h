@@ -43,6 +43,7 @@ typedef enum HDArrangeType: NSUInteger {
 @property(nonatomic, assign ) int m_nShowViewIndex;
 @property(nonatomic, assign ) HDArrangeType m_arrangeTypeNew;          //窗口序号
 @property (nonatomic, assign) NSInteger num;
+@property (nonatomic, assign) NSInteger seleIndex;
 //添加窗口
 -(void)addView:(int)index view:(UIView*)_view;
 -(void)clearAllViews;

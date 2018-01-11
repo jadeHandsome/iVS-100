@@ -88,29 +88,31 @@ typedef enum HDFilmMode: NSUInteger
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code.
-    //获得处理的上下文
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    //设置线条样式
-    CGContextSetLineCap(context, kCGLineCapSquare);
-    //设置线条粗细宽度
-    CGContextSetLineWidth(context, 2.0);
-    
-    float red = isFocus ? 27/255.0: 0/255.0;
-    float green = isFocus ? 149/255.0: 0/255.0;
-    float blue = isFocus ? 248/255.0: 0/255.0;
-    
-    //设置颜色
-    CGContextSetRGBStrokeColor(context, red, green, blue, 1.0);
-    //开始一个起始路径
-    CGContextBeginPath(context);
-    CGContextSetLineWidth(context, 5);
-    //画矩形
-    //CGContextAddRect( context, rect );
-    [self addRoundedRectToPath: context rc:rect width:0 height:0 ];
-    //连接上面定义的坐标点
-    CGContextStrokePath(context);
-    //CGContextClosePath( context );
+    if (self.isFocus) {
+        // Drawing code.
+        //获得处理的上下文
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        //设置线条样式
+        CGContextSetLineCap(context, kCGLineCapSquare);
+        //设置线条粗细宽度
+        CGContextSetLineWidth(context, 2.0);
+        
+        float red = isFocus ? 27/255.0: 0/255.0;
+        float green = isFocus ? 149/255.0: 0/255.0;
+        float blue = isFocus ? 248/255.0: 0/255.0;
+        
+        //设置颜色
+        CGContextSetRGBStrokeColor(context, red, green, blue, 1.0);
+        //开始一个起始路径
+        CGContextBeginPath(context);
+        CGContextSetLineWidth(context, 5);
+        //画矩形
+        //CGContextAddRect( context, rect );
+        [self addRoundedRectToPath: context rc:rect width:0 height:0 ];
+        //连接上面定义的坐标点
+        CGContextStrokePath(context);
+        //CGContextClosePath( context );
+    }
 }
 
 //画圆角矩形
@@ -394,6 +396,7 @@ typedef enum HDFilmMode: NSUInteger
     self.player.view.frame = rcVideo;
     [self addSubview:self.player.view];
     
+    [self bringSubviewToFront:labelChannel];
     
     [self installVideoNotificationObservers];
         
@@ -445,7 +448,7 @@ typedef enum HDFilmMode: NSUInteger
             [self.player.view removeFromSuperview];
 
         }
-        
+        [self stopSound];
         [self.player shutdown];
         [self removeVideoNotificationObservers];
         [self.player release];
@@ -469,7 +472,7 @@ typedef enum HDFilmMode: NSUInteger
         self.player.view.frame = rcVideo;
         [self reflash];
         
-        [self stopSound];
+        
         
         [self updateTitle];
     }
@@ -649,7 +652,7 @@ int stopCMD=0;
         }
         else
         {
-            labelChannel.text = [NSString stringWithFormat:@"CH %@", self.channel];
+            labelChannel.text = [NSString stringWithFormat:@" %@", self.channel];
         }
     }
 }

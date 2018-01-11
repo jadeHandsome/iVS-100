@@ -106,6 +106,7 @@
     sdk = [iscanMCSdk new];
     util = [CommanUtils new];
     [self setTermSnInfo:SharedUserInfo.termSn];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hidePt) name:@"hidePTZ" object:nil];
 }
 
 - (void)getCarDetail{
@@ -251,6 +252,7 @@
     self.bottomView.frame = CGRectMake(10, SIZEHEIGHT - tabBarHeight - navHight - HEIGHT(80) - 10, SIZEWIDTH - 20, HEIGHT(80));
     videoCtrl.frame = CGRectMake(0, 0, SIZEWIDTH - 20, HEIGHT(80));
 }
+
 - (void)onBtnPlay
 {
     [self hidePt];
@@ -314,11 +316,11 @@
 - (void)updatePlayBar
 {
     
-//    if (![sdk isAudioOpen:videoView]) {
-//        [videoCtrl.btnSound setBackgroundImage:[UIImage imageNamed:@"sound_open.png"] forState:UIControlStateNormal ];
-//    } else {
-//        [videoCtrl.btnSound setBackgroundImage:[UIImage imageNamed:@"sound_close.png"] forState:UIControlStateNormal ];
-//    }
+    if (![sdk isAudioOpen:videoView]) {
+        [videoCtrl.btnSound setTitle:@"打开声音" forState:UIControlStateNormal];
+    } else {
+        [videoCtrl.btnSound setTitle:@"关闭声音" forState:UIControlStateNormal];
+    }
 
 }
 //

@@ -7,7 +7,7 @@
 //
 
 #import "HDArrange.h"
-
+#import "HDSubVideo.h"
 @interface HDArrange()
 
 -(void)getXYcount:(HDArrangeType)type xcount:(int*)lpXcnt ycount:(int*)lpYcnt;
@@ -121,8 +121,8 @@
     
     float spaceX = 5;//1;
     float spaceY = 60;//1;
-    float itemWidth = (SIZEWIDTH - 3 * spaceX) / 2 ;
-    float itemHeight = (SIZEWIDTH - 3 * spaceX) / 2 * 3 / 4;
+    float itemWidth = (SIZEWIDTH - spaceX - WIDTH(60)) / 2 ;
+    float itemHeight = (SIZEWIDTH - spaceX - WIDTH(60)) / 2 * 3 / 4;
     CGRect rcTemp;
     rcTemp.size.width = itemWidth;
     rcTemp.size.height = itemHeight;
@@ -133,7 +133,7 @@
         for( int k = 0; k < nRow; ++k )
         {
             rcTemp.origin.y = 10 + (spaceY + itemHeight) * k ;
-            rcTemp.origin.x = spaceX + (spaceX + itemWidth) * i;
+            rcTemp.origin.x = WIDTH(30) + (spaceX + itemWidth) * i;
             
             int nIndex = ( k * nCol + i ) + startViewIndex;
             if( nIndex >= stopViewIndex )
@@ -142,11 +142,15 @@
                 break;
             }
             
-            UIView* subView = [viewArray objectAtIndex: nIndex  ];
+            HDSubVideo * subView = [viewArray objectAtIndex: nIndex  ];
             subView.frame = rcTemp;
+            if (k *2 + i + 1 == self.seleIndex + 1) {
+                subView.isFocus = YES;
+            }
             [subView setNeedsDisplay ]; //为了重绘,刷新窗口
             //[subView setCtrlPos ];//这个方法必须实现！//Howard 2012-11-15
             subView.hidden = NO;
+            
             if (k * 2 + i + 1 > self.num) {
                 subView.hidden = YES;
             }
@@ -179,6 +183,7 @@
 //双击某窗体,切换单窗口显示和多窗口显示
 -(void)onDblClk:(int)viewIndex
 {
+    self.seleIndex = viewIndex;
     [UIView beginAnimations:nil context:NULL];//启用动画移动
     [UIView setAnimationDuration: 0.30 ];
     [UIView setAnimationBeginsFromCurrentState:YES ];
@@ -186,6 +191,7 @@
     
     if( !m_bOnlyOne )
 	{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"hidePTZ" object:nil];
 		[self onlyShowOne:viewIndex ];
 	}
 	else
@@ -211,17 +217,18 @@
     m_nShowViewIndex = viewIndex;
     m_nPageIndex = viewIndex;//修正翻页索引
     
-    UIView* viewDest = [ viewArray objectAtIndex: viewIndex ];
+    HDSubVideo* viewDest = [ viewArray objectAtIndex: viewIndex ];
     viewDest.hidden = NO;
+    viewDest.isFocus = NO;
     viewDest.frame = m_rcNewArea;
     m_rectArray[ viewIndex ] = m_rcNewArea;
-    
+    [viewDest setNeedsDisplay];
     //[viewDest setCtrlPos ];//Howard 2012-11-15
     for( int i = 0 ; i < [ viewArray count ]; ++i )
     {
         if( i != viewIndex )
         {
-            UIView* view = [ viewArray objectAtIndex: i ];
+            HDSubVideo* view = [ viewArray objectAtIndex: i ];
             view.hidden = YES;
             view.frame = m_rcNewArea;//Howard 2012-10-31
             [view setNeedsDisplay ]; //为了重绘,刷新窗口
