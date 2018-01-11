@@ -73,6 +73,7 @@
     if (SharedUserInfo.currentChannel == nil) {
         SharedUserInfo.currentChannel = @"1";
     }
+    [self showHUDWithText:Localized(@"正在拍照")];
     ASIHTTPRequest *requst = [SharedSDK sendCaptureCmd:SharedUserInfo.baseUrl TermSn:SharedUserInfo.termSn Channel:SharedUserInfo.currentChannel Number:SharedSetting.numbers Interval:SharedSetting.interval?SharedSetting.interval:@"2" Target:self Success:@selector(photoSuc:) Failure:@selector(photoDeful:)];
     [requst startAsynchronous];
     [self showLoadingHUD];

@@ -65,6 +65,7 @@ static const CGFloat CalloutYOffset = 10.0f;
             break;
     }
     [self getLocation];
+    isAnnoSelect = YES;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     locTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(getLocation) userInfo:nil repeats:YES];
     self.navigationItem.title = SharedUserInfo.termSn;
@@ -81,7 +82,7 @@ static const CGFloat CalloutYOffset = 10.0f;
     self.gaodeView.showsUserLocation = NO;
     [self.view addSubview:self.gaodeView];
     self.gaodeView.delegate = self;
-    [self.gaodeView setZoomLevel:10];
+    [self.gaodeView setZoomLevel:16];
     [self.gaodeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -90,7 +91,7 @@ static const CGFloat CalloutYOffset = 10.0f;
     self.baiduMap = [[BMKMapView alloc]init];
     self.baiduMap.showsUserLocation = NO;
     self.baiduMap.delegate = self;
-    [self.baiduMap setZoomLevel:13];
+    [self.baiduMap setZoomLevel:16];
 //    self.baiduMap.userTrackingMode = BMKUserTrackingModeFollow;
     [self.view addSubview:self.baiduMap];
     [self.baiduMap mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -103,7 +104,7 @@ static const CGFloat CalloutYOffset = 10.0f;
     self.calloutView.contentView = [UIView new];
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:22.290664
                                                             longitude:114.195304
-                                                                 zoom:14];
+                                                                 zoom:16];
     self.googleMap = [GMSMapView mapWithFrame:CGRectZero camera:camera];
     self.view = self.googleMap;
     self.googleMap.delegate = self;
@@ -239,7 +240,9 @@ static const CGFloat CalloutYOffset = 10.0f;
         BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
         annotation.coordinate = coordinate;
 //        annotation.title = @"这里是北京";
+        BOOL tempS = isAnnoSelect;
         [self.baiduMap removeAnnotations:self.baiduMap.annotations];
+        isAnnoSelect = tempS;
         [self.baiduMap addAnnotation:annotation];
         if (isAnnoSelect) {
             [self.baiduMap selectAnnotation:annotation animated:YES];
@@ -337,7 +340,7 @@ static const CGFloat CalloutYOffset = 10.0f;
 //        ReGeocodeAnnotation *reGeocodeAnnotation = [[ReGeocodeAnnotation alloc] initWithCoordinate:coordinate
 //                                                                                         reGeocode:response.regeocode];
         if (self.gaodeView.annotations.count == 0) {
-            [self.gaodeView setZoomLevel:13 animated:YES];
+            [self.gaodeView setZoomLevel:16 animated:YES];
             
             [self.gaodeView setCenterCoordinate:coordinate animated:YES];
         }
