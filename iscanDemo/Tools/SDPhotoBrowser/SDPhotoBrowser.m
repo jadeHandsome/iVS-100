@@ -196,7 +196,13 @@
     SDBrowserImageView *currentImageView = (SDBrowserImageView *)recognizer.view;
     NSInteger currentIndex = currentImageView.tag;
     //UIView *sourceView = nil;
-    UIView *sourceView = self.sourceImagesContainerView.subviews[currentIndex];
+    UIView *sourceView = nil;
+    if (self.sourceImagesContainerView.subviews.count>currentIndex) {
+        sourceView = self.sourceImagesContainerView.subviews[currentIndex];
+    } else {
+        sourceView = [[UIView alloc]initWithFrame:self.bounds];
+    }
+//    UIView *sourceView = self.sourceImagesContainerView.subviews[currentIndex];
     CGRect targetTemp = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
     
     UIImageView *tempView = [[UIImageView alloc] init];
@@ -312,7 +318,13 @@
 
 - (void)showFirstImage
 {
-    UIView *sourceView = self.sourceImagesContainerView.subviews[self.currentImageIndex];
+    UIView *sourceView = nil;
+    if (self.sourceImagesContainerView.subviews.count>self.currentImageIndex) {
+        sourceView = self.sourceImagesContainerView.subviews[self.currentImageIndex];
+    } else {
+        sourceView = [[UIView alloc]initWithFrame:self.bounds];
+    }
+//    UIView *
     CGRect rect = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
     
     UIImageView *tempView = [[UIImageView alloc] init];
