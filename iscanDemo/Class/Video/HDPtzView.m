@@ -147,12 +147,12 @@
     
 
 
-    btnFocusIn = [self createPtzBtn: @"focus_in" selImage: @"focus_in" ];
-    btnFocusOut = [self createPtzBtn: @"focus_out" selImage: @"focus_out" ];
-    btnZoomIn = [self createPtzBtn: @"zoom_in" selImage: @"zoom_in" ];
-    btnZoomOut = [self createPtzBtn: @"zoom_out" selImage: @"zoom_out" ];
-    btnApertureIn = [self createPtzBtn: @"aperture_in" selImage: @"aperture_in" ];
-    btnApertureOut = [self createPtzBtn: @"aperture_out" selImage: @"aperture_out" ];
+    btnFocusIn = [self createPtzBtn: @"focus_in" selImage: @"focus_in_s" ];
+    btnFocusOut = [self createPtzBtn: @"focus_out" selImage: @"focus_out_s" ];
+    btnZoomIn = [self createPtzBtn: @"zoom_in" selImage: @"zoom_in_s" ];
+    btnZoomOut = [self createPtzBtn: @"zoom_out" selImage: @"zoom_out_s" ];
+    btnApertureIn = [self createPtzBtn: @"aperture_in" selImage: @"aperture_in_s" ];
+    btnApertureOut = [self createPtzBtn: @"aperture_out" selImage: @"aperture_out_s" ];
     
     [self setTitle:btnFocusIn title:Localized(@"焦点拉近")];
     [self setTitle:btnFocusOut title:Localized(@"焦点拉远")];
