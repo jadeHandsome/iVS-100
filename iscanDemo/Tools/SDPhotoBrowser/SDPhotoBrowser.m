@@ -248,7 +248,7 @@
     rect.size.width += SDPhotoBrowserImageViewMargin * 2;
     
     _scrollView.bounds = rect;
-    _scrollView.center = self.center;
+    _scrollView.center = CGPointMake(self.center.x, self.center.y - 15);
     
     CGFloat y = 0;
     CGFloat w = _scrollView.frame.size.width - SDPhotoBrowserImageViewMargin * 2;
@@ -271,7 +271,7 @@
     
     _indexLabel.center = CGPointMake(self.bounds.size.width * 0.5, 35 + navHight - 64);
     _saveButton.frame = CGRectMake(30, self.bounds.size.height - 70 - 15, 50, 25);
-    _detailLabel.frame = CGRectMake(10, self.bounds.size.height - 70 - 15 - 25 - 20, SCREEN_WIDTH, 15);
+    _detailLabel.frame = CGRectMake(10, self.bounds.size.height - 70 - 15 - 25 - 20 - 15, SCREEN_WIDTH, 15);
     [self bringSubviewToFront:_detailLabel];
 //    [_detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(_saveButton.mas_top).with.offset(10);

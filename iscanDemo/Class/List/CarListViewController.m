@@ -211,8 +211,10 @@
     if (scrollView == self.bottomScoll) {
         if (scrollView.contentOffset.x == SCREEN_WIDTH) {
             [self.segement setSelectIndex:1];
+            self.showType = @"2";
         } else if (scrollView.contentOffset.x == 0) {
             [self.segement setSelectIndex:0];
+            self.showType = @"1";
         }
     }
 }
@@ -565,29 +567,54 @@ bool bFinisheddev = false;
     //    UITableViewCell *cell=[tableView cellForRowAtIndexPath:indexPath];
     //     NSDictionary *item=[self.deviceList objectAtIndex:indexPath.row];
     //    [self gotoMainPage:item];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CLTreeViewNode *node = [self.displayNodeArray objectAtIndex:indexPath.row];
-    
-    if(node.type == 2){
-        // 点击了设备节点
-        //        NSDictionary *item ＝ node.nodeValue;
-        [self gotoMainPage:node.nodeValue];
-    }
-    else{
-        [self reloadDataForDisplayArrayChangeAt:indexPath.row];//修改cell的状态(关闭或打开)
+    if (tableView == self.tabView) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        CLTreeViewNode *node = [self.displayNodeArray objectAtIndex:indexPath.row];
         
-        CLTreeView_LEVEL0_Cell *cell = (CLTreeView_LEVEL0_Cell*)[tableView cellForRowAtIndexPath:indexPath];
-        if(cell.node.isExpanded ){
-            ((CLTreeView_LEVEL1_Cell*)cell).arrowView.image = [UIImage imageNamed:@"展开"];
-            
+        if(node.type == 2){
+            // 点击了设备节点
+            //        NSDictionary *item ＝ node.nodeValue;
+            [self gotoMainPage:node.nodeValue];
         }
         else{
-            ((CLTreeView_LEVEL1_Cell*)cell).arrowView.image = [UIImage imageNamed:@"收起"];
+            [self reloadDataForDisplayArrayChangeAt:indexPath.row];//修改cell的状态(关闭或打开)
+            
+            CLTreeView_LEVEL0_Cell *cell = (CLTreeView_LEVEL0_Cell*)[tableView cellForRowAtIndexPath:indexPath];
+            if(cell.node.isExpanded ){
+                ((CLTreeView_LEVEL1_Cell*)cell).arrowView.image = [UIImage imageNamed:@"展开"];
+                
+            }
+            else{
+                ((CLTreeView_LEVEL1_Cell*)cell).arrowView.image = [UIImage imageNamed:@"收起"];
+            }
+            
+            [self.tabView reloadData];
         }
+    } else {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        CLTreeViewNode *node = [self.onlineNodeArray objectAtIndex:indexPath.row];
         
-        [self.tabView reloadData];
+        if(node.type == 2){
+            // 点击了设备节点
+            //        NSDictionary *item ＝ node.nodeValue;
+            [self gotoMainPage:node.nodeValue];
+        }
+        else{
+            [self reloadDataForDisplayArrayChangeAt:indexPath.row];//修改cell的状态(关闭或打开)
+            
+            CLTreeView_LEVEL0_Cell *cell = (CLTreeView_LEVEL0_Cell*)[tableView cellForRowAtIndexPath:indexPath];
+            if(cell.node.isExpanded ){
+                ((CLTreeView_LEVEL1_Cell*)cell).arrowView.image = [UIImage imageNamed:@"展开"];
+                
+            }
+            else{
+                ((CLTreeView_LEVEL1_Cell*)cell).arrowView.image = [UIImage imageNamed:@"收起"];
+            }
+            
+            [self.onLineTabel reloadData];
+        }
     }
+    
 }
 
 /*---------------------------------------
@@ -708,24 +735,46 @@ bool bFinisheddev = false;
  修改cell的状态(关闭或打开)
  --------------------------------------- */
 -(void) reloadDataForDisplayArrayChangeAt:(NSInteger)row{
-    NSMutableArray *tmp = [[NSMutableArray alloc]init];
-    NSInteger cnt=0;
-    for (CLTreeViewNode *node in self.nodeArray) {
-        bool bAddNode = true;
-        
-        if (bAddNode) {
-            [tmp addObject:node];
-            if(cnt == row){
-                node.isExpanded = !node.isExpanded;
+    if ([self.showType isEqualToString:@"1"]) {
+        NSMutableArray *tmp = [[NSMutableArray alloc]init];
+        NSInteger cnt=0;
+        for (CLTreeViewNode *node in self.nodeArray) {
+            bool bAddNode = true;
+            
+            if (bAddNode) {
+                [tmp addObject:node];
+                if(cnt == row){
+                    node.isExpanded = !node.isExpanded;
+                }
+                ++cnt;
+                
+                [self loadChildDisplayArrayChangeAt:node Array:tmp selrow:row index:&cnt];
+                
             }
-            ++cnt;
-            
-            [self loadChildDisplayArrayChangeAt:node Array:tmp selrow:row index:&cnt];
-            
         }
+        
+        self.displayNodeArray = [NSArray arrayWithArray:tmp];
+    } else {
+        NSMutableArray *tmp = [[NSMutableArray alloc]init];
+        NSInteger cnt=0;
+        for (CLTreeViewNode *node in self.nodeArray) {
+            bool bAddNode = true;
+            
+            if (bAddNode) {
+                [tmp addObject:node];
+                if(cnt == row){
+                    node.isExpanded = !node.isExpanded;
+                }
+                ++cnt;
+                
+                [self loadChildDisplayArrayChangeAt:node Array:tmp selrow:row index:&cnt];
+                
+            }
+        }
+        
+        self.onlineNodeArray = [NSArray arrayWithArray:tmp];
     }
     
-    self.displayNodeArray = [NSArray arrayWithArray:tmp];
     
 }
 
@@ -738,7 +787,16 @@ bool bFinisheddev = false;
         
         bool bAddNode = true;
         if (bAddNode){
-            [dataArray addObject:node2];
+            if ([self.showType isEqualToString:@"1"]) {
+                [dataArray addObject:node2];
+            } else {
+                if ([[node2.nodeData valueForKey:@"isOnline"] integerValue]) {
+                    [dataArray addObject:node2];
+                } else {
+                    continue;
+                }
+            }
+            
             
             if ( selrow == (*pIndex) )
             {
@@ -802,6 +860,9 @@ bool bFinisheddev = false;
             
             if ([nodeData.name rangeOfString:text].location != NSNotFound){
                 node2.nodeshowLevel = 1;
+                if (![dataArray containsObject:tree_node]) {
+                    [dataArray addObject:tree_node];
+                }
                 [dataArray addObject:node2];
                 
             }

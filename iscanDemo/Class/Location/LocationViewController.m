@@ -14,6 +14,8 @@
 #import <AMapSearchKit/AMapSearchKit.h>
 #import <BaiduMapAPI_Search/BMKSearchComponent.h>//引入检索功能所有的头文件
 #import <BaiduMapAPI_Map/BMKPointAnnotation.h>
+#import <BaiduMapAPI_Map/BMKPolyline.h>
+#import <BaiduMapAPI_Map/BMKPolylineView.h>
 #import "KRCustomView.h"
 #import "CustomAnnotationView.h"
 #import <MapKit/MapKit.h>
@@ -32,13 +34,24 @@ static const CGFloat CalloutYOffset = 10.0f;
 @property (nonatomic, strong) GMSCameraPosition *camera;
 @property (strong, nonatomic) SMCalloutView *calloutView;
 @property (strong, nonatomic) UIView *emptyCalloutView;
+@property (nonatomic, strong) NSMutableArray *locationArray;
 @end
 
 @implementation LocationViewController
 {
     NSTimer *locTimer;
     BOOL isAnnoSelect;
+    MAPolyline *mapoly;
+    BMKPolyline* polyline;
+    GMSPolyline *googlePolyline;
+//    CLLocationCoordinate2D *locationArray;
 }
+//- (NSMutableArray *)locationArray {
+//    if (!_locationArray) {
+//        _locationArray = [NSMutableArray array];
+//    }
+//    return _locationArray;
+//}
 - (void)viewDidLoad {
     [super viewDidLoad];
     switch (SharedUserInfo.mapType) {
@@ -67,7 +80,7 @@ static const CGFloat CalloutYOffset = 10.0f;
     [self getLocation];
     isAnnoSelect = YES;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
-    locTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(getLocation) userInfo:nil repeats:YES];
+    locTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(getLocation) userInfo:nil repeats:YES];
     self.navigationItem.title = SharedUserInfo.termSn;
     
 }
@@ -132,7 +145,8 @@ static const CGFloat CalloutYOffset = 10.0f;
         return;
     }
     self.carInfo = [dic[0] copy];
-    
+    NSValue *vale = [NSValue valueWithMACoordinate:CLLocationCoordinate2DMake([dic[0][@"latitude"] doubleValue], [dic[0][@"longitude"] doubleValue])];
+    [self.locationArray addObject:vale];
     if (SharedUserInfo.mapType == 1) {
         //高德
         self.amapSearch = [[AMapSearchAPI alloc] init];
@@ -164,6 +178,20 @@ static const CGFloat CalloutYOffset = 10.0f;
         //谷歌
         _geocoder=[[CLGeocoder alloc]init];
         
+        GMSMutablePath *path = [GMSMutablePath path];
+        for (NSValue *value in self.locationArray) {
+            CLLocationCoordinate2D loc;
+            [value getValue:&loc];
+            [path addCoordinate:loc];
+        }
+        if (googlePolyline) {
+            googlePolyline.map = nil;
+        }
+        googlePolyline = [GMSPolyline polylineWithPath:path];
+        googlePolyline.strokeWidth = 8.f;
+        googlePolyline.geodesic = YES;
+        googlePolyline.strokeColor = ThemeColor;
+        googlePolyline.map = self.googleMap;
         CLLocation *location=[[CLLocation alloc]initWithLatitude:[dic[0][@"latitude"] doubleValue] longitude:[dic[0][@"longitude"] doubleValue]];
 //        CLLocation *location1 = [CLLocation alloc]initWithCoordinate:<#(CLLocationCoordinate2D)#> altitude:<#(CLLocationDistance)#> horizontalAccuracy:<#(CLLocationAccuracy)#> verticalAccuracy:<#(CLLocationAccuracy)#> timestamp:<#(nonnull NSDate *)#>
         [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -177,6 +205,7 @@ static const CGFloat CalloutYOffset = 10.0f;
 //                @property (nonatomic, readonly, copy, nullable) NSString *locality; // city, eg. Cupertino
 //                @property (nonatomic, readonly, copy, nullable) NSString *subLocality; // neighborhood, common name, eg. Mission District
 //                @property (nonatomic, readonly, copy, nullable) NSString *administrativeArea; // state, eg. CA
+                
                 CLPlacemark *firstPlacemark=[placemarks firstObject];
                 
                 self.localStr = [NSString stringWithFormat:@"%@%@%@%@%@%@",firstPlacemark.administrativeArea?firstPlacemark.administrativeArea:@"",firstPlacemark.subLocality?firstPlacemark.subLocality:@"",firstPlacemark.locality?firstPlacemark.locality:@"",firstPlacemark.subThoroughfare?firstPlacemark.subThoroughfare:@"",firstPlacemark.thoroughfare?firstPlacemark.thoroughfare:@"",firstPlacemark.name?firstPlacemark.name:@""];
@@ -197,7 +226,6 @@ static const CGFloat CalloutYOffset = 10.0f;
                 if (isAnnoSelect) {
                     [self.googleMap setSelectedMarker:london];
                 }
-                
                 
                 
                 
@@ -243,6 +271,16 @@ static const CGFloat CalloutYOffset = 10.0f;
         BOOL tempS = isAnnoSelect;
         [self.baiduMap removeAnnotations:self.baiduMap.annotations];
         isAnnoSelect = tempS;
+        if (polyline) {
+            [self.baiduMap removeOverlay:polyline];
+        }
+        CLLocationCoordinate2D coor[self.locationArray.count];
+        for (int i = 0; i < self.locationArray.count; i ++) {
+            NSValue *value = self.locationArray[i];
+            [value getValue:&(coor[i])];
+        }
+        polyline = [BMKPolyline polylineWithCoordinates:coor count:4];
+        [self.baiduMap addOverlay:polyline];
         [self.baiduMap addAnnotation:annotation];
         if (isAnnoSelect) {
             [self.baiduMap selectAnnotation:annotation animated:YES];
@@ -252,7 +290,17 @@ static const CGFloat CalloutYOffset = 10.0f;
     }
     
 }
-
+// Override
+- (BMKOverlayView *)mapView:(BMKMapView *)mapView viewForOverlay:(id <BMKOverlay>)overlay{
+    if ([overlay isKindOfClass:[BMKPolyline class]]){
+        BMKPolylineView* polylineView = [[BMKPolylineView alloc] initWithOverlay:overlay];
+        polylineView.strokeColor = ThemeColor;
+        polylineView.lineWidth = 8.0;
+        
+        return polylineView;
+    }
+    return nil;
+}
 #pragma mark -- gaodeDelegate
 - (id)mapView:(id)mapView viewForAnnotation:(id<MAAnnotation>)annotation
 {
@@ -349,6 +397,17 @@ static const CGFloat CalloutYOffset = 10.0f;
         pointAnnotation.coordinate = coordinate;
         pointAnnotation.image = [UIImage imageNamed:@"位置图标"];
         [self.gaodeView removeOverlays:self.gaodeView.annotations];
+        CLLocationCoordinate2D locaArray[self.locationArray.count];
+        for (int i = 0; i < self.locationArray.count; i ++) {
+            NSValue *value = self.locationArray[i];
+            [value getValue:&(locaArray[i])];
+        }
+        if (mapoly) {
+            [self.gaodeView removeOverlay:mapoly];
+        }
+        mapoly = [MAPolyline polylineWithCoordinates:locaArray count:self.locationArray.count];
+        
+        [self.gaodeView addOverlay:mapoly];
         [self.gaodeView addAnnotation:pointAnnotation];
         if (isAnnoSelect) {
             [self.gaodeView selectAnnotation:pointAnnotation animated:YES];
@@ -361,6 +420,21 @@ static const CGFloat CalloutYOffset = 10.0f;
 - (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error
 {
     NSLog(@"Error: %@", error);
+}
+- (MAOverlayRenderer *)mapView:(MAMapView *)mapView rendererForOverlay:(id <MAOverlay>)overlay
+{
+    if ([overlay isKindOfClass:[MAPolyline class]])
+    {
+        MAPolylineRenderer *polylineRenderer = [[MAPolylineRenderer alloc] initWithPolyline:overlay];
+        
+        polylineRenderer.lineWidth    = 8.f;
+        polylineRenderer.strokeColor  = ThemeColor;
+//        polylineRenderer.lineJoin = kCALineJoinRound;
+//        polylineRenderer.lineCapType  = kCALineCapRound;
+        
+        return polylineRenderer;
+    }
+    return nil;
 }
 #pragma mark -- googleDelegate
 - (nullable UIView *)mapView:(GMSMapView *)mapView markerInfoContents:(GMSMarker *)marker {
