@@ -25,14 +25,18 @@
     MBProgressHUD *HUD;
 }
 
-@property (nonatomic, strong) UIScrollView *mainScoll;
+//@property (nonatomic, strong) UIScrollView *mainScoll;
 @property(strong,nonatomic) NSMutableArray* nodeArray; // 全部机构和设备
 @property(strong,nonatomic) NSArray* displayNodeArray; // 需要显示的机构和设备
+@property(strong,nonatomic) NSArray* onlineNodeArray; // 需要显示的在线机构和设备
 @property (strong,nonatomic) UITableView* tabView;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) NSString *showType;//1全部 2在线
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) KRMySegmentView *segement;
+@property (nonatomic, strong) UIScrollView *mainScoll;
+@property (nonatomic, strong) UIScrollView *bottomScoll;
+@property (nonatomic, strong) UITableView *onLineTabel;
 @end
 
 @implementation CarListViewController
@@ -69,13 +73,26 @@
 -(void)InitTableView
 {
     self.nodeArray = [[NSMutableArray alloc] init];
-    
-    self.tabView = [UITableView new];
-    [self.view addSubview:self.tabView];
-    [self.tabView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.bottomScoll = [[UIScrollView alloc]init];
+    [self.view addSubview:self.bottomScoll];
+//    _bottomScoll = mainScoll;
+//    [self.view addSubview:mainScoll];
+    [self.bottomScoll mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.top.equalTo(self.headerView.mas_bottom);
     }];
+    self.bottomScoll.contentSize = CGSizeMake(SCREEN_WIDTH * 2, 0);
+    self.bottomScoll.pagingEnabled = YES;
+    
+   
+    
+    self.tabView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREENH_HEIGHT - 90)];
+    [self.bottomScoll addSubview:self.tabView];
+//    [self.tabView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.top.equalTo(self.bottomScoll);
+//        make.bottom.equalTo(self.bottomScoll.mas_bottom);
+//        make.width.equalTo(@(SCREEN_WIDTH));
+//    }];
     self.tabView.delegate = self;
     self.tabView.dataSource = self;
     [KRBaseTool tableViewAddRefreshHeader:self.tabView withTarget:self refreshingAction:@selector(headerFresh)];
@@ -84,7 +101,21 @@
     //不要分割线
     self.tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tabView setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:1]];
-    [self.view addSubview:self.tabView];
+//    [self.view addSubview:self.tabView];
+    self.onLineTabel = [[UITableView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREENH_HEIGHT - 90)];
+    [self.bottomScoll addSubview:self.onLineTabel];
+//    [self.onLineTabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(self.bottomScoll);
+//        make.top.equalTo(self.bottomScoll.mas_top);
+//        make.left.equalTo(self.tabView.mas_right);
+//        make.width.equalTo(@(SCREEN_WIDTH));
+//    }];
+    self.onLineTabel.delegate = self;
+    self.onLineTabel.dataSource = self;
+    self.onLineTabel.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.onLineTabel setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:1]];
+    [KRBaseTool tableViewAddRefreshHeader:self.tabView withTarget:self refreshingAction:@selector(headerFresh)];
+    self.bottomScoll.delegate = self;
     
 }
 - (void)headerFresh {
@@ -146,10 +177,14 @@
     KRMySegmentView *segement = [[KRMySegmentView alloc]initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, 30) andSegementArray:@[@"所有终端",@"在线终端"] andColorArray:@[LRRGBColor(100,100,100),ThemeColor] andClickHandle:^(NSInteger index) {
         if (index == 0) {
             self.showType = @"1";
-            [self reloadDataForDisplayArray];
+//            [self reloadDataForDisplayArray];
+            [self.bottomScoll setContentOffset:CGPointMake(0, 0) animated:YES];
+//            self.bottomScoll.contentOffset = ;
         } else {
             self.showType = @"2";
-            [self searchOnline];
+//            self.bottomScoll.contentOffset = CGPointMake(SCREEN_WIDTH, 0);
+            [self.bottomScoll setContentOffset:CGPointMake(SCREEN_WIDTH, 0) animated:YES];
+//            [self searchOnline];
         }
         
     }];
@@ -162,15 +197,24 @@
         make.height.equalTo(@1);
     }];
     line.backgroundColor = LRRGBColor(100, 100, 100);
-    self.mainScoll = [[UIScrollView alloc]init];
-    [self.view addSubview:self.mainScoll];
-    [self.mainScoll mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(headerView.mas_bottom);
-        make.left.right.bottom.equalTo(self.view);
-    }];
-    [headerView bringSubviewToFront:segement];
-    UIView *contans = [[UIView alloc]init];
-    [self.mainScoll addSubview:contans];
+//    self.mainScoll = [[UIScrollView alloc]init];
+//    [self.view addSubview:self.mainScoll];
+//    [self.mainScoll mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(headerView.mas_bottom);
+//        make.left.right.bottom.equalTo(self.view);
+//    }];
+//    [headerView bringSubviewToFront:segement];
+//    UIView *contans = [[UIView alloc]init];
+//    [self.mainScoll addSubview:contans];
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == self.bottomScoll) {
+        if (scrollView.contentOffset.x == SCREEN_WIDTH) {
+            [self.segement setSelectIndex:1];
+        } else if (scrollView.contentOffset.x == 0) {
+            [self.segement setSelectIndex:0];
+        }
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -389,12 +433,12 @@ bool bFinished = false;
         }
         
         bFinisheddev = true;
-        if ([self.showType isEqualToString:@"1"]) {
+//        if ([self.showType isEqualToString:@"1"]) {
             [self reloadDataForDisplayArray];
             [self.tabView reloadData];
-        } else {
-            [self searchOnline];
-        }
+//        } else {
+//            [self searchOnline];
+//        }
         
     }
     
@@ -458,11 +502,16 @@ bool bFinisheddev = false;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //    return [self.deviceList count];
-    if (self.tabView == self.searchDisplayController.searchResultsTableView)
-    {
-        return 1;
+    if (tableView == self.tabView) {
+        if (self.tabView == self.searchDisplayController.searchResultsTableView)
+        {
+            return 1;
+        }
+        return [self.displayNodeArray count];
+    } else {
+        return self.onlineNodeArray.count;
     }
-    return [self.displayNodeArray count];
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -470,7 +519,12 @@ bool bFinisheddev = false;
     static NSString *indentifier = @"level0cell";
     static NSString *indentifier1 = @"level1cell";
     static NSString *indentifier2 = @"level2cell";
-    CLTreeViewNode *node = [self.displayNodeArray objectAtIndex:indexPath.row];
+    CLTreeViewNode *node = nil;
+    if (tableView == self.tabView) {
+        node = [self.displayNodeArray objectAtIndex:indexPath.row];
+    } else {
+        node = [self.onlineNodeArray objectAtIndex:indexPath.row];
+    }
     
     if(node.type == 0){//类型为0的cell
         CLTreeView_LEVEL0_Cell *cell = [tableView dequeueReusableCellWithIdentifier:indentifier];
@@ -631,7 +685,8 @@ bool bFinisheddev = false;
         
     }
     self.displayNodeArray = [NSArray arrayWithArray:tmp];
-    
+    [self searchOnline];
+    [self.onLineTabel reloadData];
     [self.tabView reloadData];
 }
 
@@ -717,8 +772,8 @@ bool bFinisheddev = false;
         }
         
     }
-    self.displayNodeArray = [NSArray arrayWithArray:tmp];
-    [self.tabView reloadData];
+    self.onlineNodeArray = [NSArray arrayWithArray:tmp];
+    [self.onLineTabel reloadData];
 }
 /*---------------------------------------
  搜索将要显示的cell的数据
@@ -764,12 +819,16 @@ bool bFinisheddev = false;
 {
     if ( tree_node.sonNodes == nil )
         return;
-    
+//    CLTreeViewNode *tempSuper = nil;
     for (CLTreeViewNode *node2 in tree_node.sonNodes) {
         if (node2.type == 2 ){  // 设备
             CLTreeView_LEVEL2_Model *nodeData = node2.nodeData;
             if (nodeData.isOnline) {
                 node2.nodeshowLevel = 1;
+                if (![dataArray containsObject:tree_node]) {
+                    [dataArray addObject:tree_node];
+                }
+                
                 [dataArray addObject:node2];
             }
 //            if ([nodeData.name rangeOfString:text].location != NSNotFound){

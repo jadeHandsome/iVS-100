@@ -226,6 +226,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"baseCell"];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     UIView *sub1 = [cell viewWithTag:100];
     if (sub1) {
         [sub1 removeFromSuperview];
@@ -331,14 +332,17 @@
                 //移动
                 titleStr = @"";
                 detailStr = Localized(@"中国移动");
+                cell.selectionStyle = UITableViewCellSelectionStyleGray;
             } else if (indexPath.row == 4) {
                 //联通
                 titleStr = @"";
                 detailStr = Localized(@"中国联通");
+                cell.selectionStyle = UITableViewCellSelectionStyleGray;
             } else {
                 //电信
                 titleStr = @"";
                 detailStr = Localized(@"中国电信");
+                cell.selectionStyle = UITableViewCellSelectionStyleGray;
             }
         }
     } else if (indexPath.section == 1) {
@@ -365,14 +369,17 @@
                 //高德
                 titleStr = @"";
                 detailStr = Localized(@"高德地图");
+                cell.selectionStyle = UITableViewCellSelectionStyleGray;
             } else if (indexPath.row == 2) {
                 //百度
                 titleStr = @"";
                 detailStr = Localized(@"百度地图");
+                cell.selectionStyle = UITableViewCellSelectionStyleGray;
             } else if (indexPath.row == 3) {
                 //谷歌
                 titleStr = @"";
                 detailStr = Localized(@"谷歌地图");
+                cell.selectionStyle = UITableViewCellSelectionStyleGray;
             } else {
                 if (laugSelect) {
                     if (indexPath.row == 4) {
@@ -397,14 +404,17 @@
                         //简体中文
                         titleStr = @"";
                         detailStr = Localized(@"简体中文");
+                        cell.selectionStyle = UITableViewCellSelectionStyleGray;
                     } else if (indexPath.row == 6) {
                         //繁体中文
                         titleStr = @"";
                         detailStr = Localized(@"繁体中文");
+                        cell.selectionStyle = UITableViewCellSelectionStyleGray;
                     } else {
                         //英语
                         titleStr = @"";
                         detailStr = Localized(@"英语");
+                        cell.selectionStyle = UITableViewCellSelectionStyleGray;
                     }
                 } else {
                     //语言未展开
@@ -469,14 +479,17 @@
                         //简体中文
                         titleStr = @"";
                         detailStr = Localized(@"简体中文");
+                        cell.selectionStyle = UITableViewCellSelectionStyleGray;
                     } else if (indexPath.row == 3) {
                         //繁体中文
                         titleStr = @"";
                         detailStr = Localized(@"繁体中文");
+                        cell.selectionStyle = UITableViewCellSelectionStyleGray;
                     } else {
                         //英语
                         titleStr = @"";
                         detailStr = Localized(@"英语");
+                        cell.selectionStyle = UITableViewCellSelectionStyleGray;
                     }
                 } else {
                     //语言未展开
@@ -510,6 +523,7 @@
             UITextField *input = [[UITextField alloc]init];
             input.tag = 100;
             [cell addSubview:input];
+            input.keyboardType = UIKeyboardTypeNumberPad;
             [input mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(cell.mas_right).with.offset(-15);
                 make.top.bottom.equalTo(cell);
@@ -528,6 +542,7 @@
             UITextField *input = [[UITextField alloc]init];
             input.tag = 101;
             [cell addSubview:input];
+            input.keyboardType = UIKeyboardTypeNumberPad;
             [input mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(cell.mas_right).with.offset(-15);
                 make.top.bottom.equalTo(cell);
@@ -543,7 +558,7 @@
     }
     cell.detailTextLabel.text = detailStr;
     cell.textLabel.text = titleStr;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 - (void)inputChange:(UITextField *)textField {

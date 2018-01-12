@@ -135,6 +135,7 @@
     }   else {
         label.text = SDPhotoBrowserSaveImageSuccessText;
     }
+    
     [label performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:1.0];
 }
 
