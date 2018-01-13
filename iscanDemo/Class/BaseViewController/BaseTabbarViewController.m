@@ -39,7 +39,7 @@
     BaseNaviViewController *homeNav = [[BaseNaviViewController alloc]initWithRootViewController:loc];
 //    homeNav.
     [homeNav.tabBarItem setImage:[[UIImage imageNamed:@"定位未选中"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [homeNav.tabBarItem setSelectedImage:[[UIImage imageNamed:@"定位选中"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [homeNav.tabBarItem setSelectedImage:[UIImage imageNamed:@"定位选中"]];
     //[home.tabBarItem setSelectedImage:[UIImage imageNamed:@"商城-已选中"]];
     homeNav.tabBarItem.title = Localized(@"定位");
     //社区
