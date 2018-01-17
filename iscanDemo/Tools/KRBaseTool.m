@@ -786,5 +786,19 @@ singleton_implementation(KRBaseTool)
     
     return [NSString stringWithFormat:urltemp,@"%@"];
 }
-
++ (UIViewController *)theTopviewControler {
+    UIViewController *rootVC = [[UIApplication sharedApplication].delegate window].rootViewController;
+    
+    UIViewController *parent = rootVC;
+    
+    while ((parent = rootVC.presentedViewController) != nil ) {
+        rootVC = parent;
+    }
+    
+    while ([rootVC isKindOfClass:[UINavigationController class]]) {
+        rootVC = [(UINavigationController *)rootVC topViewController];
+    }
+    
+    return rootVC;
+}
 @end
