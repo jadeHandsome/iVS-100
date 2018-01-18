@@ -48,7 +48,7 @@
     [self setUpCole];
     [self headerFresh];
     self.view.backgroundColor = LRRGBColor(236, 236, 236);
-    self.navigationItem.title = SharedUserInfo.termSn;
+    self.navigationItem.title = SharedUserInfo.device.vin;
 }
 - (void)setUpCole {
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:self.collectionFlowyout];

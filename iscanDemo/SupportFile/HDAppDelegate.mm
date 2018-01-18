@@ -56,6 +56,37 @@
     self.window = [UIWindow new];
     self.window.rootViewController = [[BaseNaviViewController alloc]initWithRootViewController:[LoginViewController new]];
     [self.window makeKeyAndVisible];
+    UIImageView *imageView = [[UIImageView alloc]init];
+    imageView.image = [UIImage imageNamed:@"启动页"];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    [self.window addSubview:imageView];
+    
+    
+    UIView *contentView = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window addSubview:contentView];
+    [contentView addSubview:imageView];
+    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(contentView);
+    }];
+    UILabel *titleLabel = [[UILabel alloc]init];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.text = Localized(@"“智”行于城  交“慧”平安");
+    titleLabel.font = [UIFont systemFontOfSize:14];
+    [contentView addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(contentView.mas_top).with.offset(SCREENH_HEIGHT * 0.37);
+        make.centerX.equalTo(contentView.mas_centerX);
+    }];
+    
+    // 执行动画
+    [UIView animateWithDuration:1 animations:^{
+        // 两秒内图片变大为原来的1.3倍
+        contentView.transform = CGAffineTransformMakeScale(1.3,1.3);
+    } completion:^(BOOL finished) {
+        // 动画结束，移除imageView，呈现主界面
+        [contentView removeFromSuperview];
+    }];
     return YES;
 
 }

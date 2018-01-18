@@ -61,6 +61,12 @@
     _searchBar.placeholder = Localized(@"搜索");
     [_segement reloadData];
 }
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    [self.view endEditing:YES];
+//}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    [self.view endEditing:YES];
+//}
 - (void)getSetting {
     SettingViewController *set = [SettingViewController new];
     set.canPop = YES;
@@ -208,6 +214,7 @@
 //    [self.mainScoll addSubview:contans];
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
     if (scrollView == self.bottomScoll) {
         if (scrollView.contentOffset.x == SCREEN_WIDTH) {
             [self.segement setSelectIndex:1];

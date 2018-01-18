@@ -46,7 +46,7 @@
 //图片地址
 #define baseImage @"http://182.151.204.201:8081/gfile/download?id="
 //主题色
-#define ThemeColor COLOR(1, 136, 215, 1)
+#define ThemeColor ColorRgbValue(0x0188fb)
 
 /**
  取值当前控制器名称

@@ -81,7 +81,7 @@ static const CGFloat CalloutYOffset = 10.0f;
     isAnnoSelect = YES;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     locTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(getLocation) userInfo:nil repeats:YES];
-    self.navigationItem.title = SharedUserInfo.termSn;
+    self.navigationItem.title = SharedUserInfo.device.vin;
     
 }
 - (void)getLocation {
@@ -242,8 +242,8 @@ static const CGFloat CalloutYOffset = 10.0f;
 }
 - (void)defaultLoc:(ASIFormDataRequest *)requst {
     NSData *data = [requst responseData];
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    NSLog(@"失败 -- %@",dic);
+//    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+//    NSLog(@"失败 -- %@",dic);
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
