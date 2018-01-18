@@ -21,6 +21,7 @@
 @implementation HDAppDelegate
 {
     BMKMapManager* _mapManager;
+    UIView *launchView;
 }
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
@@ -56,6 +57,7 @@
     self.window = [UIWindow new];
     self.window.rootViewController = [[BaseNaviViewController alloc]initWithRootViewController:[LoginViewController new]];
     [self.window makeKeyAndVisible];
+//<<<<<<< HEAD
     UIImageView *imageView = [[UIImageView alloc]init];
     imageView.image = [UIImage imageNamed:@"启动页"];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -87,9 +89,46 @@
         // 动画结束，移除imageView，呈现主界面
         [contentView removeFromSuperview];
     }];
+//=======
+//
+//
+//    // 在window上放一个imageView
+//    launchView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    launchView.backgroundColor = [UIColor whiteColor];
+//    [self.window addSubview:launchView];
+//
+//    UIImageView *launchImage = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    launchImage.image = [UIImage imageNamed:@"启动页"];
+//    [launchView addSubview:launchImage];
+//
+//    NSString *text = @"“智”行于城  交“慧”平安";
+//    NSString *language = [[NSUserDefaults standardUserDefaults] objectForKey:@"appLanguage"];
+//    if (language && ![language isEqualToString:@""]) {
+//        if ([language isEqualToString:@"zh-Hans"]) {
+//            text = @"“智”行于城  交“慧”平安";
+//        }
+//        else if ([language isEqualToString:@"en"]){
+//            text = @"Smart City  Safe Life";
+//        }
+//        else{
+//            text = @"“智”行於城  交“慧”平安";
+//        }
+//    }
+//    UILabel *launchLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, SIZEHEIGHT - 100, SIZEWIDTH, 100)];
+//    launchLabel.textAlignment = NSTextAlignmentCenter;
+//    launchLabel.textColor = [UIColor whiteColor];
+//    launchLabel.text = text;
+//    [launchView addSubview:launchLabel];
+//    [self performSelector:@selector(hideLaunchView) withObject:nil afterDelay:1.0];
+//>>>>>>> 373628d185c900cbca0550fc6ef51f399fcc343d
     return YES;
 
 }
+
+- (void)hideLaunchView{
+    [launchView removeFromSuperview];
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
