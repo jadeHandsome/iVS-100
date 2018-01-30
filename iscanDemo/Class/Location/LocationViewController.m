@@ -80,7 +80,7 @@ static const CGFloat CalloutYOffset = 10.0f;
     [self getLocation];
     isAnnoSelect = YES;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
-    locTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(getLocation) userInfo:nil repeats:YES];
+    locTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(getLocation) userInfo:nil repeats:YES];
     self.navigationItem.title = SharedUserInfo.device.vin;
     
 }

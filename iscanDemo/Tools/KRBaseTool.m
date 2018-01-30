@@ -318,9 +318,16 @@ singleton_implementation(KRBaseTool)
 #pragma mark——————————增加下啦刷新
 + (void)tableViewAddRefreshHeader:(UIScrollView *)scrollView withTarget:(id)target  refreshingAction:(SEL)action
 {
-    
-    scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:target refreshingAction:action];
-    
+    MJRefreshNormalHeader * header = [MJRefreshNormalHeader headerWithRefreshingTarget:target refreshingAction:action];
+//     = [MJRefreshNormalHeader headerWithRefreshingTarget:target refreshingAction:action];
+//    [header setRefreshingTitleHidden:YES];
+    [header setTitle:@"" forState:MJRefreshStateIdle];
+    [header setTitle:@"" forState:MJRefreshStatePulling];
+    [header setTitle:@"" forState:MJRefreshStateRefreshing];
+    [header setTitle:@"" forState:MJRefreshStateWillRefresh];
+    [header setTitle:@"" forState:MJRefreshStateNoMoreData];
+    header.lastUpdatedTimeLabel.hidden = YES;
+    scrollView.mj_header = header;
     
 }
 #pragma mark——————————增加上拉加载更多

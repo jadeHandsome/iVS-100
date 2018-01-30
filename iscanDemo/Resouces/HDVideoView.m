@@ -105,7 +105,7 @@ NSString* PRIVI_VIDEO_RECORD	= @"627";		//录像
         HDSubVideo* subView = [[ HDSubVideo alloc ]init ];
         subView.videoview=self;
         [subView.labelChannel setText:[ NSString stringWithFormat:@"%d", i + 1 ] ];
-        subView.channel = [NSString stringWithFormat:@"%d",i+1];
+        subView.channel = [NSString stringWithFormat:@"%@:%d",Localized(@"通道"),i+1];
         subView.viewIndex = i;
         subView.baseUrl = baseUrl;
         subView.termSn = _termSn;

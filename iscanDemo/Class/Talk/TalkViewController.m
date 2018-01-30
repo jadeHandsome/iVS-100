@@ -25,10 +25,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = Localized(@"对讲");
+    self.navigationItem.title = SharedUserInfo.device.vin ? SharedUserInfo.device.vin : Localized(@"对讲");
+//    self.navigationItem.title =
     self.view.backgroundColor = LRRGBColor(243, 243, 243);
     [self setUp];
-    _talk = [SharedSDK TalkView:self.view TalkImg:self.talkImaegView TalkBtn:self.voiceBtn TermSn:SharedUserInfo.termSn];
+    _talk = [SharedSDK TalkView:nil TalkImg:nil TalkBtn:nil TermSn:SharedUserInfo.termSn];
     
 
     
@@ -46,9 +47,13 @@
     LRViewBorderRadius(voiceBtn, 3, 0, [UIColor clearColor]);
     _voiceBtn = voiceBtn;
     [bottomView addSubview:voiceBtn];
-    voiceBtn.backgroundColor = ThemeColor;
-    [voiceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    voiceBtn.backgroundColor = ThemeColor;
+    [voiceBtn setBackgroundImage:[UIImage imageNamed:@"对讲按钮-默认状态"] forState:UIControlStateNormal];
+    [voiceBtn setBackgroundImage:[UIImage imageNamed:@"对讲按钮-按下"] forState:UIControlStateHighlighted];
+    [voiceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [voiceBtn setTitleColor:LRRGBColor(149, 149, 149) forState:UIControlStateNormal];
     [voiceBtn setTitle:Localized(@"请按住对讲") forState:UIControlStateNormal];
+    [voiceBtn setTitle:Localized(@"正在对讲") forState:UIControlStateHighlighted];
     [voiceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bottomView.mas_left).with.offset(15);
         make.right.equalTo(bottomView.mas_right).with.offset(-15);
@@ -118,14 +123,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -85,7 +85,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title= SharedUserInfo.termSn?SharedUserInfo.termSn:Localized(@"视频播控");
+        self.title= SharedUserInfo.device.vin?SharedUserInfo.device.vin:Localized(@"视频播控");
         
     }
     return self;
@@ -317,9 +317,9 @@
 {
     
     if (![sdk isAudioOpen:videoView]) {
-        [videoCtrl.btnSound setTitle:@"打开声音" forState:UIControlStateNormal];
+        [videoCtrl.btnSound setTitle:Localized(@"打开声音") forState:UIControlStateNormal];
     } else {
-        [videoCtrl.btnSound setTitle:@"关闭声音" forState:UIControlStateNormal];
+        [videoCtrl.btnSound setTitle:Localized(@"关闭声音") forState:UIControlStateNormal];
     }
 
 }

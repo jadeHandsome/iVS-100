@@ -49,10 +49,10 @@
 "点击输入抓拍间隔时间" = "Input Capture Interval";
 "正在设置语言" = "Language setting";
 //tabbar
-"定位" = "location";
-"视频" = "video";
-"图片" = "image";
-"对讲" = "talkback";
+"定位" = "Map";
+"视频" = "Video";
+"图片" = "Photo";
+"对讲" = "Talk";
 //列表
 "所有终端" = "All";
 "在线终端" = "Online";
@@ -72,8 +72,9 @@
 "视频播放时才能切换声音" = "Can switch voice when video is playing";
 "视频播放时才能控制" = "Can control when video is playing";
 "视频播放时才能停止" = "Can stop when video is playing";
-"停止视频" = "StopVideo";
-"打开声音" = "OpenVideo";
+"停止视频" = "VideoOff";
+"打开声音" = "VoiceOn";
+"关闭声音" = "VoiceOff";
 "视频抓拍" = "Snapshot";
 "云台控制" = "PTZ Control";
 "镜头放大" = "ZoomIn";
@@ -83,9 +84,11 @@
 "焦点拉远" = "FocusZoomout";
 "焦点拉近" = "FocusZoomin";
 "视频播控" = "Video control";
+"通道" = "channel";
 //对讲
-"请按住对讲" = "Hold to speak";
+"请按住对讲" = "Hold To Talk";
 "对讲" = "speak";
+"正在对讲" = "In talking";
 //图片
 "正在拍照" = "Taking pictures";
 "保存成功  图片保存至相册 " = "Save the successful pictures to the album ";

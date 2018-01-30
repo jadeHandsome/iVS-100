@@ -768,12 +768,15 @@ bool bFinisheddev = false;
             bool bAddNode = true;
             
             if (bAddNode) {
-                [tmp addObject:node];
-                if(cnt == row){
-                    node.isExpanded = !node.isExpanded;
-                }
+//                [tmp addObject:node];
+//                if (self.) {
+//                    <#statements#>
+//                }
+//                if(cnt == row){
+//                    node.isExpanded = !node.isExpanded;
+//                }
                 ++cnt;
-                
+                NSLog(@"%ld",node.isExpanded);
                 [self loadChildDisplayArrayChangeAt:node Array:tmp selrow:row index:&cnt];
                 
             }
@@ -787,8 +790,11 @@ bool bFinisheddev = false;
 
 -(void)loadChildDisplayArrayChangeAt:(CLTreeViewNode *)tree_node Array:(NSMutableArray *)dataArray selrow:(NSInteger)selrow index:(NSInteger*)pIndex
 {
-    if (tree_node.sonNodes == nil || !tree_node.isExpanded)
-        return;
+    if ([self.showType isEqualToString:@"1"]) {
+        if (tree_node.sonNodes == nil || !tree_node.isExpanded)
+            return;
+    }
+    
     
     for (CLTreeViewNode *node2 in tree_node.sonNodes) {
         
@@ -796,22 +802,46 @@ bool bFinisheddev = false;
         if (bAddNode){
             if ([self.showType isEqualToString:@"1"]) {
                 [dataArray addObject:node2];
-            } else {
-                if ([[node2.nodeData valueForKey:@"isOnline"] integerValue]) {
-                    [dataArray addObject:node2];
-                } else {
-                    continue;
+                if ( selrow == (*pIndex) )
+                {
+                    node2.isExpanded = !node2.isExpanded;
                 }
+                ++(*pIndex);
+                
+                [self loadChildDisplayArrayChangeAt:node2 Array:dataArray selrow:selrow index:pIndex];
+            } else {
+                if ([node2.nodeData isKindOfClass:[CLTreeView_LEVEL2_Model class]]) {
+                    if ([[node2.nodeData valueForKey:@"isOnline"] integerValue]) {
+                        if (![dataArray containsObject:tree_node]) {
+                            tree_node.isExpanded = !tree_node.isExpanded;
+                            [dataArray addObject:tree_node];
+                        }
+                        if (!tree_node.isExpanded) {
+                            continue;
+                        }
+                        [dataArray addObject:node2];
+                    } else {
+                        continue;
+                    }
+//                    if ( selrow == (*pIndex) )
+//                    {
+                        node2.isExpanded = !node2.isExpanded;
+//                    }
+                    ++(*pIndex);
+                    
+                    [self loadChildDisplayArrayChangeAt:node2 Array:dataArray selrow:selrow index:pIndex];
+                }
+                
             }
             
             
-            if ( selrow == (*pIndex) )
-            {
-                node2.isExpanded = !node2.isExpanded;
-            }
-            ++(*pIndex);
-            
-            [self loadChildDisplayArrayChangeAt:node2 Array:dataArray selrow:selrow index:pIndex];
+//            if ( selrow == (*pIndex) )
+//            {
+//                node2.isExpanded = !node2.isExpanded;
+//            }
+//            ++(*pIndex);
+//
+//            [self loadChildDisplayArrayChangeAt:node2 Array:dataArray selrow:selrow index:pIndex];
         }
     }
 }
@@ -864,7 +894,9 @@ bool bFinisheddev = false;
     for (CLTreeViewNode *node2 in tree_node.sonNodes) {
         if (node2.type == 2 ){  // 设备
             CLTreeView_LEVEL2_Model *nodeData = node2.nodeData;
-            
+            if (text == nil) {
+                text = @"";
+            }
             if ([nodeData.name rangeOfString:text].location != NSNotFound){
                 node2.nodeshowLevel = 1;
                 if (![dataArray containsObject:tree_node]) {
